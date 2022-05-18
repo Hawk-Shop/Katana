@@ -3,8 +3,8 @@ import { Context } from './util/context.js';
 
 const Reviews = (props) => {
   const id = useContext(Context).id;
-  const [reviews, setReviews]= useState([1, 2, 3]);
-  const [count, setCount] = useState(0);
+  const [reviews, setReviews]= useState([1, 2, 3, 4, 5, 6, 7]);
+  const [count, setCount] = useState(7);
   const [displayCount, setDisplayCount] = useState(2);
 
   return(
@@ -13,9 +13,11 @@ const Reviews = (props) => {
       <div>
         {count === 0 && <button>Submit a new review</button>}
         {reviews.slice(0, displayCount).map((review) => {
-          <div>
-            this is a review
-          </div>
+          return(
+            <div>
+              {review}
+            </div>
+          )
         })}
         {displayCount < count && <button onClick={() => setDisplayCount(displayCount + 2)}>Load more</button>}
       </div>
