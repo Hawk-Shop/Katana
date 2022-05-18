@@ -4,6 +4,8 @@
   "description": "Front-end capstone project that takes information from an API and displays it in an e-commerce format.",
   "main": "index.js",
   "scripts": {
+    "server-dev": "npx nodemon --watch server ./server.js",
+    "client-dev": "npx webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
