@@ -1,0 +1,45 @@
+{
+  "name": "fec-atelier",
+  "version": "1.0.0",
+  "description": "Front-end capstone project that takes information from an API and displays it in an e-commerce format.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hawkeye-2204/FEC-Atelier.git"
+  },
+  "author": "Aaron Bowers, Jessica Zhou, Isaac Chung, Johnny Wu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hawkeye-2204/FEC-Atelier/issues"
+  },
+  "homepage": "https://github.com/Hawkeye-2204/FEC-Atelier#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.12",
+    "@babel/preset-env": "^7.17.12",
+    "@babel/preset-react": "^7.17.12",
+    "babel": "^6.23.0",
+    "babel-jest": "^28.1.0",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.15.0",
+    "eslint-plugin-react": "^7.29.4",
+    "jest": "^28.1.0",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.16",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
+  }
+}
