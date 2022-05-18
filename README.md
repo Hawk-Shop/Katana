@@ -1,6 +1,13 @@
 # FEC-Atelier
+
+## Overview
 Front-end capstone project that takes information from an API and displays it in an e-commerce format.
 
+
+## Description
+
+
+## Installation
 1. Fork and clone the repo.
 
 2. Open a terminal, navigate to the root directory, and run:
@@ -12,3 +19,13 @@ npm install
 ```
 npm run client-dev
 ```
+
+
+## Usage
+
+
+### Team Members
+- Aaron Bowers
+- Isaac Chung
+- Jessica Zhou
+- Johnny Wu
