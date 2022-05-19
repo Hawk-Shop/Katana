@@ -1,3 +1,7 @@
 node_modules
 .env
+<<<<<<< HEAD
+client/dist/
+=======
 client/dist
+>>>>>>> 26e125469db65c570c66a13d1727e27100c7e226
