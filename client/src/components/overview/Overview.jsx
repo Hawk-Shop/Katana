@@ -1,33 +1,41 @@
-import { useState, useEffect, useContext } from 'react';
-import { Context } from '../util/context.js';
-import ProductInfo from './ProductInfo.jsx';
-import Style from './Style.jsx';
-import Cart from './Cart.jsx';
-import Gallery from './Gallery.jsx';
-import styled from 'styled-components';
-import axios from 'axios'
+import { useState, useEffect, useContext } from "react";
+import { Context } from "../util/context.js";
+import ProductInfo from "./ProductInfo.jsx";
+import Style from "./Style.jsx";
+import Cart from "./Cart.jsx";
+import Gallery from "./Gallery.jsx";
+import styled from "styled-components";
+import axios from "axios";
 
-const Yaba = styled.div`
-  color: blue;
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 const Overview = (props) => {
   const id = useContext(Context).id;
   const [product, setProduct] = useState(null);
+  const [styles, setStyles] = useState(null);
 
   useEffect(() => {
-    axios.get(`/products/${id}`)
+    axios
+      .get(`/products/${id}`)
       .then((result) => setProduct(result.data))
-  }, [])
+      .then(() => {
+        axios.get(`/products/${id}/styles`).then((result) => setStyles(result.data));
+      });
+  }, []);
 
-  return(
-    <div>
-      <ProductInfo product={product}/>
+  return (
+    <Container>
+      <ProductInfo product={product} styles={styles}/>
       <Style />
       <Cart />
       <Gallery />
-    </div>
-  )
-}
+    </Container>
+  );
+};
 
 export default Overview;

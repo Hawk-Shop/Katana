@@ -8,7 +8,7 @@ const Gallery = (props) => {
 
   return(
     <div>
-      <div>{id} Gallery</div>
+      <div></div>
     </div>
   )
 }

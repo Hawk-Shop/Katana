@@ -8,13 +8,16 @@ const Yaba = styled.div`
 
 const ProductInfo = (props) => {
   const id = useContext(Context).id;
-  console.log(props.product)
-  return(
-    <div>
-      <div>{props.product.category}</div>
-      <div></div>
-    </div>
-  )
+  console.log(props.styles)
+  if (props.product && props.styles) {
+    return(
+      <div>
+        <div>{props.product.category}</div>
+        <div>{props.product.name}</div>
+        <span>{}</span>
+      </div>
+    )
+  }
 }
 
 export default ProductInfo;
