@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import Reviews from "./Reviews.jsx";
-import { Context } from './util/context.js';
+import { Context } from "./util/context.js";
+import Overview from "./overview/Overview.jsx";
 
 const App = (props) => {
-  const [id, setId] = useState('');
+  const [id, setId] = useState(40344);
 
   return (
     <div>
       <div>
-        <h1>Product Overview</h1>
+        <Context.Provider value={{ id: id }}>
+          <h1>Overview</h1>
+          <Overview></Overview>
+        </Context.Provider>
       </div>
       <div>
         <h1>Related Products</h1>
@@ -17,14 +21,14 @@ const App = (props) => {
         <h1>Questions and Answers</h1>
       </div>
       <div>
-        <Context.Provider value={{id: id}}>
+        <Context.Provider value={{ id: id }}>
           <h1>Ratings and Reviews</h1>
           <Reviews></Reviews>
         </Context.Provider>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default App;
 
