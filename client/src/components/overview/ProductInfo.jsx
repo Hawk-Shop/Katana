@@ -8,10 +8,11 @@ const Yaba = styled.div`
 
 const ProductInfo = (props) => {
   const id = useContext(Context).id;
-
+  console.log(props.product)
   return(
     <div>
-      <div>{id} productInfo</div>
+      <div>{props.product.category}</div>
+      <div></div>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import Style from './Style.jsx';
 import Cart from './Cart.jsx';
 import Gallery from './Gallery.jsx';
 import styled from 'styled-components';
+import axios from 'axios'
 
 const Yaba = styled.div`
   color: blue;
@@ -12,10 +13,16 @@ const Yaba = styled.div`
 
 const Overview = (props) => {
   const id = useContext(Context).id;
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    axios.get(`/products/${id}`)
+      .then((result) => setProduct(result.data))
+  }, [])
 
   return(
     <div>
-      <ProductInfo />
+      <ProductInfo product={product}/>
       <Style />
       <Cart />
       <Gallery />
