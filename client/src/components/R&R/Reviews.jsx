@@ -23,10 +23,10 @@ const Reviews = () => {
   {
       "review_id": 1135837,
       "rating": 3,
-      "summary": "hhi",
+      "summary": "Star Rating - This will be the rating given to the product by this individual review..",
       "recommend": true,
       "response": null,
-      "body": "hi",
+      "body": " The rating will be displayed in the format of solid or outlined stars, where the solid stars represent the review score. A total of 5 stars should always appear, and the amount filled in should correspond to the average score",
       "date": "2022-02-22T00:00:00.000Z",
       "reviewer_name": "Hello",
       "helpfulness": 5,
@@ -54,6 +54,9 @@ const Reviews = () => {
   border: 2px solid grey;
   margin: 2em 1em;
   padding: 0.5em 1em;
+  &:hover {
+    background: lightgrey;
+  }
   `;
 
   const Section = styled.section`

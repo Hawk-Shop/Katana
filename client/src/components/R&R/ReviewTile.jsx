@@ -57,10 +57,10 @@ const ReviewTile = ({review}) => {
       </div>
       <Date>
         <FontAwesomeIcon icon={faUserCheck} /> &nbsp;
-        {review.reviewer_name}, {format(parseISO(review.date), 'MM/dd/yyyy')}
+        {review.reviewer_name}, {format(parseISO(review.date), `MMMM dd, yyyy`)}
       </Date>
       <Summary>
-        <b>{review.summary}</b>
+        <b>{review.summary.substring(0,57)}...</b>
       </Summary>
       <Body>
         {review.body}
