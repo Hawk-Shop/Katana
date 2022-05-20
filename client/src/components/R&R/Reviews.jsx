@@ -11,7 +11,7 @@ const Reviews = () => {
       "rating": 5,
       "summary": "OMG it works",
       "recommend": true,
-      "response": null,
+      "response": true,
       "body": "That's pretty dang cool that a review can be posted through this modal",
       "date": "2022-02-19T00:00:00.000Z",
       "reviewer_name": "Richard",
@@ -59,6 +59,8 @@ const Reviews = () => {
   overflow: auto;
   height: 20em;
   width: 45em;
+  display: flex;
+  flex-direction: column;
   `;
 
   return (

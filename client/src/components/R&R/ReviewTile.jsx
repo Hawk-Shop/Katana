@@ -9,8 +9,40 @@ const ReviewTile = ({review}) => {
 
   const Tile = styled.div`
   border-bottom: .05em solid;
-  padding: 1em;
-  margin: 2em;
+  padding-bottom: 1em;
+  margin: 1em;
+  `;
+
+  const Date = styled.div`
+  font-size: .8em;
+  float: right;
+  margin-top: -1em;
+  `
+
+  const Helpful = styled.div`
+  font-size: .8em;
+  padding-top: 1em;
+  `
+
+  const HelpButtons = styled.button`
+  font-size: .8em;
+  border: none;
+  text-decoration: underline;
+  background-color: transparent;
+  &:hover {
+    color: grey;
+    font-size: .9em;
+  };
+  cursor: pointer;
+  `
+  const Summary = styled.div`
+  padding-top: 1em;
+  font-size: 1.2em;
+  `;
+
+  const Body = styled.div`
+  padding-top: 1em;
+  font-size: 1em;
   `;
 
   return (
@@ -18,25 +50,26 @@ const ReviewTile = ({review}) => {
       <div>
         <Stars rating={review.rating}></Stars>
       </div>
-      <div>
-        {format(parseISO(review.date), 'MM/dd/yyyy')}
-      </div>
-      <div>
-        <b>{review.summary}</b> <br></br>
+      <Date>
+        {review.reviewer_name}, {format(parseISO(review.date), 'MM/dd/yyyy')}
+      </Date>
+      <Summary>
+        <b>{review.summary}</b>
+      </Summary>
+      <Body>
         {review.body}
-      </div>
+      </Body>
       <div>
-        @{review.reviewer_name} <br></br>
-        {review.recommend === 'true' && <p>I recommend this product</p>}
+        {review.recommend === true && <p> <FontAwesomeIcon icon="fa-solid fa-check" /> I recommend this product</p>}
       </div>
       <div>
         {review.response && <p>{review.response}</p>}
       </div>
-      <div>
+      <Helpful>
         Helpful?
-        <button onClick={() => setYesCount(yesCount+1)}>Yes</button>
-        <button onClick={() => setNoCount(noCount+1)}>No</button>
-      </div>
+        <HelpButtons onClick={() => setYesCount(yesCount+1)}>{`Yes (${yesCount})`}</HelpButtons>
+        <HelpButtons onClick={() => setNoCount(noCount+1)}>{`No (${noCount})`}</HelpButtons>
+      </Helpful>
 
     </Tile>
   )

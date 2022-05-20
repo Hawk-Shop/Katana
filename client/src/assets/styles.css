@@ -9,7 +9,7 @@
 .stars {
   --percents: calc(var(--rating) / 5 * 100%);
   display: inline-block;
-  font-size: 10px;
+  font-size: .80em;
   font-family: Times;
   line-height: 1;
 }
