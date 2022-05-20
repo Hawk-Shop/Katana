@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Reviews from "./R&R/Reviews.jsx";
 import { Context } from './util/context.js';
+import QuestionsList from "./QA/QuestionsList.jsx";
 
 const App = (props) => {
   const [id, setId] = useState('');
@@ -14,7 +15,9 @@ const App = (props) => {
         <h1>Related Products</h1>
       </div>
       <div>
-        <h1>Questions and Answers</h1>
+        <Context.Provider value={{id: id}}>
+          <QuestionsList></QuestionsList>
+        </Context.Provider>
       </div>
       <div>
         <Context.Provider value={{id: id}}>
