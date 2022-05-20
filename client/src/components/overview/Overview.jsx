@@ -18,6 +18,12 @@ const TopCtn = styled.div`
   width: 75%;
   align-items: stretch;
 `;
+const BtmCtn = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+  align-items: stretch;
+`;
 
 const Overview = (props) => {
   const id = useContext(Context).id;
@@ -47,7 +53,9 @@ const Overview = (props) => {
         {styles && <Gallery product={product} styles={styles} />}
         {reviews && <ProductInfo product={product} styles={styles} reviews={reviews}/>}
       </TopCtn>
-      {product && <Description product={product} styles={styles} />}
+      <BtmCtn>
+        {product && <Description product={product} styles={styles} />}
+      </BtmCtn>
     </Container>
   );
 };
