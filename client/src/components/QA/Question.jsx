@@ -1,17 +1,16 @@
 import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import styled from 'styled-components';
-import Search from './Search.jsx';
 
 const QuestionsList = (props) => {
   const id = useContext(Context).id;
-  const [searchInput, setSearchInput] = useState('')
+  const [question, setQuestion] = useState('')
 
+  // submit axios.get request to pull questions and answers from API
 
   return (
     <div>
-      <h3>QUESTIONS &#38; ANSWERS</h3>
-      <Search />
+
     </div>
   )
 }

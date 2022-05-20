@@ -16,7 +16,6 @@ const App = (props) => {
       </div>
       <div>
         <Context.Provider value={{id: id}}>
-          <h1>Questions and Answers</h1>
           <QuestionsList></QuestionsList>
         </Context.Provider>
       </div>
