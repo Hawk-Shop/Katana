@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import ReviewTile from './ReviewTile.jsx';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus} from '@fortawesome/free-solid-svg-icons';
 
 const Reviews = () => {
   const id = useContext(Context).id;
@@ -50,9 +52,8 @@ const Reviews = () => {
   background: transparent;
   border-radius: 3px;
   border: 2px solid grey;
-  color: grey;
-  margin: 0 1em;
-  padding: 0.25em 1em;
+  margin: 2em 1em;
+  padding: 0.5em 1em;
   `;
 
   const Section = styled.section`
@@ -73,7 +74,7 @@ const Reviews = () => {
           ))}
         </Section>
         {displayCount < count && <Button onClick={() => setDisplayCount(displayCount + 2)}>More Reviews</Button>}
-        <Button>Add a Review</Button>
+        <Button>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
       </div>
     </div>
   )

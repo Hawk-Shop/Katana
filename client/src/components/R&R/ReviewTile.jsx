@@ -2,6 +2,11 @@ import { useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
 import Stars from './Stars.jsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faUserCheck } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faThumbsDown } from '@fortawesome/free-regular-svg-icons';
+
+
 
 const ReviewTile = ({review}) => {
   const [yesCount, setYesCount] = useState(0);
@@ -51,6 +56,7 @@ const ReviewTile = ({review}) => {
         <Stars rating={review.rating}></Stars>
       </div>
       <Date>
+        <FontAwesomeIcon icon={faUserCheck} /> &nbsp;
         {review.reviewer_name}, {format(parseISO(review.date), 'MM/dd/yyyy')}
       </Date>
       <Summary>
@@ -60,15 +66,19 @@ const ReviewTile = ({review}) => {
         {review.body}
       </Body>
       <div>
-        {review.recommend === true && <p> <FontAwesomeIcon icon="fa-solid fa-check" /> I recommend this product</p>}
+        {review.recommend === true && <p> <FontAwesomeIcon icon={faCheck} /> I recommend this product</p>}
       </div>
       <div>
         {review.response && <p>{review.response}</p>}
       </div>
       <Helpful>
         Helpful?
-        <HelpButtons onClick={() => setYesCount(yesCount+1)}>{`Yes (${yesCount})`}</HelpButtons>
-        <HelpButtons onClick={() => setNoCount(noCount+1)}>{`No (${noCount})`}</HelpButtons>
+        <HelpButtons onClick={() => setYesCount(yesCount+1)}>
+          <FontAwesomeIcon icon={faThumbsUp} /> {` Yes (${yesCount})`}
+          </HelpButtons>
+        <HelpButtons onClick={() => setNoCount(noCount+1)}>
+        <FontAwesomeIcon icon={faThumbsDown} /> {` No (${noCount})`}
+          </HelpButtons>
       </Helpful>
 
     </Tile>
