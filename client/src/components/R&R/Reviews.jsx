@@ -45,7 +45,7 @@ const Reviews = () => {
       "photos": []
   }
   ]);
-  const [count, setCount] = useState(7);
+  const [count, setCount] = useState(reviews.length);
   const [displayCount, setDisplayCount] = useState(2);
 
   const Button = styled.button`
@@ -58,22 +58,38 @@ const Reviews = () => {
 
   const Section = styled.section`
   overflow: auto;
-  height: 20em;
+  height:100%;
+  max-height:500px;
   width: 45em;
   display: flex;
   flex-direction: column;
+  `;
+
+  const Sort = styled.div`
+  padding: 1em;
   `;
 
   return (
     <div>
       <h2>Ratings and Reviews</h2>
       <div>
+        <Sort>
+          {count} reviews,
+          <label for="sort"> sorted by </label>
+          <select name="sort">
+            <option value="relevance">most relevant</option>
+            <option value="relevance">most helpful </option>
+            <option value="relevance">newest</option>
+          </select>
+        </Sort>
         <Section>
           {reviews.slice(0, displayCount).map((review) => (
             <ReviewTile review={review}></ReviewTile>
           ))}
         </Section>
-        {displayCount < count && <Button onClick={() => setDisplayCount(displayCount + 2)}>More Reviews</Button>}
+        {displayCount < count && <Button onClick={() => {
+          setDisplayCount(displayCount + 2)
+        }}>More Reviews</Button>}
         <Button>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
       </div>
     </div>
