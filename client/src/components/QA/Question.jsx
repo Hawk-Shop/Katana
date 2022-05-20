@@ -1,8 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import styled from 'styled-components';
+import AnswersList from './AnswersList.jsx';
 
-const QuestionsList = (props) => {
+const Question = (props) => {
   const id = useContext(Context).id;
   const [question, setQuestion] = useState('')
 
@@ -10,9 +11,10 @@ const QuestionsList = (props) => {
 
   return (
     <div>
-
+      <h4>Individual Question</h4>
+      <AnswersList />
     </div>
   )
 }
 
-export default QuestionsList;
+export default Question;

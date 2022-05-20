@@ -2,11 +2,11 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import styled from 'styled-components';
 
-const QuestionsList = (props) => {
+const Search = (props) => {
   const id = useContext(Context).id;
   const [searchInput, setSearchInput] = useState('')
 
-  // const Search = styled.input`
+  // const Search = styled.div`
   //   font-size: 16px;
   //   width: 50%;
   //   padding: 6px 10px;
@@ -27,7 +27,7 @@ const QuestionsList = (props) => {
         type="text"
         placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
         value={searchInput}
-        size='50'
+        size='70'
         onChange={(e) => {setSearchInput(e.target.value)}}
       />
       <button onClick={handleSearch}>Search</button>
@@ -35,4 +35,4 @@ const QuestionsList = (props) => {
   )
 }
 
-export default QuestionsList;
+export default Search;
