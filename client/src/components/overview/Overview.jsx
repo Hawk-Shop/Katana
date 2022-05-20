@@ -10,7 +10,7 @@ import axios from "axios";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 75%;
 `;
 
 const TopCtn = styled.div`
@@ -34,26 +34,24 @@ const Overview = (props) => {
   const [reviews, setReviews] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`/products/${id}`)
-      .then((result) => setProduct(result.data))
-      .then(() => {
-        axios
-          .get(`/products/${id}/styles`)
-          .then((result) => setStyles(result.data))
-          .then(() => {
-            axios
-              .get(`/reviews/meta/?product_id=${id}`)
-              .then((result) => setReviews(result.data));
-          });
-      });
+    let productGet = axios.get(`/products/${id}`);
+    let stylesGet = axios.get(`/products/${id}/styles`);
+    let reviewsGet = axios.get(`/reviews/meta/?product_id=${id}`);
+
+    Promise.all([productGet, stylesGet, reviewsGet]).then((results) => {
+      setProduct(results[0].data)
+      setStyles(results[1].data)
+      setReviews(results[2].data)
+    });
   }, []);
 
   return (
     <Container>
       <TopCtn>
         {styles && <Gallery product={product} styles={styles} />}
-        {reviews && <ProductInfo product={product} styles={styles} reviews={reviews}/>}
+        {reviews && (
+          <ProductInfo product={product} styles={styles} reviews={reviews} />
+        )}
       </TopCtn>
       <BtmCtn>
         {product && <Description product={product} styles={styles} />}
