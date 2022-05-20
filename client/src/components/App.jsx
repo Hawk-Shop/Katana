@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Context } from "./util/context.js";
 import Overview from "./overview/Overview.jsx";
 import Reviews from "./R&R/Reviews.jsx";
+import QuestionsList from "./QA/QuestionsList.jsx";
 
 const App = (props) => {
   const [id, setId] = useState(40344);
