@@ -1,16 +1,21 @@
 import { useState, useEffect, useContext } from "react";
 import { Context } from "../util/context.js";
 import ProductInfo from "./ProductInfo.jsx";
-import Style from "./Style.jsx";
-import Cart from "./Cart.jsx";
 import Gallery from "./Gallery.jsx";
+import Description from "./Description.jsx";
 import styled from "styled-components";
 import axios from "axios";
 
 const Container = styled.div`
   display: flex;
-  justify-content: flex-end;
-  wrap: nowrap
+  flex-direction: column;
+  width: 50%;
+`;
+
+const TopCtn = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
 `;
 
 const Overview = (props) => {
@@ -31,10 +36,11 @@ const Overview = (props) => {
 
   return (
     <Container>
-      {styles && <ProductInfo product={product} styles={styles} />}
-      <Style />
-      <Cart />
-      <Gallery />
+      <TopCtn>
+        {styles && <ProductInfo product={product} styles={styles} />}
+        {styles && <Gallery product={product} styles={styles} />}
+      </TopCtn>
+      {product && <Description product={product} styles={styles} />}
     </Container>
   );
 };
