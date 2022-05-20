@@ -19,6 +19,10 @@
   },
   "homepage": "https://github.com/Hawkeye-2204/FEC-Atelier#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-regular-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "axios": "^0.27.2",
     "date-fns": "^2.28.0",
     "dotenv": "^16.0.1",
