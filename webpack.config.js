@@ -22,7 +22,7 @@ const config = {
           'style-loader',
           'css-loader'
         ]
-      }
+      },
     ]
   },
   plugins: [new HtmlWebpackPlugin({
