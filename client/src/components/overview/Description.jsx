@@ -3,6 +3,7 @@ import { Context } from '../util/context.js';
 import styled from 'styled-components';
 
 
+
 const Description = (props) => {
   const id = useContext(Context).id;
   console.log(props.product);

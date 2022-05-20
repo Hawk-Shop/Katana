@@ -3,6 +3,7 @@ import { Context } from "../util/context.js";
 import ProductInfo from "./ProductInfo.jsx";
 import Gallery from "./Gallery.jsx";
 import Description from "./Description.jsx";
+import Features from "./Features.jsx";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -22,7 +23,8 @@ const BtmCtn = styled.div`
   display: flex;
   flex-direction: row;
   width: 75%;
-  align-items: stretch;
+  align-items: center;
+  margin-top: 5%;
 `;
 
 const Overview = (props) => {
@@ -55,6 +57,7 @@ const Overview = (props) => {
       </TopCtn>
       <BtmCtn>
         {product && <Description product={product} styles={styles} />}
+        {product && <Features product={product} styles={styles} />}
       </BtmCtn>
     </Container>
   );
