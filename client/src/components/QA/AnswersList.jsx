@@ -1,16 +1,20 @@
 import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
+import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
 
-const AnswersList = (props) => {
+const AnswersList = ({answer}) => {
   const id = useContext(Context).id;
-  const [answersList, setAnswersList] = useState([])
-
+  const {body, date, answerer_name, helpfulness, photos} = answer;
   // submit axios.get request to get all answers to the API
 
   return (
     <div>
-      <h5>AnswersList</h5>
+      <span>A: {body}</span>
+      <div>
+        <span>by {answerer_name}, </span>
+        <span> {format(parseISO(date), 'MMMM, dd, yyyy')}</span>
+      </div>
     </div>
   )
 }
