@@ -1,0 +1,15 @@
+.stars:before {
+  content: "★★★★★";
+  background: linear-gradient(90deg, green var(--percents), pink var(--percents));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stars {
+  --percents: calc(var(--rating) / 5 * 100%);
+  display: inline-block;
+  font-size: 10px;
+  font-family: Times;
+  line-height: 1;
+}

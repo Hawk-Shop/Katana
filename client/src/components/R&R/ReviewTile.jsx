@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
+import Stars from './Stars.jsx';
 
 const ReviewTile = ({review}) => {
   const [yesCount, setYesCount] = useState(0);
@@ -15,7 +16,7 @@ const ReviewTile = ({review}) => {
   return (
     <Tile>
       <div>
-        {review.rating}
+        <Stars rating={review.rating}></Stars>
       </div>
       <div>
         {format(parseISO(review.date), 'MM/dd/yyyy')}
