@@ -8,7 +8,7 @@ const Style = (props) => {
 
   return(
     <div>
-      <div>STYLE</div>
+      <div></div>
     </div>
   )
 }

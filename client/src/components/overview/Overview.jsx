@@ -9,28 +9,29 @@ import axios from "axios";
 
 const Container = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: flex-end;
+  wrap: nowrap
 `;
 
 const Overview = (props) => {
   const id = useContext(Context).id;
-  const [product, setProduct] = useState(null);
-  const [styles, setStyles] = useState(null);
+  const [product, setProduct] = useState("");
+  const [styles, setStyles] = useState("");
 
   useEffect(() => {
     axios
       .get(`/products/${id}`)
       .then((result) => setProduct(result.data))
       .then(() => {
-        axios.get(`/products/${id}/styles`).then((result) => setStyles(result.data));
+        axios
+          .get(`/products/${id}/styles`)
+          .then((result) => setStyles(result.data));
       });
   }, []);
 
   return (
     <Container>
-      <ProductInfo product={product} styles={styles}/>
+      {styles && <ProductInfo product={product} styles={styles} />}
       <Style />
       <Cart />
       <Gallery />
