@@ -26,7 +26,7 @@ const config = {
     ]
   },
   plugins: [new HtmlWebpackPlugin({
-    template: "template.html",
+    title: "Hawkeyes",
   })],
 };
 
