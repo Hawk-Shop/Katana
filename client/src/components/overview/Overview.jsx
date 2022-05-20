@@ -14,14 +14,16 @@ const Container = styled.div`
 
 const TopCtn = styled.div`
   display: flex;
-  justify-content: space-between;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  width: 75%;
+  align-items: stretch;
 `;
 
 const Overview = (props) => {
   const id = useContext(Context).id;
   const [product, setProduct] = useState("");
   const [styles, setStyles] = useState("");
+  const [reviews, setReviews] = useState("");
 
   useEffect(() => {
     axios
@@ -30,15 +32,20 @@ const Overview = (props) => {
       .then(() => {
         axios
           .get(`/products/${id}/styles`)
-          .then((result) => setStyles(result.data));
+          .then((result) => setStyles(result.data))
+          .then(() => {
+            axios
+              .get(`/reviews/meta/?product_id=${id}`)
+              .then((result) => setReviews(result.data));
+          });
       });
   }, []);
 
   return (
     <Container>
       <TopCtn>
-        {styles && <ProductInfo product={product} styles={styles} />}
         {styles && <Gallery product={product} styles={styles} />}
+        {reviews && <ProductInfo product={product} styles={styles} reviews={reviews}/>}
       </TopCtn>
       {product && <Description product={product} styles={styles} />}
     </Container>
