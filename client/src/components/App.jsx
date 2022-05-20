@@ -18,7 +18,9 @@ const App = (props) => {
         <h1>Related Products</h1>
       </div>
       <div>
-        <h1>Questions and Answers</h1>
+        <Context.Provider value={{id: id}}>
+          <QuestionsList></QuestionsList>
+        </Context.Provider>
       </div>
       <div>
         <Context.Provider value={{id: id}}>
