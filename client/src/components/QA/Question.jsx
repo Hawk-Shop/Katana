@@ -13,11 +13,11 @@ const Question = ({question}) => {
     axios
       .get(`/qa/questions/${question_id}/answers`)
       .then(response => {
-        console.log('response.data: ', response.data.results);
+        // console.log('response.data: ', response.data.results);
         setAnswersList(response.data.results);
       })
       .catch(err => {
-        alert('Unable to get questions. Sorry...', err);
+        console.error('Unable to get answers. Sorry...', err);
       })
   }, [])
 
