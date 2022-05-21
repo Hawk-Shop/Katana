@@ -8,7 +8,7 @@ const Image = styled.img`
 `;
 
 const ImageCtn = styled.div`
-  width: 50%;
+  width: 30%;
   margin-right: 5%;
 `;
 

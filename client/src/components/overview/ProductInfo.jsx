@@ -3,7 +3,7 @@ import { Context } from "../util/context.js";
 import styled from "styled-components";
 import Stars from "../R&R/Stars.jsx";
 import avgRating from "../util/getAvgRating.js"
-
+import Style from "./Style.jsx"
 const Onsale = styled.span`
   color: red;
   text-decoration: line-through;
@@ -14,8 +14,14 @@ const Onsale = styled.span`
 const RegularPrice = styled.span`
   color: black;
 `;
-
-const FlexFit = styled.div``;
+const PriceFit = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+const FlexFit = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const ProductC = styled.div`
   display: flex;
   flex-direction: row;
@@ -58,13 +64,14 @@ const ProductInfo = (props) => {
       <div>{props.product.category}</div>
       <ProductNm>{props.product.name}</ProductNm>
       {style.sale_price ? (
-        <>
+        <PriceFit>
           <Onsale>{"$" + style.original_price}</Onsale>{" "}
           <RegularPrice>{"$" + style.sale_price}</RegularPrice>
-        </>
+        </PriceFit>
       ) : (
         <span>{"$" + style.original_price}</span>
       )}
+      <Style product={props.product} style={props.styles.results} currentStyle={style}/>
     </FlexFit>
   );
 };

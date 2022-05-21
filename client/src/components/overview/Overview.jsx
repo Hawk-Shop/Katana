@@ -10,7 +10,8 @@ import axios from "axios";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 100%;
+  align-items: center;
 `;
 
 const TopCtn = styled.div`
@@ -23,7 +24,7 @@ const BtmCtn = styled.div`
   display: flex;
   flex-direction: row;
   width: 75%;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 5%;
 `;
 
