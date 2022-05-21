@@ -8,7 +8,8 @@ const RelatedProducts = (props) => {
   const id = useContext(Context).id;
   // GET/products/:product_id/related
   // returns related: [40345, 40346, 40351, 40350]
-  // GET request to get all by related product id
+  // GET request each to get product info
+  // promise all to wrap
   const [list, setList] = useState([
     {
       "id": 40345,
