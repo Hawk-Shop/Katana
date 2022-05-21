@@ -1,52 +1,57 @@
-import { useState, useEffect, useContext } from 'react';
-import { Context } from '../util/context.js';
+import { useState, useContext, useEffect } from 'react';
 import ReviewTile from './ReviewTile.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus} from '@fortawesome/free-solid-svg-icons';
+import { Context } from '../util/context.js';
+import axios from 'axios';
 
-const Reviews = () => {
+const Reviews = (props) => {
   const id = useContext(Context).id;
-  const [reviews, setReviews]= useState([
+  const [displayCount, setDisplayCount] = useState(2);
+  const [reviews, setReviews] = useState([
     {
       "review_id": 1135681,
       "rating": 5,
       "summary": "OMG it works",
       "recommend": true,
-      "response": true,
+      "response": "Glad you're enjoying the product!",
       "body": "That's pretty dang cool that a review can be posted through this modal",
       "date": "2022-02-19T00:00:00.000Z",
       "reviewer_name": "Richard",
       "helpfulness": 103,
-      "photos": []
-  },
-  {
+      "photos": [{
+        "id": 2180156,
+        "url": "http://res.cloudinary.com/dhx5k7wb3/image/upload/v1645592678/hzvdurhcoxovccyrc8u5.jpg"
+      }, {
+        "id": 2180157,
+        "url": "http://res.cloudinary.com/dhx5k7wb3/image/upload/v1645592678/k03yzsuinafmkih2h9wi.jpg"
+      }, {
+        "id": 2180158,
+        "url": "http://res.cloudinary.com/dhx5k7wb3/image/upload/v1645592678/sufqrautbgu8kyzzkkwr.jpg"
+      }, {
+        "id": 2180159,
+        "url": "http://res.cloudinary.com/dhx5k7wb3/image/upload/v1645592678/f3kq5nbbji6rvubd5t2a.jpg"
+      }, {
+        "id": 2180160,
+        "url": "http://res.cloudinary.com/dhx5k7wb3/image/upload/v1645592678/iru3oxs2fy6duuav03dl.jpg"
+      }]
+    },
+    {
       "review_id": 1135837,
       "rating": 3,
       "summary": "Star Rating - This will be the rating given to the product by this individual review..",
       "recommend": true,
-      "response": null,
-      "body": " The rating will be displayed in the format of solid or outlined stars, where the solid stars represent the review score. A total of 5 stars should always appear, and the amount filled in should correspond to the average score",
+      "response": "Glad you're enjoying the product!",
+      "body": " The rating will be displayed in the format of solid or outlined stars, where the solid stars represent the review score. A total of 5 stars should always appear, and the amount filled in should correspond to the average score By default the first 250 characters of the review should display. If the review is longer than 250 characters, below the body a link reading “Show more” will appear. Upon clicking this link, the review tile should expand and the rest of the review should display",
       "date": "2022-02-22T00:00:00.000Z",
       "reviewer_name": "Hello",
       "helpfulness": 5,
       "photos": []
-  },
-  {
-      "review_id": 1135846,
-      "rating": 2,
-      "summary": "sdfds",
-      "recommend": true,
-      "response": null,
-      "body": "sdfdsf",
-      "date": "2022-02-22T00:00:00.000Z",
-      "reviewer_name": "sdfsdf",
-      "helpfulness": 0,
-      "photos": []
-  }
+    }
   ]);
-  const [count, setCount] = useState(reviews.length);
-  const [displayCount, setDisplayCount] = useState(2);
+  const count = reviews.length;
+
 
   const Button = styled.button`
   background: transparent;
@@ -61,7 +66,6 @@ const Reviews = () => {
 
   const Section = styled.section`
   overflow: auto;
-  height:100%;
   max-height:500px;
   width: 45em;
   display: flex;
@@ -72,14 +76,20 @@ const Reviews = () => {
   padding: 1em;
   `;
 
+  useEffect(
+    () => {
+      axios.get(`/reviews/?product_id=${id}&count=1000&sort=relevant`)
+      .then((result) => {
+        setReviews([result.data.results]);
+      })
+    })
+
   return (
-    <div>
-      <h2>Ratings and Reviews</h2>
       <div>
         <Sort>
           {count} reviews,
           <label for="sort"> sorted by </label>
-          <select name="sort">
+          <select nsame="sort">
             <option value="relevance">most relevant</option>
             <option value="relevance">most helpful </option>
             <option value="relevance">newest</option>
@@ -95,8 +105,7 @@ const Reviews = () => {
         }}>More Reviews</Button>}
         <Button>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
       </div>
-    </div>
-  )
+      )
 }
 
 export default Reviews;

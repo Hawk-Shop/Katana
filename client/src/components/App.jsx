@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Context } from "./util/context.js";
 import Overview from "./overview/Overview.jsx";
-import Reviews from "./R&R/Reviews.jsx";
 import QuestionsList from "./QA/QuestionsList.jsx";
+import ReviewsOverview from './R&R/Overview.jsx';
 
 const App = (props) => {
   const [id, setId] = useState(40344);
@@ -25,7 +25,7 @@ const App = (props) => {
       </div>
       <div>
         <Context.Provider value={{id: id}}>
-          <Reviews></Reviews>
+          <ReviewsOverview></ReviewsOverview>
         </Context.Provider>
       </div>
     </div>
