@@ -10,7 +10,6 @@ const QuestionsList = (props) => {
   const id = useContext(Context).id;
   // const questions = results;
   let [questions, setQuestions] = useState([]);
-  let [answersList, setAnswersList] = useState([]);
 
   // submit axios.get request to get questions and answers from API
   useEffect(() => {
