@@ -1,3 +1,5 @@
+/* twinkle twinkle lil stars */
+
 .stars:before {
   content: "★★★★★";
   background: linear-gradient(90deg, green var(--percents), pink var(--percents));
@@ -12,4 +14,24 @@
   font-size: .80em;
   font-family: Times;
   line-height: 1;
+}
+
+/* stupid carousel classes */
+
+.carousel {
+  overflow: hidden;
+}
+
+.inner {
+  white-space: nowrap;
+  transition: transform 0.3s;
+}
+
+.carousel-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background-color: gray;
+  color: white;
 }

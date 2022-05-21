@@ -3,6 +3,7 @@ import { Context } from "./util/context.js";
 import Overview from "./overview/Overview.jsx";
 import Reviews from "./R&R/Reviews.jsx";
 import QuestionsList from "./QA/QuestionsList.jsx";
+import RelatedProducts from './RelatedItems/Main.jsx';
 
 const App = (props) => {
   const [id, setId] = useState(40344);
@@ -16,7 +17,9 @@ const App = (props) => {
         </Context.Provider>
       </div>
       <div>
-        <h1>Related Products</h1>
+        <Context.Provider value={{id: id}}>
+          <RelatedProducts></RelatedProducts>
+        </Context.Provider>
       </div>
       <div>
         <Context.Provider value={{id: id}}>
