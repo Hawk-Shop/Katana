@@ -10,11 +10,12 @@ const QuestionsList = (props) => {
   const id = useContext(Context).id;
   // const questions = results;
   let [questions, setQuestions] = useState([]);
+  let [questionCount, setQuestionCount] = useState(4);
 
   // submit axios.get request to get questions and answers from API
   useEffect(() => {
     axios
-      .get(`/qa/questions/?product_id=${id}`)
+      .get(`/qa/questions/?product_id=${40355}&count=20`)
       .then(response => {
         // console.log('response.data: ', response.data.results);
         setQuestions(response.data.results);
@@ -29,7 +30,7 @@ const QuestionsList = (props) => {
       <h3>QUESTIONS &#38; ANSWERS</h3>
       <Search />
       {
-        questions.map((question, index) => {
+        questions.slice(0, questionCount).map((question, index) => {
           // console.log(question);
           return <Question key={index} question={question}/>
         })

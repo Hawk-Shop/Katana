@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const Description = (props) => {
   const id = useContext(Context).id;
-  console.log(props.product);
+  // console.log(props.product);
 
   return(
     <div>
