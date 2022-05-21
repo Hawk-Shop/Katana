@@ -15,7 +15,7 @@ const QuestionsList = (props) => {
   // submit axios.get request to get questions and answers from API
   useEffect(() => {
     axios
-      .get(`/qa/questions/?product_id=${40355}&count=20`)
+      .get(`/qa/questions/?product_id=${40355}&count=30`)
       .then(response => {
         // console.log('response.data: ', response.data.results);
         setQuestions(response.data.results);

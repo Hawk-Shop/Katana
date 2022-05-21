@@ -19,8 +19,8 @@ export default function Modal ({url, toggleModal}) {
     <>
       <div className="modal">
         <div
-          className="overlay">
           onClick={toggleModal}
+          className="overlay">
         </div>
         <div className="modal-content">
           <Image src={url}></Image>
