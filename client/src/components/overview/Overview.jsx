@@ -33,6 +33,7 @@ const Overview = (props) => {
   const [product, setProduct] = useState("");
   const [styles, setStyles] = useState("");
   const [reviews, setReviews] = useState("");
+  const [currentStyle, setCurrentStyle] = useState("");
 
   useEffect(() => {
     let productGet = axios.get(`/products/${id}`);
@@ -43,15 +44,16 @@ const Overview = (props) => {
       setProduct(results[0].data)
       setStyles(results[1].data)
       setReviews(results[2].data)
+      setCurrentStyle(results[1].data.results[0])
     });
   }, []);
 
   return (
     <Container>
       <TopCtn>
-        {styles && <Gallery product={product} styles={styles} />}
-        {reviews && (
-          <ProductInfo product={product} styles={styles} reviews={reviews} />
+        {currentStyle && <Gallery product={product} styles={styles} currentStyle={currentStyle}/>}
+        {currentStyle && (
+          <ProductInfo product={product} styles={styles} reviews={reviews} currentStyle={currentStyle} />
         )}
       </TopCtn>
       <BtmCtn>

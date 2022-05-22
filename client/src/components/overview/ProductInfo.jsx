@@ -5,7 +5,7 @@ import Stars from "../R&R/Stars.jsx";
 import avgRating from "../util/getAvgRating.js"
 import Style from "./Style.jsx"
 const Onsale = styled.span`
-  color: red;
+  color: blue;
   text-decoration: line-through;
   margin-right: 5%;
   font-style: italic;
@@ -46,9 +46,6 @@ const StarLink = styled(Stars)`
 `;
 
 const ProductInfo = (props) => {
-  const id = useContext(Context).id;
-  const [style, setStyle] = useState(props.styles.results[4]);
-
   const ratings = props.reviews.ratings;
   let averageNums = avgRating(ratings)
 
@@ -63,15 +60,15 @@ const ProductInfo = (props) => {
       )}
       <div>{props.product.category}</div>
       <ProductNm>{props.product.name}</ProductNm>
-      {style.sale_price ? (
+      {props.currentStyle.sale_price ? (
         <PriceFit>
-          <Onsale>{"$" + style.original_price}</Onsale>{" "}
-          <RegularPrice>{"$" + style.sale_price}</RegularPrice>
+          <Onsale>{"$" + props.currentStyle.original_price}</Onsale>{" "}
+          <RegularPrice>{"$" + props.currentStyle.sale_price}</RegularPrice>
         </PriceFit>
       ) : (
-        <span>{"$" + style.original_price}</span>
+        <span>{"$" + props.currentStyle.original_price}</span>
       )}
-      <Style product={props.product} style={props.styles.results} currentStyle={style}/>
+      <Style product={props.product} styles={props.styles.results} currentStyle={props.currentStyle}/>
     </FlexFit>
   );
 };
