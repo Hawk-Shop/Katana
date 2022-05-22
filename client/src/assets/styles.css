@@ -32,6 +32,15 @@
   align-items: center;
   justify-content: center;
   height: 200px;
-  background-color: gray;
-  color: white;
+  background-color: white;
+  color: gray;
+}
+
+.indicators {
+  display: flex;
+  justify-content: center;
+}
+
+.indeicators > button {
+  margin: 5px;
 }
