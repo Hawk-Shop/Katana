@@ -8,6 +8,7 @@ import AnswersList from './AnswersList.jsx';
 const Question = ({question}) => {
   const {question_id, question_body, question_date, question_asker, question_helpfulness, answers} = question;
   let [answersList, setAnswersList] = useState([]);
+  let [answerCount, setAnswerCount] = useState(2);
 
   useEffect(() => {
     axios
@@ -23,11 +24,10 @@ const Question = ({question}) => {
 
   return (
     <div>
-      <div>Q: {question_body}</div>
-      <div>{format(parseISO(question_date), 'MM/dd/yyyy')}</div>
+      <span>Q: {question_body}</span>
+      <span>Helpful? <button>Yes <span>&#40;{question_helpfulness}&#41;</span></button>  | <button>Add Answer</button></span>
       <div>{question_asker}</div>
-      <span>Helpful? <a>Yes</a> <span>&#40;{question_helpfulness}&#41;</span> | <a>Add Answer</a></span>
-      {answersList.map((answer, index) => {
+      {answersList.slice(0, answerCount).map((answer, index) => {
         // console.log(answer);
         return <AnswersList key={index} answer={answer}/>
       })}
