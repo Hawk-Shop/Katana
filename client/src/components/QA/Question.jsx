@@ -12,6 +12,7 @@ const Question = ({question, id}) => {
   let [answerCount, setAnswerCount] = useState(2);
   let [addAnswerModal, setAddAnswerModal] = useState(false);
   let [questionClicked, setQuestionClicked] = useState(false);
+  let [seeMoreClicked, setSeeMoreClicked] = useState(false);
 
   useEffect(() => {
     axios
@@ -67,7 +68,8 @@ const Question = ({question, id}) => {
   `
 
   const Answers = styled.span`
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-top: 3px;
     display: inline-block;
   `
 
@@ -84,13 +86,37 @@ const Question = ({question, id}) => {
   &:hover {
     background: lightgrey;
   }
-`;
+  display: block;
+  `;
 
-const showMoreAnswers = (
-  <Button onClick={() => setAnswerCount(answerCount + 2)}>
-    More Answers
-  </Button>
-)
+  const Yes = styled.button`
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    text-decoration: underline;
+  `
+
+  const seeMoreAnswers = (
+    <Button onClick={() => {
+      setAnswerCount(answerCount + answersList.length - 2)
+      setSeeMoreClicked(!seeMoreClicked);
+      }}>
+      See more answers
+    </Button>
+  )
+  const collapseAnswers = (
+    <Button onClick={() => {
+      handleShowingAnswers(false);
+      setAnswerCount(2);
+      setSeeMoreClicked(!seeMoreClicked);
+    }}>
+      Collapse answers
+    </Button>
+  )
 
   return (
     <Questions>
@@ -100,7 +126,7 @@ const showMoreAnswers = (
         </QStyle>
         <Helpful>
           <span>
-            Helpful? <button>Yes <span>&#40;{question_helpfulness}&#41;</span></button>  | <button onClick={toggleAddAnswerModal}>Add Answer</button>
+            Helpful? <Yes>Yes <span>&#40;{question_helpfulness}&#41;</span></Yes>  | <Yes onClick={toggleAddAnswerModal}>Add Answer</Yes>
           </span>
         </Helpful>
         {addAnswerModal && (
@@ -122,9 +148,12 @@ const showMoreAnswers = (
       </Answers>
       {questionClicked && (
         answerCount < answersList.length && (
-          showMoreAnswers
+          seeMoreAnswers
         ))
       }
+      {seeMoreClicked && (
+        collapseAnswers
+      )}
     </Questions>
   )
 }

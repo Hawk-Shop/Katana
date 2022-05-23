@@ -39,7 +39,7 @@ const QuestionsList = (props) => {
   const Section = styled.section`
     overflow: auto;
     height:100%;
-    max-height:500px;
+    max-height: 50vh;
     width: 45em;
     display: flex;
     flex-direction: column;
@@ -63,12 +63,13 @@ const QuestionsList = (props) => {
       <Sort>
         <Search />
         <br/>
+        <p>Click on a question to view their respective answers.</p>
         <Section>
           {questions.slice(0, questionCount).map((question, index) => {
-            // console.log(question);
             return <Question key={index} question={question} id={id}/>
           })}
         </Section>
+        <p>Viewing {questionCount} of {questions.length} questions</p>
         {questionCount < questions.length && (
           showMoreQuestions
         )}
