@@ -8,8 +8,8 @@ const Image = styled.img`
 `;
 
 const ImageCtn = styled.div`
-  width: 30%;
-  margin-right: 5%;
+  width: 100%;
+  margin-right: 15%;
 `;
 
 const Gallery = (props) => {

@@ -1,22 +1,17 @@
 
-const sortStyles = (styles, id) => {
+const sortStyles = (styles) => {
   let sorted = [];
   let toPush = [];
-  for (let style of styles) {
-    if (style.style_id === id) {
-      toPush.push(style.photos[0].thumbnail_url)
-    }
-  }
+
   styles.forEach((style, i) => {
-    if (style.style_id !== id) {
-      toPush.push(style.photos[0].thumbnail_url)
-      if (toPush.length === 4 || i === styles.length-1) {
-        sorted.push(toPush)
-        toPush = [];
-      }
+
+    toPush.push({photo: style.photos[1].thumbnail_url, index: i, id: style.style_id})
+    if (toPush.length === 4 || i === styles.length-1) {
+      sorted.push(toPush)
+      toPush = [];
     }
   })
-  console.log(sorted)
+  return sorted;
 }
 
 export default sortStyles

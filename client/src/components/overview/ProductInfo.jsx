@@ -17,10 +17,12 @@ const RegularPrice = styled.span`
 const PriceFit = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
 `;
 const FlexFit = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 const ProductC = styled.div`
   display: flex;
@@ -68,7 +70,7 @@ const ProductInfo = (props) => {
       ) : (
         <span>{"$" + props.currentStyle.original_price}</span>
       )}
-      <Style product={props.product} styles={props.styles.results} currentStyle={props.currentStyle}/>
+      <Style product={props.product} styles={props.styles.results} currentStyle={props.currentStyle} setStyle={props.setStyle}/>
     </FlexFit>
   );
 };

@@ -53,7 +53,7 @@ const Overview = (props) => {
       <TopCtn>
         {currentStyle && <Gallery product={product} styles={styles} currentStyle={currentStyle}/>}
         {currentStyle && (
-          <ProductInfo product={product} styles={styles} reviews={reviews} currentStyle={currentStyle} />
+          <ProductInfo product={product} styles={styles} reviews={reviews} currentStyle={currentStyle} setStyle={setCurrentStyle}/>
         )}
       </TopCtn>
       <BtmCtn>
