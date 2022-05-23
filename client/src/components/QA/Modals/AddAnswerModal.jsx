@@ -3,19 +3,21 @@ import "./ImageModal.css";
 import styled from 'styled-components';
 
 
-export default function Modal ({url, toggleModal, modal}) {
-  console.log(url);
+export default function AddAnswerModal ({toggleAddAnswerModal, addAnswerModal}) {
+  // console.log(url);
 
-  const Image = styled.img`
+  const Form = styled.form`
     border-radius: 16px;
+    font-size: 18px;
     display: block;
+    margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
     max-width: 100%;
     max-height: 80vh;
   `
 
-  if (modal) {
+  if (addAnswerModal) {
     document.body.classList.add('active-modal');
   } else {
     document.body.classList.remove('active-modal');
@@ -26,15 +28,25 @@ export default function Modal ({url, toggleModal, modal}) {
       <div className="modal">
         <div
           className="overlay"
-          onClick={toggleModal}>
+          onClick={toggleAddAnswerModal}>
         </div>
         <div className="modal-content">
-          <Image src={url}></Image>
+          <Form>
+            <label>
+              Username: <input type="text" name="name" />
+              <br/>
+              Email: <input type="text" name="email" />
+              <br/>
+              Product ID: <input type="text" name="email" />
+            </label>
+            <br/>
+            <input type="submit" value="Submit"/>
+          </Form>
           <button
             className="close-modal"
-            onClick={toggleModal}
+            onClick={toggleAddAnswerModal}
             >
-            CLOSE
+            X
           </button>
         </div>
       </div>

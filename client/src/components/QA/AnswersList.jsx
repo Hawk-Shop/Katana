@@ -31,7 +31,7 @@ const AnswersList = ({answer}) => {
 
   return (
     <div>
-      <span>A: {body}</span>
+      <span>{body}</span>
       <div>
         <span>by {answerer_name}, </span>
         <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
