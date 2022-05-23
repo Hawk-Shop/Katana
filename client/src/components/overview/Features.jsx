@@ -3,16 +3,22 @@ import { Context } from '../util/context.js';
 import styled from 'styled-components';
 
 const FeatureList = styled.ul`
-  border-left: solid 1px black;
   list-style-type: none;
   width: 40%;
+  margin: 0;
 `;
 
 const Feature = styled.li({
   '&:before': {
     content: '"✓"',
-  },
+  }
 })
+
+const InnerFeature = styled.div`
+  margin-top: 2%;
+  list-style-type: none;
+  font-size: 0.9rem;
+`;
 
 const Features = (props) => {
   const id = useContext(Context).id;
@@ -20,7 +26,7 @@ const Features = (props) => {
   return(
     <FeatureList>
       {props.product.features.map((feature) => (
-        <Feature>{feature.feature}: {feature.value}</Feature>
+        <InnerFeature><Feature>{feature.feature}: {feature.value}</Feature></InnerFeature>
       ))}
     </FeatureList>
   )
