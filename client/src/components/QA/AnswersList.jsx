@@ -18,7 +18,7 @@ const AnswersList = ({answer}) => {
   `
 
   const toggleModal = (e) => {
-    console.log(e.target.currentSrc);
+    // console.log(e.target.currentSrc);
     setUrl(e.target.currentSrc);
     setModal(!modal);
   }
@@ -29,9 +29,13 @@ const AnswersList = ({answer}) => {
     document.body.classList.remove('active-modal');
   }
 
+  const Answer = styled.div`
+    margin-bottom: 0.5em;
+  `
+
   return (
-    <div>
-      <span>A: {body}</span>
+    <Answer>
+      <span>{body}</span>
       <div>
         <span>by {answerer_name}, </span>
         <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
@@ -46,9 +50,9 @@ const AnswersList = ({answer}) => {
                     alt="unable to display">
                   </Image>
         })}
-        {modal && (<ImageModal url={url} toggleModal={toggleModal} />)}
+        {modal && (<ImageModal url={url} toggleModal={toggleModal} modal={modal}/>)}
       </div>
-    </div>
+    </Answer>
   )
 }
 

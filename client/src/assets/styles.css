@@ -1,4 +1,7 @@
 /* twinkle twinkle lil stars */
+* {
+  background-color: antiquewhite;
+}
 
 .stars:before {
   content: "★★★★★";
@@ -54,6 +57,7 @@
   height: 275px;
   background-color: white;
   color: gray;
+  background-color: rgba(223, 207, 190,.8);
 }
 
 .indicators {
