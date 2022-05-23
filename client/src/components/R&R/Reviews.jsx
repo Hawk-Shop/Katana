@@ -14,7 +14,7 @@ const Reviews = (props) => {
       "review_id": 1135681,
       "rating": 5,
       "summary": "OMG it works",
-      "recommend": true,
+      "recommend": 'my recommendation is yes',
       "response": "Glad you're enjoying the product!",
       "body": "That's pretty dang cool that a review can be posted through this modal",
       "date": "2022-02-19T00:00:00.000Z",
@@ -41,7 +41,7 @@ const Reviews = (props) => {
       "review_id": 1135837,
       "rating": 3,
       "summary": "Star Rating - This will be the rating given to the product by this individual review..",
-      "recommend": true,
+      "recommend": 'this is recommended yes',
       "response": "Glad you're enjoying the product!",
       "body": " The rating will be displayed in the format of solid or outlined stars, where the solid stars represent the review score. A total of 5 stars should always appear, and the amount filled in should correspond to the average score By default the first 250 characters of the review should display. If the review is longer than 250 characters, below the body a link reading “Show more” will appear. Upon clicking this link, the review tile should expand and the rest of the review should display",
       "date": "2022-02-22T00:00:00.000Z",
@@ -50,7 +50,7 @@ const Reviews = (props) => {
       "photos": []
     }
   ]);
-  const count = reviews.length;
+  const [count, setCount] = useState(2);
 
 
   const Button = styled.button`
@@ -81,14 +81,15 @@ const Reviews = (props) => {
       axios.get(`/reviews/?product_id=${id}&count=1000&sort=relevant`)
       .then((result) => {
         setReviews([result.data.results]);
+        setCount(result.data.results.length);
       })
-    })
+    }, []);
 
   return (
       <div>
         <Sort>
           {count} reviews,
-          <label for="sort"> sorted by </label>
+          <label htmlFor="sort"> sorted by </label>
           <select nsame="sort">
             <option value="relevance">most relevant</option>
             <option value="relevance">most helpful </option>
@@ -96,6 +97,7 @@ const Reviews = (props) => {
           </select>
         </Sort>
         <Section>
+          {console.log('display', displayCount)}
           {reviews.slice(0, displayCount).map((review) => (
             <ReviewTile review={review}></ReviewTile>
           ))}

@@ -66,15 +66,17 @@ const ReviewTile = ({review}) => {
   padding: 1em;
   `;
 
-
   return (
     <Tile>
+      {console.log('KJHDSDKFDJDSLKFJ', review)}
       <div>
         <Stars rating={review.rating}></Stars>
       </div>
       <Date>
         <FontAwesomeIcon icon={faUserCheck} /> &nbsp;
-        {review.reviewer_name}, {format(parseISO(review.date), `MMMM dd, yyyy`)}
+        {review.reviewer_name},
+        {review.date &&
+        <span>{format(parseISO(review.date), `MMMM dd, yyyy`)}</span>}
       </Date>
       <Summary>
         {review.summary.length > 56 ?
