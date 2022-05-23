@@ -51,6 +51,7 @@ const Reviews = (props) => {
     }
   ]);
   const [count, setCount] = useState(2);
+  const [selectValue, setSelectValue] = useState('relevant');
 
 
   const Button = styled.button`
@@ -76,6 +77,17 @@ const Reviews = (props) => {
   padding: 1em;
   `;
 
+  // helper
+  const getSorted = (event) => {
+    axios.get(`/reviews/?product_id=${id}&count=1000&sort=${event.target.value}`)
+      .then((result) => {
+        setReviews(result.data.results);
+        setCount(result.data.results.length);
+      })
+    setSelectValue(event.target.value);
+  }
+
+
   useEffect(
     () => {
       axios.get(`/reviews/?product_id=${id}&count=1000&sort=relevant`)
@@ -90,10 +102,10 @@ const Reviews = (props) => {
         <Sort>
           {count} reviews,
           <label htmlFor="sort"> sorted by </label>
-          <select nsame="sort">
-            <option value="relevance">most relevant</option>
-            <option value="relevance">most helpful </option>
-            <option value="relevance">newest</option>
+          <select value={selectValue} name="sort" onChange={getSorted}>
+            <option value="relevant">most relevant</option>
+            <option value="helpful">most helpful </option>
+            <option value="newest">newest</option>
           </select>
         </Sort>
         <Section>
