@@ -1,15 +1,32 @@
 import { useState, useContext, useEffect } from 'react';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
-import Stars from './Stars.jsx';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faUserCheck } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 
+import Stars from './Stars.jsx';
+import ImageModal from '../QA/Modals/ImageModal.jsx';
+
 const ReviewTile = ({review}) => {
   const [yesCount, setYesCount] = useState(0);
   const [noCount, setNoCount] = useState(0);
+  const [modal, setModal] = useState(false);
+  const [url, setUrl] = useState('');
 
+  const toggleModal = (e) => {
+    setUrl(e.target.currentSrc);
+    setModal(!modal);
+  }
+
+  if (modal) {
+    document.body.classList.add('active-modal');
+  } else {
+    document.body.classList.remove('active-modal');
+  }
+
+  // styled components
   const Tile = styled.div`
   border-bottom: .05em solid;
   padding-bottom: 1em;
@@ -95,8 +112,13 @@ const ReviewTile = ({review}) => {
       {review.photos.length !== 0 &&
         <Photos>
           {review.photos.map((photo) => (
-            <Photo src={photo.url} alt="product review image"></Photo>
+            <Photo
+              src={photo.url}
+              onClick = {toggleModal}
+              alt="product review image">
+            </Photo>
           ))}
+          {modal && <ImageModal url={url} toggleModal={toggleModal} />}
         </Photos>}
       <div>
         {review.recommend === true && <p> <FontAwesomeIcon icon={faCheck} /> I recommend this product</p>}
