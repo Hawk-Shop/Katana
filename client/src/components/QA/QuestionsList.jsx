@@ -47,11 +47,19 @@ const QuestionsList = (props) => {
 
   const Sort = styled.div`
     padding: 1em;
+    margin-left: auto;
+    margin-right: auto;
   `;
+
+  const showMoreQuestions = (
+    <Button onClick={() => setQuestionCount(questionCount + 2)}>
+      More Questions
+    </Button>
+  )
 
   return (
     <>
-      <h3>QUESTIONS &#38; ANSWERS</h3>
+      <h2>Questions &#38; Answers</h2>
       <Sort>
         <Search />
         <br/>
@@ -61,8 +69,12 @@ const QuestionsList = (props) => {
             return <Question key={index} question={question} id={id}/>
           })}
         </Section>
-        <Button className="more-questions" onClick={() => setQuestionCount(questionCount + 2)}>More Questions</Button>
-        <Button className="add-question">Add a Question +</Button>
+        {questionCount < questions.length && (
+          showMoreQuestions
+        )}
+        <Button>
+          Add a Question +
+        </Button>
       </Sort>
     </>
   )

@@ -51,28 +51,46 @@ const Question = ({question, id}) => {
     display: inline-block;
   `;
 
+  const Helpful = styled.span`
+    font-size: 14px;
+  `
+
   const AStyle = styled.span`
-  font-size: 1.2em;
-  margin-bottom: 0.5em;
-  display: inline-block;
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+    display: inline-block;
+    vertical-align: top;
 `;
 
   const ContainText = styled.p`
     width: 500px;
   `
 
-  const Helpful = styled.span`
-    font-size: 14px;
-  `
-
-  const Answers = styled.div`
-    display: inline-block;
+  const Answers = styled.span`
     margin-left: 20px;
+    display: inline-block;
   `
 
   const Container = styled.div`
     display: block;
   `
+
+  const Button = styled.button`
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid grey;
+  margin: 2em 1em;
+  padding: 0.5em 1em;
+  &:hover {
+    background: lightgrey;
+  }
+`;
+
+const showMoreAnswers = (
+  <Button onClick={() => setAnswerCount(answerCount + 2)}>
+    More Answers
+  </Button>
+)
 
   return (
     <Questions>
@@ -102,6 +120,11 @@ const Question = ({question, id}) => {
           }))
         }
       </Answers>
+      {questionClicked && (
+        answerCount < answersList.length && (
+          showMoreAnswers
+        ))
+      }
     </Questions>
   )
 }

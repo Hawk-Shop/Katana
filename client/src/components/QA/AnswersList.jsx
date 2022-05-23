@@ -14,7 +14,7 @@ const AnswersList = ({answer}) => {
     display: inline-block;
     max-height: 100px;
     max-width: 100%;
-    margin-left: 10px;
+    margin-right: 10px;
   `
 
   const toggleModal = (e) => {
@@ -29,8 +29,12 @@ const AnswersList = ({answer}) => {
     document.body.classList.remove('active-modal');
   }
 
+  const Answer = styled.div`
+    margin-bottom: 0.5em;
+  `
+
   return (
-    <div>
+    <Answer>
       <span>{body}</span>
       <div>
         <span>by {answerer_name}, </span>
@@ -48,7 +52,7 @@ const AnswersList = ({answer}) => {
         })}
         {modal && (<ImageModal url={url} toggleModal={toggleModal} modal={modal}/>)}
       </div>
-    </div>
+    </Answer>
   )
 }
 
