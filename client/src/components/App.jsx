@@ -7,7 +7,6 @@ import QuestionsList from "./QA/QuestionsList.jsx";
 import RelatedProducts from './RelatedItems/Main.jsx';
 
 const StyledApp = styled.div`
-  background: red;
   max-width: 800px;
   margin: 0 auto;
 `
