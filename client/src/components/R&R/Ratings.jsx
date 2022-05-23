@@ -26,6 +26,10 @@ const Ratings = (props) => {
     })
   }, [])
 
+  const renderByStars = () => {
+    axios.get
+  }
+
   return (
     <div>
       <h2>Ratings and Reviews</h2>
@@ -37,7 +41,7 @@ const Ratings = (props) => {
         {percRec}% of reviews recommend this product
       </div>
       <div>
-        <Bars ratings={ratings}></Bars>
+        <Bars renderByStars={renderByStars} ratings={ratings}></Bars>
       </div>
       <div>
         here are my rating slides
