@@ -1,9 +1,13 @@
-import React from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
-
+import { Context } from '../util/context.js';
+import axios from 'axios';
 
 // parameter = ratings object
-const Bars = ({renderByStars, ratings}) => {
+const Bars = ({ getRelevant, reviews, setReviews, ratings}) => {
+  const id = useContext(Context).id;
+  const [filters, setFilters] = useState({});
+
   let five = Number(ratings[5]);
   let four = Number(ratings[4]);
   let three = Number(ratings[3]);
@@ -39,16 +43,40 @@ const Bars = ({renderByStars, ratings}) => {
   cursor: pointer;
   `;
 
+  const renderByStars = (rating) => {
+    if (filters[rating]) {
+      delete filters[rating];
+    } else {
+      filters[rating] = 1;
+    }
+    setFilters(filters);
+
+    if (Object.keys(filters).length === 0) {
+      getRelevant();
+    } else {
+      let filtered = reviews.filter((each) => (filters[each.rating]));
+
+      setReviews(filtered);
+    }
+  }
+
   return (
     <div>
-      {all.map((each) => (
-        <Breakdown onClick={() => {renderByStars(each.rating)}}>
+      {all.map((each) => {
+        if (filters[each.rating]) {
+          var style = {'background-color': 'blue'}
+        } else {
+          var style = {'background-color': 'pink'}
+        }
+      return(
+        <Breakdown style={style} onClick={() => {renderByStars(each.rating)}}>
           <Button>{each.rating} stars</Button>
           <div className="bars" style={{ "--rating": each.percent}}></div>
           <span>{each.count}</span>
           <br></br>
-      </Breakdown>
-      ))}
+        </Breakdown>
+      )
+    })}
     </div>
   )
 }

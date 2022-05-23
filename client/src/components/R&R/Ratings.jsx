@@ -17,6 +17,7 @@ const Ratings = (props) => {
   useEffect(() => {
     axios.get(`/reviews/meta/?product_id=${id}`)
     .then((results) => {
+      ////// can delete this console.log later
       console.log(results.data);
       meta = results.data;
       let {averageRating} = avgRating(meta.ratings);
@@ -41,7 +42,8 @@ const Ratings = (props) => {
         {percRec}% of reviews recommend this product
       </div>
       <div>
-        <Bars renderByStars={renderByStars} ratings={ratings}></Bars>
+        <Bars reviews={props.reviews} setReviews={props.setReviews} ratings={ratings}
+        getRelevant={props.getRelevant}></Bars>
       </div>
       <div>
         here are my rating slides

@@ -61,19 +61,23 @@ let ReviewsOverview = (props) => {
     setSelectValue(event.target.value);
   }
 
-  useEffect(
-    () => {
-      axios.get(`/reviews/?product_id=${id}&count=1000&sort=relevant`)
-      .then((result) => {
-        setReviews(result.data.results);
-        setCount(result.data.results.length);
-      })
-    }, []);
+  const getRelevant = () => {
+    axios.get(`/reviews/?product_id=${id}&count=1000&sort=relevant`)
+    .then((result) => {
+      setReviews(result.data.results);
+      setCount(result.data.results.length);
+    })
+  }
+
+  // useEffect(
+  //   () => {
+  //     getRelevant();
+  //   }, []);
 
 
   return (
     <div>
-      <Ratings></Ratings>
+      <Ratings setReviews={setReviews} reviews={reviews} getRelevant={getRelevant}></Ratings>
       <Reviews reviews={reviews} selectValue={selectValue} getSorted={getSorted} count={count}></Reviews>
     </div>
   )
