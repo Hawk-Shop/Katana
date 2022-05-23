@@ -10,7 +10,8 @@ import axios from "axios";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
+  align-items: center;
 `;
 
 const TopCtn = styled.div`
@@ -23,7 +24,7 @@ const BtmCtn = styled.div`
   display: flex;
   flex-direction: row;
   width: 75%;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 5%;
 `;
 
@@ -32,28 +33,28 @@ const Overview = (props) => {
   const [product, setProduct] = useState("");
   const [styles, setStyles] = useState("");
   const [reviews, setReviews] = useState("");
+  const [currentStyle, setCurrentStyle] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`/products/${id}`)
-      .then((result) => setProduct(result.data))
-      .then(() => {
-        axios
-          .get(`/products/${id}/styles`)
-          .then((result) => setStyles(result.data))
-          .then(() => {
-            axios
-              .get(`/reviews/meta/?product_id=${id}`)
-              .then((result) => setReviews(result.data));
-          });
-      });
+    let productGet = axios.get(`/products/${id}`);
+    let stylesGet = axios.get(`/products/${id}/styles`);
+    let reviewsGet = axios.get(`/reviews/meta/?product_id=${id}`);
+
+    Promise.all([productGet, stylesGet, reviewsGet]).then((results) => {
+      setProduct(results[0].data)
+      setStyles(results[1].data)
+      setReviews(results[2].data)
+      setCurrentStyle(results[1].data.results[0])
+    });
   }, []);
 
   return (
     <Container>
       <TopCtn>
-        {styles && <Gallery product={product} styles={styles} />}
-        {reviews && <ProductInfo product={product} styles={styles} reviews={reviews}/>}
+        {currentStyle && <Gallery product={product} styles={styles} currentStyle={currentStyle}/>}
+        {currentStyle && (
+          <ProductInfo product={product} styles={styles} reviews={reviews} currentStyle={currentStyle} setStyle={setCurrentStyle}/>
+        )}
       </TopCtn>
       <BtmCtn>
         {product && <Description product={product} styles={styles} />}
