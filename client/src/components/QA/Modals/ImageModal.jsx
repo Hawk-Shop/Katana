@@ -3,7 +3,7 @@ import "./ImageModal.css";
 import styled from 'styled-components';
 
 
-export default function Modal ({url, toggleModal}) {
+export default function Modal ({url, toggleModal, modal}) {
   console.log(url);
 
   const Image = styled.img`
@@ -11,16 +11,22 @@ export default function Modal ({url, toggleModal}) {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 80vh;
   `
+
+  if (modal) {
+    document.body.classList.add('active-modal');
+  } else {
+    document.body.classList.remove('active-modal');
+  }
 
   return (
     <>
       <div className="modal">
         <div
-          onClick={toggleModal}
-          className="overlay">
+          className="overlay"
+          onClick={toggleModal}>
         </div>
         <div className="modal-content">
           <Image src={url}></Image>
