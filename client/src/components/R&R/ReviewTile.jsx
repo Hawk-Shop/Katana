@@ -68,13 +68,12 @@ const ReviewTile = ({review}) => {
 
   return (
     <Tile>
-      {console.log('KJHDSDKFDJDSLKFJ', review)}
       <div>
         <Stars rating={review.rating}></Stars>
       </div>
       <Date>
         <FontAwesomeIcon icon={faUserCheck} /> &nbsp;
-        {review.reviewer_name},
+        {review.reviewer_name}, &nbsp;
         {review.date &&
         <span>{format(parseISO(review.date), `MMMM dd, yyyy`)}</span>}
       </Date>

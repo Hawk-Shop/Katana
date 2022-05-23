@@ -80,7 +80,7 @@ const Reviews = (props) => {
     () => {
       axios.get(`/reviews/?product_id=${id}&count=1000&sort=relevant`)
       .then((result) => {
-        setReviews([result.data.results]);
+        setReviews(result.data.results);
         setCount(result.data.results.length);
       })
     }, []);
@@ -97,7 +97,6 @@ const Reviews = (props) => {
           </select>
         </Sort>
         <Section>
-          {console.log('display', displayCount)}
           {reviews.slice(0, displayCount).map((review) => (
             <ReviewTile review={review}></ReviewTile>
           ))}
