@@ -34,6 +34,7 @@ const ImgStyle = styled.img`
   border: 0.5px solid black;
   height: 3rem;
   width: 3rem;
+  cursor: pointer;
 `;
 const CheckmarkCtn = styled.div`
   position: relative;
