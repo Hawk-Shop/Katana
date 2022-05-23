@@ -27,10 +27,6 @@ const Ratings = (props) => {
     })
   }, [])
 
-  const renderByStars = () => {
-    axios.get
-  }
-
   return (
     <div>
       <h2>Ratings and Reviews</h2>
@@ -43,7 +39,8 @@ const Ratings = (props) => {
       </div>
       <div>
         <Bars reviews={props.reviews} setReviews={props.setReviews} ratings={ratings}
-        getRelevant={props.getRelevant}></Bars>
+        getRelevant={props.getRelevant}
+        setCount={props.setCount}></Bars>
       </div>
       <div>
         here are my rating slides

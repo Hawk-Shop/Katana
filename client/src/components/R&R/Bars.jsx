@@ -4,7 +4,7 @@ import { Context } from '../util/context.js';
 import axios from 'axios';
 
 // parameter = ratings object
-const Bars = ({ getRelevant, reviews, setReviews, ratings}) => {
+const Bars = ({ setCount, getRelevant, reviews, setReviews, ratings}) => {
   const id = useContext(Context).id;
   const [filters, setFilters] = useState({});
 
@@ -12,7 +12,7 @@ const Bars = ({ getRelevant, reviews, setReviews, ratings}) => {
   let four = Number(ratings[4]);
   let three = Number(ratings[3]);
   let two = Number(ratings[2]);
-  let one = Number(ratings[2]);
+  let one = Number(ratings[1]);
 
   let total = five+four+three+two+one;
   let onestar = one/total;
@@ -57,26 +57,37 @@ const Bars = ({ getRelevant, reviews, setReviews, ratings}) => {
       let filtered = reviews.filter((each) => (filters[each.rating]));
 
       setReviews(filtered);
+      setCount(filtered.length);
     }
   }
 
+  let selected = '';
+  Object.keys(filters).forEach((filter) => {
+    selected += `${filter} stars, `;
+  })
+
   return (
     <div>
-      {all.map((each) => {
-        if (filters[each.rating]) {
-          var style = {'background-color': 'blue'}
-        } else {
-          var style = {'background-color': 'pink'}
-        }
-      return(
-        <Breakdown style={style} onClick={() => {renderByStars(each.rating)}}>
-          <Button>{each.rating} stars</Button>
-          <div className="bars" style={{ "--rating": each.percent}}></div>
-          <span>{each.count}</span>
-          <br></br>
-        </Breakdown>
-      )
-    })}
+      <div>
+        Applied filters: {selected.slice(0, -2)}
+      </div>
+      <div>
+        {all.map((each) => {
+          // if (filters[each.rating]) {
+          //   var style = {'background-color': 'blue'}
+          // } else {
+          //   var style = {'background-color': 'pink'}
+          // }
+        return(
+          <Breakdown onClick={() => {renderByStars(each.rating)}}>
+            <Button>{each.rating} stars</Button>
+            <div className="bars" style={{ "--rating": each.percent}}></div>
+            <span>{each.count}</span>
+            <br></br>
+          </Breakdown>
+          )
+        })}
+      </div>
     </div>
   )
 }

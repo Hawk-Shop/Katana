@@ -50,6 +50,8 @@ let ReviewsOverview = (props) => {
   ]);
   const [selectValue, setSelectValue] = useState('relevant');
   const [count, setCount] = useState(2);
+  const [filters, setFilters] = useState({});
+
 
   // helper
   const getSorted = (event) => {
@@ -69,15 +71,15 @@ let ReviewsOverview = (props) => {
     })
   }
 
-  // useEffect(
-  //   () => {
-  //     getRelevant();
-  //   }, []);
+  useEffect(
+    () => {
+      getRelevant();
+    }, []);
 
 
   return (
     <div>
-      <Ratings setReviews={setReviews} reviews={reviews} getRelevant={getRelevant}></Ratings>
+      <Ratings setReviews={setReviews} reviews={reviews} getRelevant={getRelevant} setCount={setCount}></Ratings>
       <Reviews reviews={reviews} selectValue={selectValue} getSorted={getSorted} count={count}></Reviews>
     </div>
   )
