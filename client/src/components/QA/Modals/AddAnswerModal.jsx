@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 
 export default function Modal ({url, toggleModal, modal}) {
-  // console.log(url);
+  console.log(url);
 
   const Image = styled.img`
     border-radius: 16px;

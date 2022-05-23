@@ -14,11 +14,11 @@ const AnswersList = ({answer}) => {
     display: inline-block;
     max-height: 100px;
     max-width: 100%;
-    margin-right: 10px;
+    margin-left: 10px;
   `
 
   const toggleModal = (e) => {
-    console.log(e.target.currentSrc);
+    // console.log(e.target.currentSrc);
     setUrl(e.target.currentSrc);
     setModal(!modal);
   }
@@ -46,7 +46,7 @@ const AnswersList = ({answer}) => {
                     alt="unable to display">
                   </Image>
         })}
-        {modal && (<ImageModal url={url} toggleModal={toggleModal} />)}
+        {modal && (<ImageModal url={url} toggleModal={toggleModal} modal={modal}/>)}
       </div>
     </div>
   )
