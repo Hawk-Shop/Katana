@@ -7,6 +7,7 @@ export default function AddAnswerModal ({toggleAddAnswerModal, addAnswerModal}) 
   // console.log(url);
 
   const Form = styled.form`
+    background-color: transparent;
     border-radius: 16px;
     font-size: 18px;
     display: block;
