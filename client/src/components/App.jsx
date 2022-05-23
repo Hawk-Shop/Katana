@@ -1,14 +1,22 @@
 import { useState, useEffect } from "react";
+import styled from 'styled-components';
 import { Context } from "./util/context.js";
 import Overview from "./overview/Overview.jsx";
 import QuestionsList from "./QA/QuestionsList.jsx";
 import ReviewsOverview from './R&R/Overview.jsx';
+import RelatedProducts from './RelatedItems/Main.jsx';
+
+const StyledApp = styled.div`
+  background: red;
+  max-width: 800px;
+  margin: 0 auto;
+`
 
 const App = (props) => {
   const [id, setId] = useState(40344);
 
   return (
-    <div>
+    <StyledApp>
       <div>
         <Context.Provider value={{ id: id }}>
           <h1>Overview</h1>
@@ -16,7 +24,9 @@ const App = (props) => {
         </Context.Provider>
       </div>
       <div>
-        <h1>Related Products</h1>
+        <Context.Provider value={{id: id}}>
+          <RelatedProducts></RelatedProducts>
+        </Context.Provider>
       </div>
       <div>
         <Context.Provider value={{id: id}}>
@@ -28,7 +38,7 @@ const App = (props) => {
           <ReviewsOverview></ReviewsOverview>
         </Context.Provider>
       </div>
-    </div>
+    </StyledApp>
   );
 };
 
@@ -47,3 +57,4 @@ export default App;
 // }
 
 // export default App;
+``
