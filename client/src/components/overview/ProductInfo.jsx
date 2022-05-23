@@ -3,9 +3,9 @@ import { Context } from "../util/context.js";
 import styled from "styled-components";
 import Stars from "../R&R/Stars.jsx";
 import avgRating from "../util/getAvgRating.js"
-
+import Style from "./Style.jsx"
 const Onsale = styled.span`
-  color: red;
+  color: blue;
   text-decoration: line-through;
   margin-right: 5%;
   font-style: italic;
@@ -14,8 +14,16 @@ const Onsale = styled.span`
 const RegularPrice = styled.span`
   color: black;
 `;
-
-const FlexFit = styled.div``;
+const PriceFit = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;
+const FlexFit = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
 const ProductC = styled.div`
   display: flex;
   flex-direction: row;
@@ -40,9 +48,6 @@ const StarLink = styled(Stars)`
 `;
 
 const ProductInfo = (props) => {
-  const id = useContext(Context).id;
-  const [style, setStyle] = useState(props.styles.results[4]);
-
   const ratings = props.reviews.ratings;
   let averageNums = avgRating(ratings)
 
@@ -57,14 +62,15 @@ const ProductInfo = (props) => {
       )}
       <div>{props.product.category}</div>
       <ProductNm>{props.product.name}</ProductNm>
-      {style.sale_price ? (
-        <>
-          <Onsale>{"$" + style.original_price}</Onsale>{" "}
-          <RegularPrice>{"$" + style.sale_price}</RegularPrice>
-        </>
+      {props.currentStyle.sale_price ? (
+        <PriceFit>
+          <Onsale>{"$" + props.currentStyle.original_price}</Onsale>{" "}
+          <RegularPrice>{"$" + props.currentStyle.sale_price}</RegularPrice>
+        </PriceFit>
       ) : (
-        <span>{"$" + style.original_price}</span>
+        <span>{"$" + props.currentStyle.original_price}</span>
       )}
+      <Style product={props.product} styles={props.styles.results} currentStyle={props.currentStyle} setStyle={props.setStyle}/>
     </FlexFit>
   );
 };
