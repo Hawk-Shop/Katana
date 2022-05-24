@@ -8,7 +8,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 const Image = styled.div`
   height: 100%;
   width: 100%;
-  background-position: center;
+  background-position: 100% 30%;
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -16,13 +16,13 @@ const Image = styled.div`
 
 const ImageCtn = styled.div`
   width: 60%;
-  min-height: 100%;
+  height: 75vh;
   background-color: black;
-  margin-right: 5%;
+  margin-right: 10%;
 `;
 
 const LeftRight = styled.div`
-  flex: 5%;
+  flex: 4%;
   height: 100%;
   background-color: rgb(0, 0, 0, 0.6);
   display: grid;
@@ -32,7 +32,7 @@ const LeftRight = styled.div`
 `;
 
 const Center = styled.div`
-  flex: 80%;
+  flex: 90%;
   height: 100%;
   background-color: transparent;
 `;

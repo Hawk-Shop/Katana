@@ -25,7 +25,7 @@ const StylesCtn = styled.div`
 `;
 const IconCtn = styled.div`
   display: inline-block;
-  width: 20%
+  width: 13%
 `;
 
 const ImgStyle = styled.img`
