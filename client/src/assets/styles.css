@@ -27,6 +27,7 @@
   /* background-clip: padding-box; */
   -webkit-background-clip: padding-box;
   -webkit-text-fill-color: transparent;
+  border-radius: 10px 15px 15px 10px;
 }
 
 .bars {
