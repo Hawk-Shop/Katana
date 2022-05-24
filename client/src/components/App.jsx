@@ -10,7 +10,7 @@ const StyledApp = styled.div`
   background: red;
   max-width: 800px;
   margin: 0 auto;
-`
+`;
 
 const App = (props) => {
   const [id, setId] = useState(40344);
