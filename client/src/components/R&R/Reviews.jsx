@@ -31,8 +31,13 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
   padding: 1em;
   `;
 
+  const Container = styled.div`
+  border: solid;
+  width: 75%;
+  `;
+
   return (
-      <div>
+      <Container>
         <Sort>
           {count} reviews,
           <label htmlFor="sort"> sorted by </label>
@@ -51,7 +56,7 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
           setDisplayCount(displayCount + 2)
         }}>More Reviews</Button>}
         <Button>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
-      </div>
+      </Container>
       )
 }
 

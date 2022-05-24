@@ -5,6 +5,7 @@ import Stars from './Stars.jsx';
 import Bars from './Bars.jsx';
 import avgRating from '../util/getAvgRating.js';
 import percentRec from '../util/percentRec.js';
+import styled from 'styled-components';
 
 
 const Ratings = (props) => {
@@ -27,8 +28,13 @@ const Ratings = (props) => {
     })
   }, [])
 
+  const Container = styled.div`
+  border: solid;
+  width: 25%;
+  `;
+
   return (
-    <div>
+    <Container>
       <h2>Ratings and Reviews</h2>
       <div>
         <h1>{avg}</h1>
@@ -50,7 +56,7 @@ const Ratings = (props) => {
       <div>
         here are my rating slides
       </div>
-    </div>
+    </Container>
   )
 }
 

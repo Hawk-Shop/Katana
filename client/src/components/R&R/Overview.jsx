@@ -3,6 +3,7 @@ import { Context } from '../util/context.js';
 import Reviews from "./Reviews.jsx";
 import axios from 'axios';
 import Ratings from './Ratings.jsx'
+import styled from 'styled-components';
 
 
 let ReviewsOverview = (props) => {
@@ -69,14 +70,17 @@ let ReviewsOverview = (props) => {
 
   useEffect(
     () => {
-      console.log('use effect working')
       getSorted(selectValue);
     }, [selectValue, filters, count]
   );
 
+  const Container = styled.div`
+  display: flex;
+  `;
+
 
   return (
-    <div>
+    <Container>
       <Ratings
         setReviews={setReviews}
         reviews={reviews}
@@ -90,7 +94,7 @@ let ReviewsOverview = (props) => {
         getSorted={getSorted}
         count={count}>
       </Reviews>
-    </div>
+    </Container>
   )
 }
 

@@ -7,8 +7,9 @@ import ReviewsOverview from './R&R/Overview.jsx';
 import RelatedProducts from './RelatedItems/Main.jsx';
 
 const StyledApp = styled.div`
-  max-width: 800px;
+  max-width: 80%;
   margin: 0 auto;
+  min-height: 100vh;
 `
 
 const App = (props) => {
