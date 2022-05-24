@@ -6,7 +6,7 @@ const avgRating = (ratings) => {
       ratingTotal += Number(ratings[r]);
       averager += Number(ratings[r]) * Number(r);
     }
-    const averageRating = averager / ratingTotal;
+    const averageRating = (averager / ratingTotal).toFixed(1);
     return {averageRating, ratingTotal, averager};
  }
 
