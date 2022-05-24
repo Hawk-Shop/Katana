@@ -6,7 +6,7 @@
   "scripts": {
     "server-dev": "npx nodemon --watch server ./server.js",
     "client-dev": "npx webpack --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "@babel/core": "^7.17.12",
     "@babel/preset-env": "^7.17.12",
     "@babel/preset-react": "^7.17.12",
+    "@testing-library/react": "^13.2.0",
     "babel": "^6.23.0",
     "babel-jest": "^28.1.0",
     "babel-loader": "^8.2.5",
@@ -46,11 +47,15 @@
     "eslint-plugin-react": "^7.29.4",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.16",
     "style-loader": "^3.3.1",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
+  },
+  "jest":{
+    "testEnvironment": "jsdom"
   }
 }

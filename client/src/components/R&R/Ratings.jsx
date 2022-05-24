@@ -11,8 +11,8 @@ import styled from 'styled-components';
 const Ratings = (props) => {
   const id = useContext(Context).id;
   let meta;
-  const [avg, setAvg] = useState(5);
-  const [percRec, setPercRec] = useState(100);
+  const [avg, setAvg] = useState(null);
+  const [percRec, setPercRec] = useState(null);
   const [ratings, setRatings] = useState({1:'1', 2:'1', 3:'1', 4:'1', 5:'1'});
 
   useEffect(() => {
@@ -30,19 +30,18 @@ const Ratings = (props) => {
 
   const Container = styled.div`
   border: solid;
-  width: 25%;
+  width: 30%;
+  padding: 2%
   `;
 
   return (
     <Container>
       <h2>Ratings and Reviews</h2>
       <div>
-        <h1>{avg}</h1>
+        {avg && <h1>{avg}</h1>}
         <Stars rating={avg}></Stars>
       </div>
-      <div>
-        {percRec}% of reviews recommend this product
-      </div>
+      {percRec && <div>{percRec}% of reviews recommend this product</div>}
       <div>
         <Bars
           reviews={props.reviews}

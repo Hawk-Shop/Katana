@@ -5,7 +5,7 @@ const sortStyles = (styles) => {
 
   styles.forEach((style, i) => {
 
-    toPush.push({photo: style.photos[1].thumbnail_url, index: i, id: style.style_id})
+    toPush.push({photo: style.photos[0].thumbnail_url, index: i, id: style.style_id})
     if (toPush.length === 4 || i === styles.length-1) {
       sorted.push(toPush)
       toPush = [];

@@ -72,8 +72,8 @@ const ReviewTile = ({review}) => {
   `;
 
   const Photo = styled.img`
-  width: 13%;
-  height: 5em;
+  width: 15%;
+  height: 7em;
   margin: .2em;
   border: solid .5px grey;
   `;

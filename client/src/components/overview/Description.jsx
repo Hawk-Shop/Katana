@@ -8,6 +8,7 @@ const ProdSlogan = styled.h3`
 
 const DesCtn = styled.div`
   border-right: solid 1px black;
+  padding-right: 18%;
 `
 
 const Description = (props) => {
