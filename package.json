@@ -8,6 +8,7 @@
     "client-dev": "npx webpack --watch",
     "test": "jest"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hawkeye-2204/FEC-Atelier.git"
@@ -54,4 +55,5 @@
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
   }
+
 }
