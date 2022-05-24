@@ -1,51 +1,11 @@
-import { useState, useEffect, useContext } from 'react';
-import { Context } from '../util/context.js';
+import { useState, useContext, useEffect } from 'react';
 import ReviewTile from './ReviewTile.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus} from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
-const Reviews = () => {
-  const id = useContext(Context).id;
-  const [reviews, setReviews]= useState([
-    {
-      "review_id": 1135681,
-      "rating": 5,
-      "summary": "OMG it works",
-      "recommend": true,
-      "response": true,
-      "body": "That's pretty dang cool that a review can be posted through this modal",
-      "date": "2022-02-19T00:00:00.000Z",
-      "reviewer_name": "Richard",
-      "helpfulness": 103,
-      "photos": []
-  },
-  {
-      "review_id": 1135837,
-      "rating": 3,
-      "summary": "Star Rating - This will be the rating given to the product by this individual review..",
-      "recommend": true,
-      "response": null,
-      "body": " The rating will be displayed in the format of solid or outlined stars, where the solid stars represent the review score. A total of 5 stars should always appear, and the amount filled in should correspond to the average score",
-      "date": "2022-02-22T00:00:00.000Z",
-      "reviewer_name": "Hello",
-      "helpfulness": 5,
-      "photos": []
-  },
-  {
-      "review_id": 1135846,
-      "rating": 2,
-      "summary": "sdfds",
-      "recommend": true,
-      "response": null,
-      "body": "sdfdsf",
-      "date": "2022-02-22T00:00:00.000Z",
-      "reviewer_name": "sdfsdf",
-      "helpfulness": 0,
-      "photos": []
-  }
-  ]);
-  const [count, setCount] = useState(reviews.length);
+const Reviews = ({count, getSorted, selectValue, reviews}) => {
   const [displayCount, setDisplayCount] = useState(2);
 
   const Button = styled.button`
@@ -61,7 +21,6 @@ const Reviews = () => {
 
   const Section = styled.section`
   overflow: auto;
-  height:100%;
   max-height:500px;
   width: 45em;
   display: flex;
@@ -72,17 +31,20 @@ const Reviews = () => {
   padding: 1em;
   `;
 
+  const Container = styled.div`
+  border: solid;
+  width: 75%;
+  `;
+
   return (
-    <div>
-      <h2>Ratings and Reviews</h2>
-      <div>
+      <Container>
         <Sort>
           {count} reviews,
-          <label for="sort"> sorted by </label>
-          <select name="sort">
-            <option value="relevance">most relevant</option>
-            <option value="relevance">most helpful </option>
-            <option value="relevance">newest</option>
+          <label htmlFor="sort"> sorted by </label>
+          <select value={selectValue} name="sort" onChange={(e) => {getSorted(e.target.value)}}>
+            <option value="relevant">most relevant</option>
+            <option value="helpful">most helpful </option>
+            <option value="newest">newest</option>
           </select>
         </Sort>
         <Section>
@@ -94,9 +56,8 @@ const Reviews = () => {
           setDisplayCount(displayCount + 2)
         }}>More Reviews</Button>}
         <Button>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
-      </div>
-    </div>
-  )
+      </Container>
+      )
 }
 
 export default Reviews;
