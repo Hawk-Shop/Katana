@@ -47,11 +47,15 @@
     "eslint-plugin-react": "^7.29.4",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.16",
     "style-loader": "^3.3.1",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
+  },
+  "jest":{
+    "testEnvironment": "jsdom"
   }
 }
