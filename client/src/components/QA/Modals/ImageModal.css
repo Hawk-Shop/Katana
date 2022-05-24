@@ -20,8 +20,9 @@ body.active-modal {
 }
 
 .overlay {
-  background: grey;
+  background: rgba(49,49,49,0.8);
 }
+
 .modal-content {
   position: absolute;
   top: 50%;
@@ -30,7 +31,7 @@ body.active-modal {
   line-height: 1.4;
   background: #f1f1f1;
   padding: 14px 28px;
-  border-radius: 3px;
+  border-radius: 10px;
   max-width: 600px;
   min-width: 300px;
 }

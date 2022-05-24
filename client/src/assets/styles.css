@@ -1,4 +1,7 @@
 /* twinkle twinkle lil stars */
+* {
+  background-color: antiquewhite;
+}
 
 .stars:before {
   content: "★★★★★";
@@ -14,6 +17,25 @@
   font-size: .80em;
   font-family: Times;
   line-height: 1;
+}
+
+/* twinkle twinkle lil bars */
+
+.bars:before {
+  content: "★★★★★★★★★★★★★★★★";
+  background: linear-gradient(90deg, green var(--percents), lightgrey var(--percents));
+  /* background-clip: padding-box; */
+  -webkit-background-clip: padding-box;
+  -webkit-text-fill-color: transparent;
+}
+
+.bars {
+  --percents: calc(var(--rating) * 100%);
+  display: inline-block;
+  font-size: .8em;
+  font-family: Times;
+  line-height: 2;
+  margin: 0 .5em;
 }
 
 /* stupid carousel classes */
@@ -35,6 +57,7 @@
   height: 275px;
   background-color: white;
   color: gray;
+  background-color: rgba(223, 207, 190,.8);
 }
 
 .indicators {
