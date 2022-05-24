@@ -60,7 +60,7 @@ const Bars = ({ filters, setFilters, ratings}) => {
   return (
     <div>
       <div>
-        <div style={{margin: " 1em 0"}}>Applied filters: {selected.slice(0, -2)}</div>
+        <div style={{margin: " 1em 0", fontSize: "1em"}}>Applied filters: {selected.slice(0, -2)}</div>
         <Button onClick={() => {setFilters({})}}>Remove all filters</Button>
       </div>
       <div>

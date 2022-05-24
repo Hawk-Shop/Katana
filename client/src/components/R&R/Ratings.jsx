@@ -45,7 +45,7 @@ const Ratings = (props) => {
 
   return (
     <Container>
-      <h2>Ratings and Reviews</h2>
+      <h2 style={{margin: "0 0 1em 0"}}>Ratings and Reviews</h2>
       <div>
         {avg && <NumRating>{avg}</NumRating>}
         <StarRating><Stars rating={avg}></Stars></StarRating>
