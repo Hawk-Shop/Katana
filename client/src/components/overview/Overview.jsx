@@ -41,19 +41,31 @@ const Overview = (props) => {
     let reviewsGet = axios.get(`/reviews/meta/?product_id=${id}`);
 
     Promise.all([productGet, stylesGet, reviewsGet]).then((results) => {
-      setProduct(results[0].data)
-      setStyles(results[1].data)
-      setReviews(results[2].data)
-      setCurrentStyle(results[1].data.results[0])
-    });
+      setProduct(results[0].data);
+      setStyles(results[1].data);
+      setReviews(results[2].data);
+      setCurrentStyle(results[1].data.results[0]);
+    }) .catch((err) => console.log(err));
   }, []);
 
   return (
     <Container>
       <TopCtn>
-        {currentStyle && <Gallery product={product} styles={styles} currentStyle={currentStyle}/>}
         {currentStyle && (
-          <ProductInfo product={product} styles={styles} reviews={reviews} currentStyle={currentStyle} setStyle={setCurrentStyle}/>
+          <Gallery
+            product={product}
+            styles={styles}
+            currentStyle={currentStyle}
+          />
+        )}
+        {currentStyle && (
+          <ProductInfo
+            product={product}
+            styles={styles}
+            reviews={reviews}
+            currentStyle={currentStyle}
+            setStyle={setCurrentStyle}
+          />
         )}
       </TopCtn>
       <BtmCtn>
