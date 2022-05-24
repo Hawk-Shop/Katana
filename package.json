@@ -38,6 +38,7 @@
     "@babel/core": "^7.17.12",
     "@babel/preset-env": "^7.17.12",
     "@babel/preset-react": "^7.17.12",
+    "@testing-library/react": "^13.2.0",
     "babel": "^6.23.0",
     "babel-jest": "^28.1.0",
     "babel-loader": "^8.2.5",
