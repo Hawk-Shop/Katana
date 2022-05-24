@@ -9,12 +9,8 @@ import RelatedProducts from './RelatedItems/Main.jsx';
 const StyledApp = styled.div`
   max-width: 80%;
   margin: 0 auto;
-<<<<<<< HEAD
-`;
-=======
   min-height: 100vh;
 `
->>>>>>> master
 
 const App = (props) => {
   const [id, setId] = useState(40344);
