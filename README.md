@@ -1,7 +1,7 @@
 # FEC-Atelier
 
 ## Overview
-Front-end capstone project that takes information from an API and displays it in an e-commerce format.
+Front-end capstone project that takes information from an API and displays it in an e-commerce format. The application is composed of 4 main components: product detail, related items and comparison, questions and answers, ratings and reviews. 
 
 ## Table of Contents
 - [Description](#description)
