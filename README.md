@@ -3,6 +3,11 @@
 ## Overview
 Front-end capstone project that takes information from an API and displays it in an e-commerce format.
 
+## Table of Contents
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Team Members](#team-members)
 
 ## Description
 
@@ -18,6 +23,11 @@ npm install
 3. In a separate terminal, run:
 ```
 npm run client-dev
+```
+
+4. In another terminal, run:
+```
+npm run server-dev
 ```
 
 
