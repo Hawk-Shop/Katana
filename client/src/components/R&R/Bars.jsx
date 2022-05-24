@@ -56,7 +56,8 @@ const Bars = ({ filters, setFilters, ratings}) => {
   return (
     <div>
       <div>
-        Applied filters: {selected.slice(0, -2)}
+        <div>Applied filters: {selected.slice(0, -2)}</div>
+        <Button onClick={() => {setFilters({})}}>Remove filters</Button>
       </div>
       <div>
         {all.map((each) => {
