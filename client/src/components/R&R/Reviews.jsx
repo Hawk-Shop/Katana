@@ -22,7 +22,7 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
   const Section = styled.section`
   overflow: auto;
   max-height:500px;
-  width: 45em;
+  width: 100%;
   display: flex;
   flex-direction: column;
   `;
@@ -33,7 +33,7 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
 
   const Container = styled.div`
   border: solid;
-  width: 75%;
+  width: 70%;
   `;
 
   return (
