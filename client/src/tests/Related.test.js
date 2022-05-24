@@ -1,10 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import App from '../components/App.jsx'
 
-import App from '../components/Appjsx';
+import RelatedProducts from '../components/RelatedItems/Main.jsx';
 
-describe('App', () => {
-  test('renders App component', () => {
-    render(<App />);
+describe('RelatedProducts', () => {
+  test('renders RelatedProducts component', () => {
+    render(<RelatedProducts />);
   });
 });

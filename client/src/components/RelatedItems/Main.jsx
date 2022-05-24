@@ -8,12 +8,13 @@ const RelatedProducts = (props) => {
   const id = useContext(Context).id;
   // GET/products/:product_id/related
   // returns related: [40345, 40346, 40351, 40350]
-  // GET request each id to get product info
+  // GET request each id to get product info * need features also for modal
   // GET/products/:proudct_id/style to get thumbnail url
   // GET reviews rating for each product
   // create array to push received obj into it like sample below
   // also push thumbnail url into each product obj
   // promise all to wrap
+
   const [list, setList] = useState([
     {
       "id": 40345,
