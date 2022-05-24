@@ -1,7 +1,16 @@
 import { React, useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import ProductCard from './ProductCard.jsx';
+
+const Carousel = styled.div`
+  overflow: hidden;
+`
+
+const Inner = styled.div`
+  white-space: nowrap;
+  transition: transform 0.3s;
+`
 
 
 const ProductsList = ({list}) => {
@@ -18,15 +27,14 @@ const ProductsList = ({list}) => {
   };
 
   return (
-    <div className="carousel">
-      <div
-        className="inner"
+    <Carousel>
+      <Inner
         style={{ transform: `translateX(-${activeIndex * 100}%)`}}>
         {list.map((product, index) => {
           return <ProductCard product={product} id={index} width={{ width: "25%"}} />
           // return React.cloneElemenet(child, { width: "100%" });
         })}
-      </div>
+      </Inner>
       <div className="indicators">
         <button onClick={() => {updateIndex(activeIndex - 1);}}>
           Prev
@@ -35,7 +43,7 @@ const ProductsList = ({list}) => {
           Next
         </button>
       </div>
-    </div>
+    </Carousel>
   )
 }
 

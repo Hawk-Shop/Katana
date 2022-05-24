@@ -6,9 +6,9 @@ const ProductCard = ({product, id, width}) => {
     <div className="carousel-item" style={width}>
 
       <img className="thumbnail" src={`${product.thumbnail}`}></img>
-      {/* <button class='action-btn'>
+      <button class='action-btn'>
         Star
-      </button> */}
+      </button>
       <div>
         {product.name}
       </div>
