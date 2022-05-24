@@ -133,6 +133,7 @@ const Question = ({question, id}) => {
           <AddAnswerModal
             toggleAddAnswerModal={toggleAddAnswerModal}
             addAnswerModal={addAnswerModal}
+            id={id}
           />
         )}
       </Container>

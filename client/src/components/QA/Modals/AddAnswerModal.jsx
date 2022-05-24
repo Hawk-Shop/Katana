@@ -1,12 +1,15 @@
 import React, {useState} from "react";
 import "./ImageModal.css";
 import styled from 'styled-components';
+import axios from 'axios';
 
-
-export default function AddAnswerModal ({toggleAddAnswerModal, addAnswerModal}) {
+export default function AddAnswerModal ({toggleAddAnswerModal, addAnswerModal, id}) {
   // console.log(url);
+  let [username, setUsername] = useState("");
+  let [email, setEmail] = useState("");
+  let [body, setBody] = useState("");
 
-  const Form = styled.form`
+  const Form = styled.div`
     background-color: transparent;
     border-radius: 16px;
     font-size: 18px;
@@ -24,6 +27,11 @@ export default function AddAnswerModal ({toggleAddAnswerModal, addAnswerModal}) 
     document.body.classList.remove('active-modal');
   }
 
+  const handleAddingAnswer = (e) => {
+    console.log(username, email, body);
+    // axios.post(`/qa/questions/`, )
+  }
+
   return (
     <>
       <div className="modal">
@@ -34,19 +42,30 @@ export default function AddAnswerModal ({toggleAddAnswerModal, addAnswerModal}) 
         <div className="modal-content">
           <Form>
             <label>
-              Username: <input type="text" name="name" />
+              Username: <input type="text" name="name"
+                value={username}
+                onChange={(e) => {
+                  e.persist();
+                  setUsername(e.target.value)
+                }}/>
               <br/>
-              Email: <input type="text" name="email" />
+              Email: <input type="text" name="email"
+                value={email}
+                onChange={(e) => {
+                  e.persist();
+                  setEmail(e.target.value)
+                }}/>
               <br/>
-              Product ID: <input type="text" name="email" />
+              Product ID: {id}
             </label>
+            <textarea name="body" rows="10" cols="70" value={body} onChange={(e) => {setBody(e.target.value)}}></textarea>
             <br/>
-            <input type="submit" value="Submit"/>
+            {/* <input type="submit" value="Submit" onSubmit={handleAddingAnswer}/> */}
+            <button onClick={handleAddingAnswer}>Submit</button>
           </Form>
           <button
             className="close-modal"
-            onClick={toggleAddAnswerModal}
-            >
+            onClick={toggleAddAnswerModal}>
             X
           </button>
         </div>

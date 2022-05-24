@@ -29,7 +29,7 @@ const QuestionsList = (props) => {
     background: transparent;
     border-radius: 3px;
     border: 2px solid grey;
-    margin: 2em 1em;
+    margin-right: 1em;
     padding: 0.5em 1em;
     &:hover {
       background: lightgrey;
