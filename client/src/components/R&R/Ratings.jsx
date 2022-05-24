@@ -38,9 +38,14 @@ const Ratings = (props) => {
         {percRec}% of reviews recommend this product
       </div>
       <div>
-        <Bars reviews={props.reviews} setReviews={props.setReviews} ratings={ratings}
-        getRelevant={props.getRelevant}
-        setCount={props.setCount}></Bars>
+        <Bars
+          reviews={props.reviews}
+          setReviews={props.setReviews}
+          ratings={ratings}
+          getRelevant={props.getRelevant}
+          setCount={props.setCount}
+          filters={props.filters}
+          setFilters={props.setFilters}></Bars>
       </div>
       <div>
         here are my rating slides

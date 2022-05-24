@@ -54,33 +54,42 @@ let ReviewsOverview = (props) => {
 
 
   // helper
-  const getSorted = (event) => {
-    axios.get(`/reviews/?product_id=${id}&count=1000&sort=${event.target.value}`)
+  const getSorted = (type) => {
+    axios.get(`/reviews/?product_id=${id}&count=1000&sort=${type}`)
       .then((result) => {
-        setReviews(result.data.results);
-        setCount(result.data.results.length);
+        let arr = result.data.results;
+        if (Object.keys(filters).length !== 0) {
+          arr = arr.filter((each) => (filters[each.rating]));
+        }
+        setReviews(arr);
+        setCount(arr.length);
       })
-    setSelectValue(event.target.value);
-  }
-
-  const getRelevant = () => {
-    axios.get(`/reviews/?product_id=${id}&count=1000&sort=relevant`)
-    .then((result) => {
-      setReviews(result.data.results);
-      setCount(result.data.results.length);
-    })
+    setSelectValue(type);
   }
 
   useEffect(
     () => {
-      getRelevant();
-    }, []);
+      console.log('use effect working')
+      getSorted(selectValue);
+    }, [selectValue, filters, count]
+  );
 
 
   return (
     <div>
-      <Ratings setReviews={setReviews} reviews={reviews} getRelevant={getRelevant} setCount={setCount}></Ratings>
-      <Reviews reviews={reviews} selectValue={selectValue} getSorted={getSorted} count={count}></Reviews>
+      <Ratings
+        setReviews={setReviews}
+        reviews={reviews}
+        setCount={setCount}
+        filters={filters}
+        setFilters={setFilters}>
+      </Ratings>
+      <Reviews
+        reviews={reviews}
+        selectValue={selectValue}
+        getSorted={getSorted}
+        count={count}>
+      </Reviews>
     </div>
   )
 }

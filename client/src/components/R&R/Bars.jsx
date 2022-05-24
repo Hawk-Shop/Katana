@@ -1,12 +1,7 @@
-import { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { Context } from '../util/context.js';
-import axios from 'axios';
 
 // parameter = ratings object
-const Bars = ({ setCount, getRelevant, reviews, setReviews, ratings}) => {
-  const id = useContext(Context).id;
-  const [filters, setFilters] = useState({});
+const Bars = ({ filters, setFilters, ratings}) => {
 
   let five = Number(ratings[5]);
   let four = Number(ratings[4]);
@@ -44,21 +39,13 @@ const Bars = ({ setCount, getRelevant, reviews, setReviews, ratings}) => {
   `;
 
   const renderByStars = (rating) => {
-    if (filters[rating]) {
-      delete filters[rating];
+    let newFilters = {...filters}; // makes a copy of the object
+    if (newFilters[rating]) {
+      delete newFilters[rating];
     } else {
-      filters[rating] = 1;
+      newFilters[rating] = 1;
     }
-    setFilters(filters);
-
-    if (Object.keys(filters).length === 0) {
-      getRelevant();
-    } else {
-      let filtered = reviews.filter((each) => (filters[each.rating]));
-
-      setReviews(filtered);
-      setCount(filtered.length);
-    }
+    setFilters(newFilters);
   }
 
   let selected = '';

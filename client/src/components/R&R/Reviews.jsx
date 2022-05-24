@@ -36,7 +36,7 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
         <Sort>
           {count} reviews,
           <label htmlFor="sort"> sorted by </label>
-          <select value={selectValue} name="sort" onChange={getSorted}>
+          <select value={selectValue} name="sort" onChange={(e) => {getSorted(e.target.value)}}>
             <option value="relevant">most relevant</option>
             <option value="helpful">most helpful </option>
             <option value="newest">newest</option>
