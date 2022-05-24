@@ -25,7 +25,7 @@ const StylesCtn = styled.div`
 `;
 const IconCtn = styled.div`
   display: inline-block;
-  width: 25%
+  width: 20%
 `;
 
 const ImgStyle = styled.img`
@@ -55,7 +55,9 @@ const Checkmark = styled(FontAwesomeIcon)`
 
 `
 
-const ThmCtn = styled.span``;
+const ThmCtn = styled.span`
+  margin-bottom: 2%;
+`;
 
 const Style = ({ product, styles, currentStyle, setStyle }) => {
   let sortedStyles = sortStyles(styles);
@@ -68,9 +70,9 @@ const Style = ({ product, styles, currentStyle, setStyle }) => {
       <StylesCtn>
         {sortedStyles.map((styleArray) => {
           return (
-            <div>
+            <ThmCtn>
               {styleArray.map((style) => (
-                <ThmCtn>
+                <>
                   {style.id === currentStyle.style_id ? (
                     <IconCtn>
                       <ImgStyle
@@ -93,9 +95,9 @@ const Style = ({ product, styles, currentStyle, setStyle }) => {
                       ></ImgStyle>
                     </IconCtn>
                   )}
-                </ThmCtn>
+                </>
               ))}
-            </div>
+            </ThmCtn>
           );
         })}
       </StylesCtn>

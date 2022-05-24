@@ -17,13 +17,12 @@ const Container = styled.div`
 const TopCtn = styled.div`
   display: flex;
   flex-direction: row;
-  width: 75%;
-  align-items: stretch;
+  width: 100%;
 `;
 const BtmCtn = styled.div`
   display: flex;
   flex-direction: row;
-  width: 75%;
+  width: 100%;
   align-items: flex-start;
   margin-top: 5%;
 `;
