@@ -68,11 +68,9 @@ let ReviewsOverview = (props) => {
     setSelectValue(type);
   }
 
-  useEffect(
-    () => {
+  useEffect(() => {
       getSorted(selectValue);
-    }, [selectValue, filters, count]
-  );
+    }, []);
 
   const Container = styled.div`
   display: flex;
