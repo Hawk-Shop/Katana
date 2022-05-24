@@ -34,14 +34,23 @@ const Ratings = (props) => {
   padding: 2%
   `;
 
+  const NumRating = styled.span`
+  font-size: 2em;
+  `;
+
+  const StarRating = styled.span`
+  font-size: 1.6em;
+  margin-top: .6em;
+  `;
+
   return (
     <Container>
       <h2>Ratings and Reviews</h2>
       <div>
-        {avg && <h1>{avg}</h1>}
-        <Stars rating={avg}></Stars>
+        {avg && <NumRating>{avg}</NumRating>}
+        <StarRating><Stars rating={avg}></Stars></StarRating>
       </div>
-      {percRec && <div>{percRec}% of reviews recommend this product</div>}
+      {percRec && <div style={{margin: " 1em 0"}}>{percRec}% of reviews recommend this product</div>}
       <div>
         <Bars
           reviews={props.reviews}

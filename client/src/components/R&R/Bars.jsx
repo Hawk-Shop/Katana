@@ -38,6 +38,10 @@ const Bars = ({ filters, setFilters, ratings}) => {
   cursor: pointer;
   `;
 
+  const Count = styled.span`
+  font-size: .9em;
+  `;
+
   const renderByStars = (rating) => {
     let newFilters = {...filters}; // makes a copy of the object
     if (newFilters[rating]) {
@@ -56,8 +60,8 @@ const Bars = ({ filters, setFilters, ratings}) => {
   return (
     <div>
       <div>
-        <div>Applied filters: {selected.slice(0, -2)}</div>
-        <Button onClick={() => {setFilters({})}}>Remove filters</Button>
+        <div style={{margin: " 1em 0"}}>Applied filters: {selected.slice(0, -2)}</div>
+        <Button onClick={() => {setFilters({})}}>Remove all filters</Button>
       </div>
       <div>
         {all.map((each) => {
@@ -70,7 +74,7 @@ const Bars = ({ filters, setFilters, ratings}) => {
           <Breakdown onClick={() => {renderByStars(each.rating)}}>
             <Button>{each.rating} stars</Button>
             <div className="bars" style={{ "--rating": each.percent}}></div>
-            <span>{each.count}</span>
+            <Count>{each.count}</Count>
             <br></br>
           </Breakdown>
           )
