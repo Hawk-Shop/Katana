@@ -5,6 +5,9 @@ import axios from 'axios';
 import Ratings from './Ratings.jsx'
 import styled from 'styled-components';
 
+const Container = styled.div`
+display: flex;
+`;
 
 let ReviewsOverview = (props) => {
   const id = useContext(Context).id;
@@ -72,10 +75,6 @@ let ReviewsOverview = (props) => {
   useEffect(() => {
       getSorted(selectValue);
     }, []);
-
-  const Container = styled.div`
-  display: flex;
-  `;
 
 
   return (

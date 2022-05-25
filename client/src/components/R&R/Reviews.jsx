@@ -7,16 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-const Reviews = ({count, getSorted, selectValue, reviews}) => {
-  const [displayCount, setDisplayCount] = useState(2);
-  const [showModal, setShowModal] = useState(false);
-
-  const openModal = () => {
-    setShowModal(prev => !prev);
-  }
-
-
-  const Button = styled.button`
+const Button = styled.button`
   background: transparent;
   border-radius: 3px;
   border: 2px solid grey;
@@ -43,6 +34,14 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
   border: solid;
   width: 100%;
   `;
+
+const Reviews = ({count, getSorted, selectValue, reviews}) => {
+  const [displayCount, setDisplayCount] = useState(2);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(prev => !prev);
+  }
 
   return (
     <div>
