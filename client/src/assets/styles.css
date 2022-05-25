@@ -41,15 +41,15 @@
 
 /* stupid carousel classes */
 
-.carousel {
+/* .carousel {
   overflow: hidden;
 }
 
 .inner {
   white-space: nowrap;
   transition: transform 0.3s;
-}
-
+} */
+/*
 .carousel-item {
   display: inline-flex;
   flex-direction: column;
@@ -59,19 +59,20 @@
   background-color: white;
   color: gray;
   background-color: rgba(223, 207, 190,.8);
-}
+  position: relative;
+} */
 
-.indicators {
+/* .indicators {
   display: flex;
   justify-content: center;
-}
-
-.indeicators > button {
+} */
+/*
+.indicators > button {
   margin: 5px;
-}
+} */
 
 /* card classes */
-
+/*
 .thumbnail {
   object-fit: contain;
   max-width: 100%;
@@ -80,14 +81,14 @@
 
 .action-btn {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 12%;
+  right: 20%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   background-color: #555;
   color: white;
-  font-size: 16px;
-  padding: 12px 24px;
+  font-size: 10px;
+  padding: 8px 8px;
   border: none;
   cursor: pointer;
   border-radius: 5px;

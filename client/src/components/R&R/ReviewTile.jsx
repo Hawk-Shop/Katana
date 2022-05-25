@@ -30,13 +30,13 @@ const ReviewTile = ({review}) => {
 
   const clickThumbsUp = () => {
     if (!disabled) {
-      // axios.put(`/reviews/${review.review_id}/helpful`, {helpfulness:1})
-      // .then((result) => {
-      //   console.log('success');
-      //   setDisabled(true);
-      // })
-      setYesCount(yesCount+1);
-      setDisabled(true);
+      axios.put(`/reviews/${review.review_id}/helpful`)
+      .then((result) => {
+        console.log('success');
+        setDisabled(true);
+      })
+      // setYesCount(yesCount+1);
+      // setDisabled(true);
     }
   }
 
