@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Rate from './Rate.jsx';
 import axios from 'axios';
@@ -48,9 +48,13 @@ const CloseModalButton = styled.button`
   padding: 5px 7px;
 `;
 
+const Question = styled.div`
+padding: 1em;
+`;
+
 const NewReview = ({showModal, setShowModal}) => {
   const id = useContext(Context).id;
-  const [rate, setRate] = useState(0); // for stars
+  const [rate, setRate] = useState(null); // for stars
   const [recommend, setRecommend] = useState('');
   const [summary, setSummary] = useState('');
   const [body, setBody] = useState('');
@@ -74,6 +78,14 @@ const NewReview = ({showModal, setShowModal}) => {
     })
   }
 
+  useEffect(() => {
+    axios.get(`/reviews/meta/?product_id=${id}`)
+    .then((results) => {
+      setCharacteristics(results.data.characteristics);
+      console.log(characteristics);
+    })
+  }, [])
+
   return (
     <>
       {showModal ? (
@@ -83,51 +95,49 @@ const NewReview = ({showModal, setShowModal}) => {
             <form onSubmit={submitReview}>
               <h2>Write Your Review</h2>
               <h3>About the [product name here]</h3>
-              <div>
+              <Question>
                 <label htmlFor="overall">Overall rating *</label>
                 <Rate rate={rate} setRate={setRate}></Rate>
-              </div>
-              <div>
+              </Question>
+              <Question>
                 <label htmlFor="recommend">Do you recommend this product? *</label>
                 <div>
                   <input type="radio" name="recommend" value="yes" required onClick={(e) => {
                     setRecommend(true);
                   }}></input>
                   <label htmlFor="yes">Yes</label>
-                </div>
-                <div>
                   <input type="radio" name="recommend" value="no" onClick={(e) => {
                     setRecommend(false);
                   }}></input>
                   <label htmlFor="no">No</label>
                 </div>
-              </div>
-              <div>
+              </Question>
+              <Question>
                 <label htmlFor="characteristics">Characteristics *</label>
-              </div>
-              <div>
-                <label htmlFor="summary">Review summary</label>
+              </Question>
+              <Question>
+                <label htmlFor="summary">Review summary&nbsp;</label>
                 <textarea name="summary" cols="50" rows="2" maxLength="60" placeholder="Example: Best purchase ever!" onChange={(e) => {setSummary(e.target.value)}}></textarea>
-              </div>
-              <div>
-                <label htmlFor="body">Review body *</label>
+              </Question>
+              <Question>
+                <label htmlFor="body">Review body *&nbsp;</label>
                 <textarea name="body" cols="50" rows="5" minLength="50" maxLength="1000" placeholder="Why did you like the product or not?" required onChange={(e) => {setBody(e.target.value)}}></textarea>
                 {body.length < 50 ? <span>Minimum required characters left: {50-body.length}</span> : <span>Minimum reached</span>}
-              </div>
-              <div>
-                <label htmlFor="photos">Upload your photos</label>
+              </Question>
+              <Question>
+                <label htmlFor="photos">Upload your photos&nbsp;</label>
                 <input type="file" name="photos" accept="image/png, image/jpeg" multiple onChange={(e) => {console.log('UPLOADED IMAGES', e.target.files)}}></input>
-              </div>
-              <div>
-                <label htmlFor="nickname">What is your nickname *</label>
+              </Question>
+              <Question>
+                <label htmlFor="nickname">What is your nickname *&nbsp;</label>
                 <textarea name="nickname" cols="50" rows="2" maxLength="60" placeholder="Example: jackson11!" required onChange={(e) => {setNickname(e.target.value)}}></textarea>
                 <span>For privacy reasons, do not use your full name or email address</span>
-              </div>
-              <div>
-                <label htmlFor="email">Your email *</label>
+              </Question>
+              <Question>
+                <label htmlFor="email">Your email *&nbsp;</label>
                 <textarea name="email" cols="50" rows="2" maxLength="60" placeholder="Example: jackson11@email.com" required onChange={(e) => {setEmail(e.target.value)}}></textarea>
                 <span>For authentication reasons, you will not be emailed</span>
-              </div>
+              </Question>
               <input type="submit" value="Submit review"></input>
             </form>
           <CloseModalButton onClick={() => setShowModal(prev => !prev)}>X</CloseModalButton>

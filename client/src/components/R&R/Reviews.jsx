@@ -15,6 +15,7 @@ const Button = styled.button`
   &:hover {
     background: lightgrey;
   }
+  cursor: pointer;
   `;
 
   const Section = styled.section`

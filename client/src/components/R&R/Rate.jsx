@@ -16,31 +16,41 @@ const Container = styled.div`
   `
 
 const Rate = ({rate, setRate}) => {
+  const legend = {
+    1: 'Poor',
+    2: 'Fair',
+    3: 'Average',
+    4: 'Good',
+    5: 'Great'
+  };
   return (
     <Container>
-      {[...Array(5)].map((item, index) => {
-        const givenRating = index + 1;
-        return (
-          <label>
-            <Radio
-              type="radio"
-              value={givenRating}
-              onClick={() => {
-                setRate(givenRating);
-              }}
-            />
-            <Rating>
-              <FaStar
-                color={
-                  givenRating < rate || givenRating === rate
-                    ? "gold"
-                    : "white"
-                }
+      <div>
+        {[...Array(5)].map((item, index) => {
+          const givenRating = index + 1;
+          return (
+            <label>
+              <Radio
+                type="radio"
+                value={givenRating}
+                onClick={() => {
+                  setRate(givenRating);
+                }}
               />
-            </Rating>
-          </label>
-        );
-      })}
+              <Rating>
+                <FaStar
+                  color={
+                    givenRating < rate || givenRating === rate
+                      ? "gold"
+                      : "white"
+                  }
+                />
+              </Rating>
+            </label>
+          );
+        })}
+      </div>
+      {rate && <div>{legend[rate]}</div>}
     </Container>
   );
 };
