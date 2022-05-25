@@ -3,6 +3,7 @@ import { Context } from '../util/context.js';
 // import styled from 'styled-components';
 import ProductsList from './ProductsList.jsx';
 // import OutfitList from './OutfitList.jsx';
+import axios from 'axios';
 
 const RelatedProducts = (props) => {
   const id = useContext(Context).id;
@@ -14,6 +15,35 @@ const RelatedProducts = (props) => {
   // create array to push received obj into it like sample below
   // also push thumbnail url into each product obj
   // promise all to wrap
+  const [product, setProduct] = useState("");
+  const [styles, setStyles] = useState("");
+  const [reviews, setReviews] = useState("");
+  // const [list, setList] = useState("");
+
+  useEffect(() => {
+    let relatedIDs = axios.get(`/products/${id}/related`);
+    let storage = [];
+    let currentID;
+    for (var i = 0; i < relatedIDs.length; i++) {
+      currentID = relatedIDs[i];
+      let currentProduct = axios.get(`/products/${currentID}`);
+      let currentStyle = axios.get(`/products/${currentID}/styles`);
+      let currentReview = axios.get(`/reviews/meta/?product_id=${currentID}`);
+
+      Promise.all([currentProduct, currentStyle, currentReview])
+        .then((res) => {
+          setProduct(res[0].data);
+          setStyles(res[1].data);
+          setReviews(res[2].data);
+          storage.push([product, styles, reviews])
+          console.log("for loop storage:", storage);
+        })
+        .catch((err) => console.log(err));
+    }
+
+
+  }, []);
+
 
   const [list, setList] = useState([
     {
