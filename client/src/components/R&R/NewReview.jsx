@@ -87,11 +87,11 @@ const NewReview = ({showModal, setShowModal}) => {
               </div>
               <div>
                 <label htmlFor="summary">Review summary</label>
-                <textarea name="summary" cols="50" rows="2" maxlength="60" placeholder="Example: Best purchase ever!" onChange={(e) => {setSummary(e.target.value)}}></textarea>
+                <textarea name="summary" cols="50" rows="2" maxLength="60" placeholder="Example: Best purchase ever!" onChange={(e) => {setSummary(e.target.value)}}></textarea>
               </div>
               <div>
                 <label htmlFor="body">Review body *</label>
-                <textarea name="body" cols="50" rows="5" minlength="50" maxlength="1000" placeholder="Why did you like the product or not?" required onChange={(e) => {setBody(e.target.value)}}></textarea>
+                <textarea name="body" cols="50" rows="5" minLength="50" maxLength="1000" placeholder="Why did you like the product or not?" required onChange={(e) => {setBody(e.target.value)}}></textarea>
                 {body.length < 50 ? <span>Minimum required characters left: {50-body.length}</span> : <span>Minimum reached</span>}
               </div>
               <div>
@@ -100,12 +100,12 @@ const NewReview = ({showModal, setShowModal}) => {
               </div>
               <div>
                 <label htmlFor="nickname">What is your nickname *</label>
-                <textarea name="nickname" cols="50" rows="2" maxlength="60" placeholder="Example: jackson11!" required onChange={(e) => {setNickname(e.target.value)}}></textarea>
+                <textarea name="nickname" cols="50" rows="2" maxLength="60" placeholder="Example: jackson11!" required onChange={(e) => {setNickname(e.target.value)}}></textarea>
                 <span>For privacy reasons, do not use your full name or email address</span>
               </div>
               <div>
                 <label htmlFor="email">Your email *</label>
-                <textarea name="email" cols="50" rows="2" maxlength="60" placeholder="Example: jackson11@email.com" required onChange={(e) => {setEmail(e.target.value)}}></textarea>
+                <textarea name="email" cols="50" rows="2" maxLength="60" placeholder="Example: jackson11@email.com" required onChange={(e) => {setEmail(e.target.value)}}></textarea>
                 <span>For authentication reasons, you will not be emailed</span>
               </div>
               <input type="submit" value="Submit review"></input>
