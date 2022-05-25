@@ -3,9 +3,9 @@ import "./QAModal.css";
 import axios from 'axios';
 
 export default function AnswerModal ({id, showQModel, onClose}) {
-  if (!showQModel) {
-    return null
-  }
+  // if (!showQModel) {
+  //   return null
+  // }
 
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
@@ -48,7 +48,7 @@ export default function AnswerModal ({id, showQModel, onClose}) {
   }
 
   return (
-    <div className="modal">
+    <div className={`modal ${showQModel ? 'show' : ''}`}>
       <div className="modal-content">
         <div className="modal-header">
           <div className="modal-header">
