@@ -60,7 +60,7 @@ const ThumbGall = ({ currImg, setCurrImg, photos }) => {
     if (currImg <= 6 && index <= 6) {
       filtered.push(mappedElement);
     }
-    if (currImg > 6 && index >= currImg - 6 && index <= currImg) {
+    if (currImg > 6 && index <= currImg && index >= currImg - 6 ) {
       filtered.push(mappedElement);
     }
     return filtered;

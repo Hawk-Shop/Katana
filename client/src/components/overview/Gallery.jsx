@@ -9,7 +9,7 @@ import ThumbGall from './ThumbGall.jsx'
 const Image = styled.div`
   height: 100%;
   width: 100%;
-  background-position: 100% 30%;
+  background-position: 50% 20%;
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -17,7 +17,7 @@ const Image = styled.div`
 
 const ImageCtn = styled.div`
   width: 100%;
-  height: 75vh;
+  height: 85vh;
   background-color: black;
   margin-right: 8%;
 `;
