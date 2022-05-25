@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import ThumbGall from './ThumbGall.jsx'
 
 const Image = styled.div`
   height: 100%;
@@ -15,10 +16,10 @@ const Image = styled.div`
 `;
 
 const ImageCtn = styled.div`
-  width: 60%;
+  width: 100%;
   height: 75vh;
   background-color: black;
-  margin-right: 10%;
+  margin-right: 8%;
 `;
 
 const LeftRight = styled.div`
@@ -41,10 +42,22 @@ const Arrow = styled(FontAwesomeIcon)`
   background-color: transparent;
 `;
 
+const GallFlex = styled.div`
+  display: flex;
+  align-items: flex-start;
+  width: 60%;
+`;
+
+// const Thumbgall = styled.div`
+//   width: 10%;
+// `;
+
 const Gallery = (props) => {
   const [currImg, setCurrImg] = useState(0);
 
   return (
+    <GallFlex>
+    <ThumbGall currImg={currImg} setCurrImg={setCurrImg} photos={props.currentStyle.photos}/>
     <ImageCtn>
       <Image
         style={{ backgroundImage: `url(${props.currentStyle.photos[currImg].url})` }}
@@ -54,7 +67,8 @@ const Gallery = (props) => {
             currImg > 0 && setCurrImg(currImg - 1);
           }}
         >
-          <Arrow icon={faArrowLeft} />
+        {currImg !== 0 && <Arrow icon={faArrowLeft} />}
+
         </LeftRight>
         <Center></Center>
         <LeftRight
@@ -62,10 +76,11 @@ const Gallery = (props) => {
             currImg < props.currentStyle.photos.length - 1 && setCurrImg(currImg + 1);
           }}
         >
-          <Arrow icon={faArrowRight} />
+        {currImg !== props.currentStyle.photos.length - 1 && <Arrow icon={faArrowRight} />}
         </LeftRight>
       </Image>
     </ImageCtn>
+    </GallFlex>
   );
 };
 
