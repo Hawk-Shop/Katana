@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faUserCheck } from '@fortawesome/free-solid-svg-icons';
@@ -10,10 +11,11 @@ import Stars from './Stars.jsx';
 import ImageModal from '../QA/Modals/ImageModal.jsx';
 
 const ReviewTile = ({review}) => {
-  const [yesCount, setYesCount] = useState(0);
+  const [yesCount, setYesCount] = useState(review.helpfulness);
   const [noCount, setNoCount] = useState(0);
   const [modal, setModal] = useState(false);
   const [url, setUrl] = useState('');
+  const [disabled, setDisabled] = useState(false);
 
   const toggleModal = (e) => {
     setUrl(e.target.currentSrc);
@@ -24,6 +26,23 @@ const ReviewTile = ({review}) => {
     document.body.classList.add('active-modal');
   } else {
     document.body.classList.remove('active-modal');
+  }
+
+  const clickThumbsUp = () => {
+    if (!disabled) {
+      axios.put(`/reviews/${review.review_id}/helpful`)
+      .then((result) => {
+        setYesCount(yesCount+1);
+        setDisabled(true);
+      })
+    }
+  }
+
+  const clickThumbsDown = () => {
+    if (!disabled) {
+      setNoCount(noCount+1);
+      setDisabled(true);
+    }
   }
 
   // styled components
@@ -130,10 +149,10 @@ const ReviewTile = ({review}) => {
       </Response>}
       <Helpful>
         Helpful?
-        <HelpButtons onClick={() => setYesCount(yesCount+1)}>
+        <HelpButtons onClick={clickThumbsUp}>
           <FontAwesomeIcon icon={faThumbsUp} /> {` Yes (${yesCount})`}
           </HelpButtons>
-        <HelpButtons onClick={() => setNoCount(noCount+1)}>
+        <HelpButtons onClick={clickThumbsDown}>
         <FontAwesomeIcon icon={faThumbsDown} /> {` No (${noCount})`}
           </HelpButtons>
       </Helpful>

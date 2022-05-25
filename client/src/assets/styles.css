@@ -22,11 +22,12 @@
 /* twinkle twinkle lil bars */
 
 .bars:before {
-  content: "★★★★★★★★★★★★★★★★";
+  content: "★★★★★★★★★★★★★★";
   background: linear-gradient(90deg, green var(--percents), lightgrey var(--percents));
   /* background-clip: padding-box; */
   -webkit-background-clip: padding-box;
   -webkit-text-fill-color: transparent;
+  border-radius: 10px 15px 15px 10px;
 }
 
 .bars {
@@ -91,4 +92,7 @@
   border: none;
   cursor: pointer;
   border-radius: 5px;
-} */
+}
+
+
+/* new review modal */

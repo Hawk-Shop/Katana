@@ -58,6 +58,7 @@ let ReviewsOverview = (props) => {
   const getSorted = (type) => {
     axios.get(`/reviews/?product_id=${id}&count=1000&sort=${type}`)
       .then((result) => {
+        console.log('RESULT HEREEEEE!@#*&!#()@*', result.data.results);
         let arr = result.data.results;
         if (Object.keys(filters).length !== 0) {
           arr = arr.filter((each) => (filters[each.rating]));
