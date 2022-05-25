@@ -25,32 +25,30 @@ const Rate = ({rate, setRate}) => {
   };
   return (
     <Container>
-      <div>
-        {[...Array(5)].map((item, index) => {
-          const givenRating = index + 1;
-          return (
-            <label>
-              <Radio
-                type="radio"
-                value={givenRating}
-                onClick={() => {
-                  setRate(givenRating);
-                }}
+      {[...Array(5)].map((item, index) => {
+        const givenRating = index + 1;
+        return (
+          <label>
+            <Radio
+              type="radio"
+              value={givenRating}
+              onClick={() => {
+                setRate(givenRating);
+              }}
+            />
+            <Rating>
+              <FaStar
+                color={
+                  givenRating < rate || givenRating === rate
+                    ? "gold"
+                    : "white"
+                }
               />
-              <Rating>
-                <FaStar
-                  color={
-                    givenRating < rate || givenRating === rate
-                      ? "gold"
-                      : "white"
-                  }
-                />
-              </Rating>
-            </label>
-          );
-        })}
-      </div>
-      {rate && <div>{legend[rate]}</div>}
+            </Rating>
+          </label>
+        );
+      })}
+      {rate && <span>{legend[rate]}</span>}
     </Container>
   );
 };

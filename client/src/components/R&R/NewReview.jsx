@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Rate from './Rate.jsx';
 import axios from 'axios';
 import { Context } from '../util/context.js';
+import {charLegend} from './Legends/Characteristics.jsx';
 
 const Modal = styled.div`
   width: 100vw;
@@ -82,9 +83,11 @@ const NewReview = ({showModal, setShowModal}) => {
     axios.get(`/reviews/meta/?product_id=${id}`)
     .then((results) => {
       setCharacteristics(results.data.characteristics);
-      console.log(characteristics);
+      console.log('1',results.data.characteristics['Fit']);
     })
   }, [])
+
+  console.log('$%@$%', charLegend)
 
   return (
     <>
