@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Rate from './Rate.jsx';
 
 const Modal = styled.div`
   width: 100vw;
@@ -56,7 +57,8 @@ const NewReview = ({showModal, setShowModal}) => {
               <h2>Write Your Review</h2>
               <h3>About the [product name here]</h3>
               <div>
-                <label htmlFor="overall">stars</label>
+                <label htmlFor="overall">Overall rating *</label>
+                <Rate></Rate>
               </div>
               <div>
                 <label htmlFor="recommend">Do you recommend this product? *</label>

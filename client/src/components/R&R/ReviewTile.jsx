@@ -32,11 +32,9 @@ const ReviewTile = ({review}) => {
     if (!disabled) {
       axios.put(`/reviews/${review.review_id}/helpful`)
       .then((result) => {
-        console.log('success');
+        setYesCount(yesCount+1);
         setDisabled(true);
       })
-      // setYesCount(yesCount+1);
-      // setDisabled(true);
     }
   }
 

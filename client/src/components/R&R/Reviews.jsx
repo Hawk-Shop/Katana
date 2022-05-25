@@ -41,7 +41,7 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
 
   const Container = styled.div`
   border: solid;
-  width: 70%;
+  width: 100%;
   `;
 
   return (
