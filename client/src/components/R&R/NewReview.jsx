@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Rate from './Rate.jsx';
 import axios from 'axios';
 import { Context } from '../util/context.js';
-import {charLegend} from './Legends/Characteristics.jsx';
+import charLegend from './Legends/Characteristics.jsx';
 
 const Modal = styled.div`
   width: 100vw;
@@ -62,7 +62,7 @@ const NewReview = ({showModal, setShowModal}) => {
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [photos, setPhotos] = useState([]);
-  const [characteristics, setCharacteristics] = useState({});
+  const [characteristics, setCharacteristics] = useState(['Fit']);
 
   const submitReview = (e) => {
     e.preventDefault;
@@ -82,12 +82,11 @@ const NewReview = ({showModal, setShowModal}) => {
   useEffect(() => {
     axios.get(`/reviews/meta/?product_id=${id}`)
     .then((results) => {
-      setCharacteristics(results.data.characteristics);
-      console.log('1',results.data.characteristics['Fit']);
+      setCharacteristics(Object.keys(results.data.characteristics));
     })
   }, [])
 
-  console.log('$%@$%', charLegend)
+  console.log('MY LEGEND', charLegend)
 
   return (
     <>
@@ -117,6 +116,22 @@ const NewReview = ({showModal, setShowModal}) => {
               </Question>
               <Question>
                 <label htmlFor="characteristics">Characteristics *</label>
+                {characteristics.map((char) => {
+                  let ratings = Object.values(charLegend[char]);
+                  return (
+                    <div>
+                      {char}
+                      <div>
+                        {ratings.map((rating) => (
+                          <span>
+                            <label htmlFor={rating}>{rating}</label>
+                            <input type="radio" name={rating} value={rating}></input>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                })}
               </Question>
               <Question>
                 <label htmlFor="summary">Review summary&nbsp;</label>
