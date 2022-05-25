@@ -6,9 +6,9 @@ import avgRating from "../util/getAvgRating.js"
 import Style from "./Style.jsx"
 import Cart from "./Cart.jsx"
 const Onsale = styled.span`
-  color: blue;
+  color: red;
   text-decoration: line-through;
-  margin-right: 5%;
+  margin-right: 2%;
   font-style: italic;
   font-size: 0.9rem;
 `;
