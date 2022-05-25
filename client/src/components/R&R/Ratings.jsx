@@ -7,6 +7,20 @@ import avgRating from '../util/getAvgRating.js';
 import percentRec from '../util/percentRec.js';
 import styled from 'styled-components';
 
+const Container = styled.div`
+  border: solid;
+  width: 30%;
+  padding: 2%
+  `;
+
+  const NumRating = styled.span`
+  font-size: 2em;
+  `;
+
+  const StarRating = styled.span`
+  font-size: 1.6em;
+  margin-top: .6em;
+  `;
 
 const Ratings = (props) => {
   const id = useContext(Context).id;
@@ -25,21 +39,6 @@ const Ratings = (props) => {
       setRatings(meta.ratings);
     })
   }, [])
-
-  const Container = styled.div`
-  border: solid;
-  width: 30%;
-  padding: 2%
-  `;
-
-  const NumRating = styled.span`
-  font-size: 2em;
-  `;
-
-  const StarRating = styled.span`
-  font-size: 1.6em;
-  margin-top: .6em;
-  `;
 
   return (
     <Container>

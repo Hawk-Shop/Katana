@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+describe('true is truthy and false is falsy', () => {
+  test('true is truthy', () => {
+    expect(true).toBe(true);
+=======
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
@@ -8,5 +13,6 @@ describe('App', () => {
     render(<App />);
 
     screen.debug();
+>>>>>>> master
   });
 });

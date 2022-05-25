@@ -1,5 +1,22 @@
 import styled from 'styled-components';
 
+const Breakdown = styled.div`
+  cursor: pointer;
+  &:hover{
+    background-color: grey;
+  }
+  `;
+
+  const Button = styled.button`
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  `;
+
+  const Count = styled.span`
+  font-size: .9em;
+  `;
 // parameter = ratings object
 const Bars = ({ filters, setFilters, ratings}) => {
 
@@ -23,24 +40,6 @@ const Bars = ({ filters, setFilters, ratings}) => {
     {rating: 2, count: two, percent: twostar},
     {rating: 1, count: one, percent: onestar}
   ];
-
-  const Breakdown = styled.div`
-  cursor: pointer;
-  &:hover{
-    background-color: grey;
-  }
-  `;
-
-  const Button = styled.button`
-  background-color: transparent;
-  border: none;
-  text-decoration: underline;
-  cursor: pointer;
-  `;
-
-  const Count = styled.span`
-  font-size: .9em;
-  `;
 
   const renderByStars = (rating) => {
     let newFilters = {...filters}; // makes a copy of the object
