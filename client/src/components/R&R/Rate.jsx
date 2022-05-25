@@ -1,8 +1,7 @@
 import { FaStar } from "react-icons/fa";
 import styled from 'styled-components';
 
-const Rate = ({rate, setRate}) => {
-  const Container = styled.div`
+const Container = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
@@ -16,6 +15,7 @@ const Rate = ({rate, setRate}) => {
    cursor: pointer;
   `
 
+const Rate = ({rate, setRate}) => {
   return (
     <Container>
       {[...Array(5)].map((item, index) => {
