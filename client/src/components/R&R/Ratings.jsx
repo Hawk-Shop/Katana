@@ -18,8 +18,6 @@ const Ratings = (props) => {
   useEffect(() => {
     axios.get(`/reviews/meta/?product_id=${id}`)
     .then((results) => {
-      ////// can delete this console.log later
-      console.log(results.data);
       meta = results.data;
       let {averageRating} = avgRating(meta.ratings);
       setAvg(averageRating);

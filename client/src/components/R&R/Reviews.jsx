@@ -1,5 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
+import { Context } from '../util/context.js';
 import ReviewTile from './ReviewTile.jsx';
+import NewReview from './NewReview.jsx';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus} from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +9,12 @@ import axios from 'axios';
 
 const Reviews = ({count, getSorted, selectValue, reviews}) => {
   const [displayCount, setDisplayCount] = useState(2);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(prev => !prev);
+  }
+
 
   const Button = styled.button`
   background: transparent;
@@ -37,6 +45,8 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
   `;
 
   return (
+    <div>
+      <NewReview showModal={showModal} setShowModal={setShowModal}></NewReview>
       <Container>
         <Sort>
           {count} reviews,
@@ -55,8 +65,9 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
         {displayCount < count && <Button onClick={() => {
           setDisplayCount(displayCount + 2)
         }}>More Reviews</Button>}
-        <Button>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
+        <Button onClick={openModal}>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
       </Container>
+    </div>
       )
 }
 

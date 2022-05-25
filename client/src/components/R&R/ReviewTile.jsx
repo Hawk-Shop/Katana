@@ -30,7 +30,7 @@ const ReviewTile = ({review}) => {
 
   const clickThumbsUp = () => {
     if (!disabled) {
-      // axios.put(`/reviews/:${review.review_id}/helpful`, {helpfulness:1})
+      // axios.put(`/reviews/${review.review_id}/helpful`, {helpfulness:1})
       // .then((result) => {
       //   console.log('success');
       //   setDisabled(true);
