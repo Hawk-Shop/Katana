@@ -10,41 +10,6 @@ import { faThumbsUp, faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 import Stars from './Stars.jsx';
 import ImageModal from '../QA/Modals/ImageModal.jsx';
 
-const ReviewTile = ({review}) => {
-  const [yesCount, setYesCount] = useState(review.helpfulness);
-  const [noCount, setNoCount] = useState(0);
-  const [modal, setModal] = useState(false);
-  const [url, setUrl] = useState('');
-  const [disabled, setDisabled] = useState(false);
-
-  const toggleModal = (e) => {
-    setUrl(e.target.currentSrc);
-    setModal(!modal);
-  }
-
-  if (modal) {
-    document.body.classList.add('active-modal');
-  } else {
-    document.body.classList.remove('active-modal');
-  }
-
-  const clickThumbsUp = () => {
-    if (!disabled) {
-      axios.put(`/reviews/${review.review_id}/helpful`)
-      .then((result) => {
-        setYesCount(yesCount+1);
-        setDisabled(true);
-      })
-    }
-  }
-
-  const clickThumbsDown = () => {
-    if (!disabled) {
-      setNoCount(noCount+1);
-      setDisabled(true);
-    }
-  }
-
   // styled components
   const Tile = styled.div`
   border-bottom: .05em solid;
@@ -101,6 +66,41 @@ const ReviewTile = ({review}) => {
   background-color: lightgrey;
   padding: 1em;
   `;
+
+const ReviewTile = ({review}) => {
+  const [yesCount, setYesCount] = useState(review.helpfulness);
+  const [noCount, setNoCount] = useState(0);
+  const [modal, setModal] = useState(false);
+  const [url, setUrl] = useState('');
+  const [disabled, setDisabled] = useState(false);
+
+  const toggleModal = (e) => {
+    setUrl(e.target.currentSrc);
+    setModal(!modal);
+  }
+
+  if (modal) {
+    document.body.classList.add('active-modal');
+  } else {
+    document.body.classList.remove('active-modal');
+  }
+
+  const clickThumbsUp = () => {
+    if (!disabled) {
+      axios.put(`/reviews/${review.review_id}/helpful`)
+      .then((result) => {
+        setYesCount(yesCount+1);
+        setDisabled(true);
+      })
+    }
+  }
+
+  const clickThumbsDown = () => {
+    if (!disabled) {
+      setNoCount(noCount+1);
+      setDisabled(true);
+    }
+  }
 
   return (
     <Tile>
