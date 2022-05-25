@@ -2,18 +2,17 @@ import React, {useState} from "react";
 import "./ImageModal.css";
 import styled from 'styled-components';
 
+const Image = styled.img`
+  border-radius: 16px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  max-height: 80vh;
+`
 
 export default function Modal ({url, toggleModal, modal}) {
   // console.log(url);
-
-  const Image = styled.img`
-    border-radius: 16px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%;
-    max-height: 80vh;
-  `
 
   if (modal) {
     document.body.classList.add('active-modal');

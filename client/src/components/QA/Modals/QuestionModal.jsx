@@ -48,7 +48,7 @@ export default function AnswerModal ({id, showQModel, onClose}) {
   }
 
   return (
-    <div className={`modal`}>
+    <div className={`modal ${showQModel ? 'show' : ''}`}>
       <div className="modal-content">
         <div className="modal-header">
           <div className="modal-header">

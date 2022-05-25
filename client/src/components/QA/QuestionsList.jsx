@@ -7,6 +7,32 @@ import Question from './Question.jsx';
 import QuestionModal from './Modals/QuestionModal.jsx';
 import { results } from './Data.js';
 
+const Button = styled.button`
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid grey;
+  margin-right: 1em;
+  padding: 0.5em 1em;
+  &:hover {
+    background: lightgrey;
+  }
+`;
+
+const Section = styled.section`
+  overflow: auto;
+  height:100%;
+  max-height: 50vh;
+  width: 45em;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Sort = styled.div`
+  padding: 1em;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
 const QuestionsList = (props) => {
   const id = 40355;
   // const id = useContext(Context).id;
@@ -26,31 +52,6 @@ const QuestionsList = (props) => {
       })
   }, [])
 
-  const Button = styled.button`
-    background: transparent;
-    border-radius: 3px;
-    border: 2px solid grey;
-    margin-right: 1em;
-    padding: 0.5em 1em;
-    &:hover {
-      background: lightgrey;
-    }
-  `;
-
-  const Section = styled.section`
-    overflow: auto;
-    height:100%;
-    max-height: 50vh;
-    width: 45em;
-    display: flex;
-    flex-direction: column;
-  `;
-
-  const Sort = styled.div`
-    padding: 1em;
-    margin-left: auto;
-    margin-right: auto;
-  `;
 
   const showMoreQuestions = (
     <Button onClick={() => setQuestionCount(questionCount + 2)}>
