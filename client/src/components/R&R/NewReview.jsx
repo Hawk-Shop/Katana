@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
 import Rate from './Rate.jsx';
+import axios from 'axios';
+import { Context } from '../util/context.js';
 
 const Modal = styled.div`
   width: 100vw;
@@ -47,12 +49,30 @@ const CloseModalButton = styled.button`
 `;
 
 const NewReview = ({showModal, setShowModal}) => {
+  const id = useContext(Context).id;
   const [rate, setRate] = useState(0); // for stars
   const [recommend, setRecommend] = useState('');
   const [summary, setSummary] = useState('');
   const [body, setBody] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
+  const [photos, setPhotos] = useState([]);
+  const [characteristics, setCharacteristics] = useState({});
+
+  const submitReview = (e) => {
+    e.preventDefault;
+    axios.post('/reviews', {
+      product_id: id,
+      rating: rate,
+      summary: summary,
+      body: body,
+      recommend:recommend,
+      name: nickname,
+      email: email,
+      photos: photos,
+      characteristics: characteristics
+    })
+  }
 
   return (
     <>
@@ -60,7 +80,7 @@ const NewReview = ({showModal, setShowModal}) => {
         <Modal>
           <Overlay onClick={() => setShowModal(prev => !prev)}></Overlay>
           <ModalContent>
-            <form>
+            <form onSubmit={submitReview}>
               <h2>Write Your Review</h2>
               <h3>About the [product name here]</h3>
               <div>
@@ -71,13 +91,13 @@ const NewReview = ({showModal, setShowModal}) => {
                 <label htmlFor="recommend">Do you recommend this product? *</label>
                 <div>
                   <input type="radio" name="recommend" value="yes" required onClick={(e) => {
-                    setRecommend(e.target.value);
+                    setRecommend(true);
                   }}></input>
                   <label htmlFor="yes">Yes</label>
                 </div>
                 <div>
                   <input type="radio" name="recommend" value="no" onClick={(e) => {
-                    setRecommend(e.target.value);
+                    setRecommend(false);
                   }}></input>
                   <label htmlFor="no">No</label>
                 </div>

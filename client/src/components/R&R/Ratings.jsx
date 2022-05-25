@@ -9,8 +9,9 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   border: solid;
-  width: 30%;
-  padding: 2%
+  width: 24%;
+  padding: 2%;
+  float: left;
   `;
 
   const NumRating = styled.span`

@@ -1,5 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
-import { Context } from '../util/context.js';
+ import { useState, useContext, useEffect } from 'react';
 import ReviewTile from './ReviewTile.jsx';
 import NewReview from './NewReview.jsx';
 import styled from 'styled-components';
@@ -24,6 +23,7 @@ const Button = styled.button`
   width: 100%;
   display: flex;
   flex-direction: column;
+  min-width: 100%
   `;
 
   const Sort = styled.div`
@@ -31,8 +31,9 @@ const Button = styled.button`
   `;
 
   const Container = styled.div`
+  width: 70%;
+  float: right;
   border: solid;
-  width: 100%;
   `;
 
 const Reviews = ({count, getSorted, selectValue, reviews}) => {
@@ -44,9 +45,9 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
   }
 
   return (
-    <div>
+    <Container>
       <NewReview showModal={showModal} setShowModal={setShowModal}></NewReview>
-      <Container>
+      <div>
         <Sort>
           {count} reviews,
           <label htmlFor="sort"> sorted by </label>
@@ -65,8 +66,8 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
           setDisplayCount(displayCount + 2)
         }}>More Reviews</Button>}
         <Button onClick={openModal}>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
-      </Container>
-    </div>
+      </div>
+    </Container>
       )
 }
 
