@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Rate from './Rate.jsx';
 
@@ -47,6 +47,13 @@ const CloseModalButton = styled.button`
 `;
 
 const NewReview = ({showModal, setShowModal}) => {
+  const [rate, setRate] = useState(0); // for stars
+  const [recommend, setRecommend] = useState('');
+  const [summary, setSummary] = useState('');
+  const [body, setBody] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [email, setEmail] = useState('');
+
   return (
     <>
       {showModal ? (
@@ -58,16 +65,20 @@ const NewReview = ({showModal, setShowModal}) => {
               <h3>About the [product name here]</h3>
               <div>
                 <label htmlFor="overall">Overall rating *</label>
-                <Rate></Rate>
+                <Rate rate={rate} setRate={setRate}></Rate>
               </div>
               <div>
                 <label htmlFor="recommend">Do you recommend this product? *</label>
                 <div>
-                  <input type="radio" name="recommend" value="yes"></input>
+                  <input type="radio" name="recommend" value="yes" required onClick={(e) => {
+                    setRecommend(e.target.value);
+                  }}></input>
                   <label htmlFor="yes">Yes</label>
                 </div>
                 <div>
-                  <input type="radio" name="recommend" value="no"></input>
+                  <input type="radio" name="recommend" value="no" onClick={(e) => {
+                    setRecommend(e.target.value);
+                  }}></input>
                   <label htmlFor="no">No</label>
                 </div>
               </div>
@@ -76,24 +87,25 @@ const NewReview = ({showModal, setShowModal}) => {
               </div>
               <div>
                 <label htmlFor="summary">Review summary</label>
-                <textarea name="summary" cols="50" rows="2" maxlength="60" placeholder="Example: Best purchase ever!"></textarea>
+                <textarea name="summary" cols="50" rows="2" maxlength="60" placeholder="Example: Best purchase ever!" onChange={(e) => {setSummary(e.target.value)}}></textarea>
               </div>
               <div>
                 <label htmlFor="body">Review body *</label>
-                <textarea name="body" cols="50" rows="5" minlength="50" maxlength="1000" placeholder="Why did you like the product or not?" required></textarea>
+                <textarea name="body" cols="50" rows="5" minlength="50" maxlength="1000" placeholder="Why did you like the product or not?" required onChange={(e) => {setBody(e.target.value)}}></textarea>
+                {body.length < 50 ? <span>Minimum required characters left: {50-body.length}</span> : <span>Minimum reached</span>}
               </div>
               <div>
                 <label htmlFor="photos">Upload your photos</label>
-                <input type="file" name="photos"></input>
+                <input type="file" name="photos" accept="image/png, image/jpeg" multiple onChange={(e) => {console.log('UPLOADED IMAGES', e.target.files)}}></input>
               </div>
               <div>
                 <label htmlFor="nickname">What is your nickname *</label>
-                <textarea name="nickname" cols="50" rows="2" maxlength="60" placeholder="Example: jackson11!"></textarea>
+                <textarea name="nickname" cols="50" rows="2" maxlength="60" placeholder="Example: jackson11!" required onChange={(e) => {setNickname(e.target.value)}}></textarea>
                 <span>For privacy reasons, do not use your full name or email address</span>
               </div>
               <div>
                 <label htmlFor="email">Your email *</label>
-                <textarea name="email" cols="50" rows="2" maxlength="60" placeholder="Example: jackson11@email.com"></textarea>
+                <textarea name="email" cols="50" rows="2" maxlength="60" placeholder="Example: jackson11@email.com" required onChange={(e) => {setEmail(e.target.value)}}></textarea>
                 <span>For authentication reasons, you will not be emailed</span>
               </div>
               <input type="submit" value="Submit review"></input>

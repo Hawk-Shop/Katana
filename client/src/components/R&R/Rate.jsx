@@ -1,14 +1,13 @@
-import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import styled from 'styled-components';
 
-const Rate = () => {
+const Rate = ({rate, setRate}) => {
   const Container = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
-   min-height: 60vh;
-   font-size: 60px;
+   min-height: 5vh;
+   font-size: 20px;
   `
   const Radio = styled.input`
    display: none;
@@ -17,7 +16,6 @@ const Rate = () => {
    cursor: pointer;
   `
 
-  const [rate, setRate] = useState(0);
   return (
     <Container>
       {[...Array(5)].map((item, index) => {
@@ -29,15 +27,14 @@ const Rate = () => {
               value={givenRating}
               onClick={() => {
                 setRate(givenRating);
-                alert(`Are you sure you want to give ${givenRating} stars ?`);
               }}
             />
             <Rating>
               <FaStar
                 color={
                   givenRating < rate || givenRating === rate
-                    ? "000"
-                    : "rgb(192,192,192)"
+                    ? "gold"
+                    : "white"
                 }
               />
             </Rating>
