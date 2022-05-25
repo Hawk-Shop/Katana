@@ -68,9 +68,9 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
               <br/>
               Product ID: {id}
               <br/>
-              Delete this question id when ready to deploy: {question_id}
+              Question_id: {question_id} --> delete before deployment
               <br/>
-              Ques tion: {question_body}
+              Question to answer: {question_body}
               <br/>
               <label>
                 Answer:
