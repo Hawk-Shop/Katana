@@ -1,16 +1,31 @@
 import { useState, useEffect, useContext } from 'react';
-import { Context } from '../util/context.js';
 import styled from 'styled-components';
+import Dropdown from './Dropdown.jsx'
+
 
 
 const Cart = (props) => {
-  const id = useContext(Context).id;
+  let options = props.currentStyle.skus;
 
-  return(
+  console.log(Object.values(options))
+  const [size, setSize] = useState('SELECT SIZE');
+
+  const handleChange = (event) => {
+    setSize(event.target.value);
+  };
+
+  return (
     <div>
-      <div></div>
+      <Dropdown
+        options={options}
+        value={size}
+        onChange={handleChange}
+      />
+
     </div>
-  )
-}
+  );
+};
+
+
 
 export default Cart;
