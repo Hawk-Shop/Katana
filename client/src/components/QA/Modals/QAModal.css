@@ -1,0 +1,41 @@
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(49, 49, 49, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  width: 800px;
+  background-color: #fff;
+}
+
+.modal-header,
+.modal-footer {
+  padding: 10px;
+}
+
+.modal-title {
+  margin: 0;
+}
+
+.modal-body {
+  padding: 10px;
+  border-top: 1px solid #eee;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 5px 7px;
+}
+
+.submit-button {
+  margin: 10px 0;
+}

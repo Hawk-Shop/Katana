@@ -47,6 +47,17 @@ app.post('/*', (req, res) => {
   .catch((err) => res.sendStatus(404));
 })
 
+app.put("/*", (req, res) => {
+  axios
+    .put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${req.url}`, {
+      headers: {
+        Authorization: process.env.AUTH,
+      },
+    })
+    .then((result) => res.status(200).send(result.data))
+    .catch((err) => res.sendStatus(404));
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT);

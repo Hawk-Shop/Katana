@@ -8,7 +8,6 @@
     "client-dev": "npx webpack --watch",
     "test": "jest"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hawkeye-2204/FEC-Atelier.git"
@@ -31,6 +30,7 @@
     "node": "^17.7.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-icons": "^4.3.1",
     "react-modal": "^3.15.1",
     "styled-components": "^5.3.5"
   },
@@ -56,8 +56,7 @@
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
   },
-  "jest":{
+  "jest": {
     "testEnvironment": "jsdom"
   }
-
 }

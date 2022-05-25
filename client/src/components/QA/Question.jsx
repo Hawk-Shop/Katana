@@ -4,7 +4,7 @@ import axios from 'axios';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
 import AnswersList from './AnswersList.jsx';
-import AddAnswerModal from './Modals/AddAnswerModal.jsx';
+import AnswerModal from './Modals/AnswerModal.jsx';
 
 const Question = ({question, id}) => {
   const {question_id, question_body, question_date, question_asker, question_helpfulness, answers} = question;
@@ -13,6 +13,7 @@ const Question = ({question, id}) => {
   let [addAnswerModal, setAddAnswerModal] = useState(false);
   let [questionClicked, setQuestionClicked] = useState(false);
   let [seeMoreClicked, setSeeMoreClicked] = useState(false);
+  let [show, setShow] = useState(false);
 
   useEffect(() => {
     axios
@@ -74,7 +75,8 @@ const Question = ({question, id}) => {
   `
 
   const Container = styled.div`
-    display: block;
+    display: flex;
+    align-items: baseline;
   `
 
   const Button = styled.button`
@@ -126,15 +128,16 @@ const Question = ({question, id}) => {
         </QStyle>
         <Helpful>
           <span>
-            Helpful? <Yes>Yes <span>&#40;{question_helpfulness}&#41;</span></Yes>  | <Yes onClick={toggleAddAnswerModal}>Add Answer</Yes>
+            Helpful? <Yes>Yes <span>&#40;{question_helpfulness}&#41;</span></Yes>  | <Yes onClick={() => setShow(true)}>Add Answer</Yes>
           </span>
         </Helpful>
-        {addAnswerModal && (
-          <AddAnswerModal
-            toggleAddAnswerModal={toggleAddAnswerModal}
-            addAnswerModal={addAnswerModal}
-          />
-        )}
+        <AnswerModal
+          id={id}
+          question_id={question_id}
+          question_body={question_body}
+          onClose={() => setShow(false)}
+          show={show}
+        />
       </Container>
       {questionClicked && (<AStyle><b>A:</b></AStyle>)}
       <Answers>
