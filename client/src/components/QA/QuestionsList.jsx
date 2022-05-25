@@ -4,18 +4,19 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Search from './Search.jsx';
 import Question from './Question.jsx';
+import QuestionModal from './Modals/QuestionModal.jsx';
 import { results } from './Data.js';
 
 const QuestionsList = (props) => {
-  const id = useContext(Context).id;
-  // const questions = results;
+  const id = 40355;
+  // const id = useContext(Context).id;
   let [questions, setQuestions] = useState([]);
   let [questionCount, setQuestionCount] = useState(4);
+  let [showQModel, setShowQModel] = useState(false);
 
-  // submit axios.get request to get questions and answers from API
   useEffect(() => {
     axios
-      .get(`/qa/questions/?product_id=${40355}&count=300`)
+      .get(`/qa/questions/?product_id=${id}&count=300`)
       .then(response => {
         // console.log('response.data: ', response.data.results);
         setQuestions(response.data.results);
@@ -69,13 +70,14 @@ const QuestionsList = (props) => {
             return <Question key={index} question={question} id={id}/>
           })}
         </Section>
-        <p>Viewing {questionCount} of {questions.length} questions</p>
+        {questionCount < questions.length ? <p>Viewing {questionCount} of {questions.length} questions</p> : <p>Viewing {questions.length} of {questions.length} questions</p>}
         {questionCount < questions.length && (
           showMoreQuestions
         )}
-        <Button>
+        <Button onClick={() => setShowQModel(true)}>
           Add a Question +
         </Button>
+        <QuestionModal id={id} onClose={() => setShowQModel(false)} showQModel={showQModel} />
       </Sort>
     </>
   )
