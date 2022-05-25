@@ -12,6 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
+  border: dashed red;
 `;
 
 const TopCtn = styled.div`
