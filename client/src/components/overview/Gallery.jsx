@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import ThumbGall from './ThumbGall.jsx'
+import ThumbGall from "./ThumbGall.jsx";
 
 const Image = styled.div`
   height: 100%;
@@ -57,29 +57,39 @@ const Gallery = (props) => {
 
   return (
     <GallFlex>
-    <ThumbGall currImg={currImg} setCurrImg={setCurrImg} photos={props.currentStyle.photos}/>
-    <ImageCtn>
-      <Image
-        style={{ backgroundImage: `url(${props.currentStyle.photos[currImg].url})` }}
-      >
-        <LeftRight
-          onClick={() => {
-            currImg > 0 && setCurrImg(currImg - 1);
-          }}
-        >
-        {currImg !== 0 && <Arrow icon={faArrowLeft} />}
-
-        </LeftRight>
-        <Center></Center>
-        <LeftRight
-          onClick={() => {
-            currImg < props.currentStyle.photos.length - 1 && setCurrImg(currImg + 1);
-          }}
-        >
-        {currImg !== props.currentStyle.photos.length - 1 && <Arrow icon={faArrowRight} />}
-        </LeftRight>
-      </Image>
-    </ImageCtn>
+      <ThumbGall
+        currImg={currImg}
+        setCurrImg={setCurrImg}
+        photos={props.currentStyle.photos}
+      />
+      {props.currentStyle.photos[currImg].url && (
+        <ImageCtn>
+          <Image
+            style={{
+              backgroundImage: `url(${props.currentStyle.photos[currImg].url})`,
+            }}
+          >
+            <LeftRight
+              onClick={() => {
+                currImg > 0 && setCurrImg(currImg - 1);
+              }}
+            >
+              {currImg !== 0 && <Arrow icon={faArrowLeft} />}
+            </LeftRight>
+            <Center></Center>
+            <LeftRight
+              onClick={() => {
+                currImg < props.currentStyle.photos.length - 1 &&
+                  setCurrImg(currImg + 1);
+              }}
+            >
+              {currImg !== props.currentStyle.photos.length - 1 && (
+                <Arrow icon={faArrowRight} />
+              )}
+            </LeftRight>
+          </Image>
+        </ImageCtn>
+      )}
     </GallFlex>
   );
 };
