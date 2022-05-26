@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import axios from 'axios';
 
 const Addbtn = styled.button`
   margin:5% 5% 0 0;
@@ -19,9 +20,22 @@ const Plus = styled.span`
 
 const AddCart = ({skus, size, qty}) => {
 
+  const handleAdd = () => {
+    let sku;
+    for (let key in skus) {
+      if (skus[key].size === size) {
+        sku = key
+      }
+    }
+    console.log(sku)
+    let axiosPromises = [...Array(Number(qty))].map((number, i) => {
+      return axios.post('/cart', {sku_id: Number(sku)})
+    });
+    Promise.all(axiosPromises) .then(() => axios.get('/cart')) .then((res) => console.log('CART', res)) .catch((err) => console.log(err))
+  }
   return (
     <>
-      <Addbtn>ADD TO BAG <Plus>+</Plus></Addbtn>
+      <Addbtn onClick={() => handleAdd()}>ADD TO BAG <Plus>+</Plus></Addbtn>
     </>
   );
 };
