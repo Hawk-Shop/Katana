@@ -11,6 +11,7 @@ const Contain = styled.div`
   width: 8%;
   grid-gap: 5%;
   justify-items: stretch;
+  max-height: 100%;
 `;
 
 const ImgContain = styled.div`
