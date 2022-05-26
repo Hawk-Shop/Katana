@@ -12,7 +12,6 @@ const Image = styled.img`
   margin-top: 3px;
 `
 
-
 const Answer = styled.div`
 margin-bottom: 0.5em;
 `
