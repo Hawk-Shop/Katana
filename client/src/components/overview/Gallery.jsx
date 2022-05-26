@@ -18,7 +18,7 @@ const Image = styled.div`
 
 const ImageCtn = styled.div`
   width: 100%;
-  height: 65vh;
+  height: 55vh;
   background-color: rgb(0, 0, 0, 0.3);
   margin-right: 8%;
 `;
@@ -57,7 +57,7 @@ const GallFlex = styled.div`
     width: 100%;
   }
   &.regular {
-    width: 60%;
+    width: 70%;
   }
 `;
 
