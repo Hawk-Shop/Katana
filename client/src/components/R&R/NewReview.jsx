@@ -96,8 +96,8 @@ const NewReview = ({showModal, setShowModal}) => {
   const [idLegend, setIdLegend] = useState({});
 
   const submitReview = (e) => {
-    e.preventDefault;
-    let body = {
+    e.preventDefault();
+    let axiosBody = {
       product_id: id,
       rating: rate,
       summary: summary,
@@ -108,7 +108,8 @@ const NewReview = ({showModal, setShowModal}) => {
       photos: photos,
       characteristics: charObject
     };
-    axios.post('/reviews', body)
+    console.log(axiosBody);
+    axios.post('/reviews', axiosBody)
     .then((res) => console.log('successfully added reviews'))
     .catch((err) => console.log('error', err));
   }
@@ -199,7 +200,7 @@ const NewReview = ({showModal, setShowModal}) => {
               </Question>
               <Question>
                 <label htmlFor="email">Your email *&nbsp;</label>
-                <textarea name="email" cols="60" rows="1" maxLength="60" placeholder="Example: jackson11@email.com" required onChange={(e) => {setEmail(e.target.value)}}></textarea>
+                <input type="email" name="email" size="60" maxLength="60" placeholder="Example: jackson11@email.com" required onChange={(e) => {setEmail(e.target.value)}}></input>
                 <span>For authentication reasons, you will not be emailed</span>
               </Question>
               <input type="submit" value="Submit review"></input>
@@ -214,3 +215,16 @@ const NewReview = ({showModal, setShowModal}) => {
 }
 
 export default NewReview;
+
+
+// {
+//   "product_id": 40344,
+//   "rating": 3,
+//   "summary": "this is my summar",
+//   "body": "this is my body",
+//   "recommend": true,
+//   "name": "mynickname",
+//   "email": "beep@gmail.com",
+//   "photos": [],
+//   "characteristics": {135219:1}
+// }
