@@ -1,18 +1,23 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Dropdown from "./Dropdown.jsx";
+import AddCart from "./AddCart.jsx";
 
 const Selectors = styled.div`
   display: flex;
-  flex-direction: row
+  flex-direction: row;
 `;
+
+const ContainCart = styled.div`
+`;
+
 
 const Cart = (props) => {
   let options = props.currentStyle.skus;
 
-  console.log(Object.values(options));
   const [size, setSize] = useState("SELECT SIZE");
   const [qty, setQty] = useState("-");
+  const [sku, setSku] = useState(0);
 
   useEffect(() => {
     setSize("SELECT SIZE")
@@ -24,6 +29,10 @@ const Cart = (props) => {
   }, [size])
 
   const handleSize = (event) => {
+    // console.log(event.target.value)
+    // const splitString = event.target.value.split(' ');
+    // console.log('split: ', splitString)
+    // setSku(splitString[0])
     setSize(event.target.value);
   };
 
@@ -32,49 +41,54 @@ const Cart = (props) => {
   };
 
   return (
-    <Selectors>
-      {options.null ? (
-        <Dropdown
-          options={options}
-          value={size}
-          onChange={handleSize}
-          disabled={true}
-          placeholder="OUT OF STOCK"
-          name="sizer"
-        />
-      ) : (
-        <Dropdown
-          options={options}
-          value={size}
-          onChange={handleSize}
-          disabled={null}
-          placeholder="SELECT SIZE"
-          name="sizer"
-        />
-      )}
+    <ContainCart>
+      <Selectors>
+        {options.null ? (
+          <Dropdown
+            options={options}
+            value={size}
+            onChange={handleSize}
+            disabled={true}
+            placeholder="OUT OF STOCK"
+            name="sizer"
+          />
+        ) : (
+          <Dropdown
+            options={options}
+            value={size}
+            onChange={handleSize}
+            disabled={null}
+            placeholder="SELECT SIZE"
+            name="sizer"
+          />
+        )}
 
-      {options.null ? (
-        <Dropdown
-          options={options}
-          value={qty}
-          onChange={handleQty}
-          disabled={true}
-          placeholder="-"
-          name="qty"
-          size={size}
-        />
-      ) : (
-        <Dropdown
-          options={options}
-          value={qty}
-          onChange={handleQty}
-          disabled={null}
-          placeholder="-"
-          name="qty"
-          size={size}
-        />
-      )}
-    </Selectors>
+        {options.null ? (
+          <Dropdown
+            options={options}
+            value={qty}
+            onChange={handleQty}
+            disabled={true}
+            placeholder="-"
+            name="qty"
+            size={size}
+          />
+        ) : (
+          <Dropdown
+            options={options}
+            value={qty}
+            onChange={handleQty}
+            disabled={null}
+            placeholder="-"
+            name="qty"
+            size={size}
+          />
+        )}
+      </Selectors>
+
+      <AddCart skus={options} size={size} qty={qty}/>
+
+    </ContainCart>
   );
 };
 
