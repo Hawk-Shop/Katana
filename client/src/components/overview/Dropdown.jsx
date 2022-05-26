@@ -21,7 +21,7 @@ const Dropdown = ({
   let mapper;
 
   if (name === "sizer") {
-    mapper = Object.values(options);
+    mapper = Object.keys(options).map((key) => [key, options[key]]);
   } else {
     if (size && size !== "SELECT SIZE") {
       for (let sku of Object.values(options)) {
@@ -30,9 +30,7 @@ const Dropdown = ({
           if (qty > 15) {
             qty = 15;
           }
-          console.log("qty:", qty);
           mapper = [...Array(qty)].map((_, i) => i + 1);
-          console.log(mapper);
         }
       }
     } else {
@@ -47,7 +45,7 @@ const Dropdown = ({
       </option>
       {mapper.map((option) => {
         if (name === "sizer") {
-          return <option value={option.size}>{option.size}</option>;
+          return <option value={option[1].size}>{option[1].size}</option>;
         } else {
           if (option === 1) {
             return (
