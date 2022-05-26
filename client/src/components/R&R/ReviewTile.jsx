@@ -52,7 +52,6 @@ import ImageModal from '../QA/Modals/ImageModal.jsx';
 
   const Photos = styled.div`
   padding-top: 1em;
-
   `;
 
   const Photo = styled.img`
@@ -60,6 +59,7 @@ import ImageModal from '../QA/Modals/ImageModal.jsx';
   height: 7em;
   margin: .2em;
   border: solid .5px grey;
+  cursor: pointer;
   `;
 
   const Response = styled.div`

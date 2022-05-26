@@ -37,6 +37,18 @@ const Button = styled.button`
   width: 70%;
   float: right;
   border: solid;
+  height: 100%
+  `;
+
+  const Dropdown = styled.select`
+  border: none;
+  text-decoration: underline;
+  background-color: transparent;
+  &:hover {
+    color: grey;
+    font-size: 1em;
+  };
+  cursor: pointer;
   `;
 
 const Reviews = ({count, getSorted, selectValue, reviews}) => {
@@ -58,11 +70,11 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
         <Sort>
           {count} reviews,
           <label htmlFor="sort"> sorted by </label>
-          <select value={selectValue} name="sort" onChange={(e) => {getSorted(e.target.value)}}>
+          <Dropdown value={selectValue} name="sort" onChange={(e) => {getSorted(e.target.value)}}>
             <option value="relevant">most relevant</option>
             <option value="helpful">most helpful </option>
             <option value="newest">newest</option>
-          </select>
+          </Dropdown>
         </Sort>
         <Section>
           {reviews.slice(0, displayCount).map((review) => (

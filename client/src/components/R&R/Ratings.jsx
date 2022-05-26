@@ -6,6 +6,7 @@ import Bars from './Bars.jsx';
 import avgRating from '../util/getAvgRating.js';
 import percentRec from '../util/percentRec.js';
 import styled from 'styled-components';
+import ProductBreakdown from './ProductBreakdown.jsx';
 
 const Container = styled.div`
   border: solid;
@@ -61,7 +62,8 @@ const Ratings = (props) => {
           setFilters={props.setFilters}></Bars>
       </div>
       <div>
-        here are my rating slides
+        <ProductBreakdown
+          id={id}></ProductBreakdown>
       </div>
     </Container>
   )

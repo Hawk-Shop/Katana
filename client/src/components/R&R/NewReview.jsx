@@ -63,7 +63,6 @@ align-items: flex-end;
 align-text: left;
 border: dotted red;
 font-size: 1em;
-height: 20%
 `;
 
 const OptionCol = styled.div`
@@ -183,7 +182,7 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
                                 <label htmlFor={char}>{charLegend[char][rating]}</label>
                                 <input type="radio" name={char} value={rating + char} onChange={(e) => {
                                   let newCharObject = {...charObject};
-                                  let numRating = e.target.value.substring(0, 1);
+                                  let numRating = Number(e.target.value.substring(0, 1));
                                   let charName = e.target.value.substring(1);
                                   let charId = idLegend[charName];
                                   newCharObject[charId] = numRating;
