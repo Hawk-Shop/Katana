@@ -61,7 +61,6 @@ const ThmCtn = styled.span`
 
 const Style = ({ product, styles, currentStyle, setStyle }) => {
   let sortedStyles = sortStyles(styles);
-
   return (
     <Styler>
       <StyleName>
