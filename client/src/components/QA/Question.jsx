@@ -67,6 +67,17 @@ const Yes = styled.button`
   text-decoration: underline;
 `
 
+const AddAnswer = styled.button`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  text-decoration: underline;
+`
+
 const Question = ({question, id, questionCount, setQuestionCount}) => {
   const {question_id, question_body, question_date, question_asker, question_helpfulness, answers} = question;
   let [answersList, setAnswersList] = useState([]);
@@ -75,6 +86,7 @@ const Question = ({question, id, questionCount, setQuestionCount}) => {
   let [questionClicked, setQuestionClicked] = useState(false);
   let [seeMoreClicked, setSeeMoreClicked] = useState(false);
   let [show, setShow] = useState(false);
+  let [clickedHelpful, setClickedHelpful] = useState(false);
 
   useEffect(() => {
     axios
@@ -134,7 +146,7 @@ const Question = ({question, id, questionCount, setQuestionCount}) => {
           <ContainText><b>Q: {question_body}</b></ContainText>
         </QStyle>
         <Helpful>
-          Helpful? <Yes>Yes <span>&#40;{question_helpfulness}&#41;</span></Yes>  | <Yes onClick={() => setShow(true)}>Add Answer</Yes>
+          Helpful? <Yes onClick={() => handleHelpful}>Yes <span>&#40;{question_helpfulness}&#41;</span></Yes>  | <AddAnswer onClick={() => setShow(true)}>Add Answer</AddAnswer>
         </Helpful>
         <AnswerModal
           id={id}
@@ -144,7 +156,11 @@ const Question = ({question, id, questionCount, setQuestionCount}) => {
           show={show}
         />
       </Container>
-      {questionClicked && (<AStyle><b>A:</b></AStyle>)}
+      {questionClicked && (
+        answersList.length === 0 ?
+          <p><b>Be the first to add an answer to this question!</b></p> :
+          <AStyle><b>A:</b></AStyle>
+      )}
       <Answers>
         <div>{question_asker}</div>
         {questionClicked && (
