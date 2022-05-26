@@ -48,6 +48,7 @@ const Ratings = (props) => {
         {avg && <NumRating>{avg}</NumRating>}
         <StarRating><Stars rating={avg}></Stars></StarRating>
       </div>
+      <h4>Rating Breakdown</h4>
       {percRec && <div style={{margin: " 1em 0"}}>{percRec}% of reviews recommend this product</div>}
       <div>
         <Bars

@@ -47,9 +47,13 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
     setShowModal(prev => !prev);
   }
 
+  const closeModal = () => {
+    setShowModal(false);
+  }
+
   return (
     <Container>
-      <NewReview showModal={showModal} setShowModal={setShowModal}></NewReview>
+      <NewReview showModal={showModal} setShowModal={setShowModal} closeModal={closeModal}></NewReview>
       <div>
         <Sort>
           {count} reviews,

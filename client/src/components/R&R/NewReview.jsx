@@ -82,7 +82,7 @@ border: dotted blue;
 margin: 0;
 `;
 
-const NewReview = ({showModal, setShowModal}) => {
+const NewReview = ({closeModal, showModal, setShowModal}) => {
   const id = useContext(Context).id;
   const [rate, setRate] = useState(null); // for stars
   const [recommend, setRecommend] = useState('');
@@ -94,6 +94,19 @@ const NewReview = ({showModal, setShowModal}) => {
   const [characteristics, setCharacteristics] = useState([]); // array of characteristics
   const [charObject, setCharObject] = useState({});
   const [idLegend, setIdLegend] = useState({});
+
+  const closeOnEscapeKeyDown = (e) => {
+    if ((e.charCode || e.keyCode) === 27) {
+      closeModal();
+    }
+  }
+
+  useEffect(() => {
+    document.body.addEventListener('keydown', closeOnEscapeKeyDown)
+    return function cleanup() {
+      document.body.removeEventListener('keydown', closeOnEscapeKeyDown)
+    }
+  }, [])
 
   const submitReview = (e) => {
     e.preventDefault();
