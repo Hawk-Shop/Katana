@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
 import ImageModal from './Modals/ImageModal.jsx';
+import axios from 'axios';
+import swal from 'sweetalert';
 
 const Image = styled.img`
   border-radius: 8px;
@@ -42,10 +44,11 @@ const Border = styled.div`
 border-bottom: 1px solid black;
 `
 
-const AnswersList = ({answer}) => {
-  const {body, date, answerer_name, helpfulness, photos} = answer;
-  const [modal, setModal] = useState(false);
-  const [url, setUrl] = useState('');
+const AnswersList = ({answer, handleHelpful, question_id, aRerender, setARerender}) => {
+  let {answer_id, body, date, answerer_name, helpfulness, photos} = answer;
+  let [modal, setModal] = useState(false);
+  let [url, setUrl] = useState('');
+  let [clickedAHelpful, setClickedAHelpful] = useState(false);
 
   const toggleModal = (e) => {
     // console.log(e.target.currentSrc);
@@ -59,14 +62,14 @@ const AnswersList = ({answer}) => {
       <User>
         <span>by {answerer_name}, </span>
         <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
-        <Helpful> Helpful? <Yes>Yes &#40;{helpfulness}&#41;</Yes> | <Yes>Report</Yes></Helpful>
+        <Helpful> Helpful? <Yes onClick={() => handleHelpful(clickedAHelpful, 'answers', answer_id, setClickedAHelpful, aRerender, setARerender)}>Yes &#40;{helpfulness}&#41;</Yes> | <Yes>Report</Yes></Helpful>
         <div>
           {photos.map((photo, index) => {
             return  <Image
-            src={photo.url}
-            key={index}
-            onClick={toggleModal}
-            alt="unable to display">
+                      src={photo.url}
+                      key={index}
+                      onClick={toggleModal}
+                      alt="unable to display">
                     </Image>
           })}
           {modal && (<ImageModal url={url} toggleModal={toggleModal} modal={modal}/>)}

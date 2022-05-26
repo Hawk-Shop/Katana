@@ -5,6 +5,7 @@ import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
 import AnswersList from './AnswersList.jsx';
 import AnswerModal from './Modals/AnswerModal.jsx';
+import swal from 'sweetalert';
 
 const Questions = styled.div`
   border-bottom: .05em solid;
@@ -65,6 +66,9 @@ const Yes = styled.button`
   cursor: pointer;
   outline: inherit;
   text-decoration: underline;
+  &:hover {
+    color: darkgreen;
+  }
 `
 
 const AddAnswer = styled.button`
@@ -76,29 +80,34 @@ const AddAnswer = styled.button`
   cursor: pointer;
   outline: inherit;
   text-decoration: underline;
+  &:hover {
+    color: crimson;
+  }
 `
 
-const Question = ({question, id, questionCount, setQuestionCount}) => {
-  const {question_id, question_body, question_date, question_asker, question_helpfulness, answers} = question;
-  let [answersList, setAnswersList] = useState([]);
+const Question = ({question, id, qRerender, setQRerender}) => {
+  const {question_id, question_body, question_date, question_asker, question_helpfulness} = question;
+  let [answers, setAnswers] = useState([]);
   let [answerCount, setAnswerCount] = useState(2);
   let [addAnswerModal, setAddAnswerModal] = useState(false);
   let [questionClicked, setQuestionClicked] = useState(false);
   let [seeMoreClicked, setSeeMoreClicked] = useState(false);
   let [show, setShow] = useState(false);
-  let [clickedHelpful, setClickedHelpful] = useState(false);
+  let [clickedQHelpful, setClickedQHelpful] = useState(false);
+  let [aRerender, setARerender] = useState(0);
+
 
   useEffect(() => {
     axios
       .get(`/qa/questions/${question_id}/answers/?count=1000`)
       .then(response => {
         // console.log('response.data: ', response.data.results);
-        setAnswersList(response.data.results);
+        setAnswers(response.data.results);
       })
       .catch(err => {
         console.error('Unable to get answers. Sorry...', err);
       })
-  }, [show])
+  }, [show, clickedQHelpful, aRerender])
 
   const toggleAddAnswerModal = () => {
     setAddAnswerModal(!addAnswerModal);
@@ -108,11 +117,32 @@ const Question = ({question, id, questionCount, setQuestionCount}) => {
     setQuestionClicked(!questionClicked);
   }
 
-  const handleHelpful = () => {
-    axios
-      .put(`/qa/questions/${question_id}/helpful`)
-      .then(response => console.log(response))
-      .catch(err => console.error(err));
+  const handleHelpful = (stateVariable, qOrA, id, setStateVariable, rerender, setRerender) => {
+    console.log(`/qa/${qOrA}/${id}/helpful`);
+    if (stateVariable === true) {
+      swal("Helpful", "You can only click helpful once. Thank you for your feedback. It helps others in their decision making.", "error");
+    } else {
+      setStateVariable(true);
+      axios
+        .put(`/qa/${qOrA}/${id}/helpful`)
+        .then(response => console.log(response))
+        .catch(err => console.error(err))
+        .then(() => setRerender(rerender + 1));
+    }
+  }
+
+  const handleReport = (stateVariable, qOrA, id, setStateVariable, rerender, setRerender) => {
+    console.log(`/qa/${qOrA}/${id}/helpful`);
+    if (stateVariable === true) {
+      swal("Helpful", "You can only click helpful once. Thank you for your feedback. It helps others in their decision making.", "error");
+    } else {
+      setStateVariable(true);
+      axios
+        .put(`/qa/${qOrA}/${id}/helpful`)
+        .then(response => console.log(response))
+        .catch(err => console.error(err))
+        .then(() => setRerender(rerender + 1));
+    }
   }
 
   if (addAnswerModal) {
@@ -123,7 +153,7 @@ const Question = ({question, id, questionCount, setQuestionCount}) => {
 
   const seeMoreAnswers = (
     <Button onClick={() => {
-      setAnswerCount(answerCount + answersList.length - 2)
+      setAnswerCount(answerCount + answers.length - 2)
       setSeeMoreClicked(!seeMoreClicked);
       }}>
       See more answers
@@ -146,7 +176,7 @@ const Question = ({question, id, questionCount, setQuestionCount}) => {
           <ContainText><b>Q: {question_body}</b></ContainText>
         </QStyle>
         <Helpful>
-          Helpful? <Yes onClick={() => handleHelpful}>Yes <span>&#40;{question_helpfulness}&#41;</span></Yes>  | <AddAnswer onClick={() => setShow(true)}>Add Answer</AddAnswer>
+          Helpful? <Yes onClick={() => handleHelpful(clickedQHelpful, 'questions', question_id, setClickedQHelpful, qRerender, setQRerender)}>Yes <span>&#40;{question_helpfulness}&#41;</span></Yes>  | <AddAnswer onClick={() => setShow(true)}>Add Answer</AddAnswer>
         </Helpful>
         <AnswerModal
           id={id}
@@ -157,26 +187,36 @@ const Question = ({question, id, questionCount, setQuestionCount}) => {
         />
       </Container>
       {questionClicked && (
-        answersList.length === 0 ?
+        answers.length === 0 ?
           <p><b>Be the first to add an answer to this question!</b></p> :
           <AStyle><b>A:</b></AStyle>
       )}
       <Answers>
         <div>{question_asker}</div>
         {questionClicked && (
-          answersList.slice(0, answerCount).map((answer, index) => {
+          answers.slice(0, answerCount).map((answer, index) => {
             // console.log(answer);
-            return <AnswersList key={index} answer={answer} id={id}/>
+            return  <AnswersList
+                      key={index}
+                      answer={answer}
+                      id={id}
+                      handleHelpful={handleHelpful}
+                      question_id={question_id}
+                      aRerender={aRerender}
+                      setARerender={setARerender}
+                    />
           }))
         }
       </Answers>
       {questionClicked && (
-        answerCount < answersList.length && (
+        answerCount < answers.length && (
           seeMoreAnswers
         ))
       }
-      {seeMoreClicked && (
-        collapseAnswers
+      {questionClicked && (
+        seeMoreClicked && (
+          collapseAnswers
+        )
       )}
     </Questions>
   )
