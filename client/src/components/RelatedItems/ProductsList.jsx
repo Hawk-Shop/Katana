@@ -40,10 +40,9 @@ const ProductsList = ({list}) => {
     <Carousel>
       <Inner
         style={{ transform: `translateX(-${activeIndex * 100}%)`}}>
-        {list.map((product) => {
+        {list.map((card) => {
           return <ProductCard
-            product={product}
-            id={id}xs
+            card={card}
             width={{ width: "25%"}}
             />
         })}

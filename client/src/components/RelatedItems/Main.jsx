@@ -4,45 +4,50 @@ import { Context } from '../util/context.js';
 import ProductsList from './ProductsList.jsx';
 // import OutfitList from './OutfitList.jsx';
 import axios from 'axios';
+import sample from './exampleData.js';
 
 const RelatedProducts = (props) => {
   const id = useContext(Context).id;
-  // GET/products/:product_id/related
-  // returns related: [40345, 40346, 40351, 40350]
-  // GET request each id to get product info * need features also for modal
-  // GET/products/:proudct_id/style to get thumbnail url
-  // GET reviews rating for each product
-  // create array to push received obj into it like sample below
-  // also push thumbnail url into each product obj
-  // promise all to wrap
   const [product, setProduct] = useState("");
   const [styles, setStyles] = useState("");
   const [reviews, setReviews] = useState("");
-  // const [list, setList] = useState("");
+  const [demo, setDemo] = useState("");
+
+  // const [demo, setDemo] = useState([product, styles, reviews]);
+
+  let storage = [];
 
   useEffect(() => {
-    let relatedIDs = axios.get(`/products/${id}/related`);
-    let storage = [];
-    let currentID;
-    for (var i = 0; i < relatedIDs.length; i++) {
-      currentID = relatedIDs[i];
-      let currentProduct = axios.get(`/products/${currentID}`);
-      let currentStyle = axios.get(`/products/${currentID}/styles`);
-      let currentReview = axios.get(`/reviews/meta/?product_id=${currentID}`);
+    axios.get(`/products/${id}/related`)
+      .then((related) => {
+        // console.log("get related request:", related);
+        // let currentID;
+        for (var i = 0; i < related.data.length; i++) {
+          let currentID = related.data[i];
+          let currentProduct = axios.get(`/products/${currentID}`);
+          let currentStyle = axios.get(`/products/${currentID}/styles`);
+          let currentReview = axios.get(`/reviews/meta/?product_id=${currentID}`);
 
-      Promise.all([currentProduct, currentStyle, currentReview])
-        .then((res) => {
-          setProduct(res[0].data);
-          setStyles(res[1].data);
-          setReviews(res[2].data);
-          storage.push([product, styles, reviews])
-          console.log("for loop storage:", storage);
-        })
-        .catch((err) => console.log(err));
-    }
-
-
+          Promise.all([currentProduct, currentStyle, currentReview])
+            .then((res) => {
+              setProduct(res[0].data);
+              setStyles(res[1].data);
+              setReviews(res[2].data);
+              storage.push(res.map((each) => each.data)) ;
+              console.log("for loop storage:", storage);
+            })
+            .catch((err) => console.log(err));
+        }
+      })
+      .then(() => {
+        console.log("STORAGE OUTSIDE", storage)
+        setDemo(storage);
+      })
+      .catch((err) => console.log(err));
   }, []);
+  // console.log("WHATS IN HEREEEEEE", demo)
+  // console.log("STORAGE OUTSIDE", storage)
+  console.log("WHATS IN HEREEEEEE", demo)
 
 
   const [list, setList] = useState([
@@ -126,8 +131,7 @@ const RelatedProducts = (props) => {
       "default_price": "120.00",
       "thumbnail": "https://images.unsplash.com/photo-1611937663571-51248fbe6d7a?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687"
     }
-  ])
-
+  ]);
   return(
     <div>
       <h3>Related Products</h3>
