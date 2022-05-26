@@ -84,6 +84,10 @@ margin: 0;
 
 const NewReview = ({closeModal, showModal, setShowModal}) => {
   const id = useContext(Context).id;
+  const productName = useContext(Context).productName;
+
+  const [numPhotos, setNumPhotos] = useState(0);
+
   const [rate, setRate] = useState(null); // for stars
   const [recommend, setRecommend] = useState('');
   const [summary, setSummary] = useState('');
@@ -148,7 +152,7 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
           <ModalContent>
             <form onSubmit={submitReview}>
               <h2>Write Your Review</h2>
-              <h3>About the [product name here]</h3>
+              <h3>About the {productName}</h3>
               <Question>
                 <label htmlFor="overall">Overall rating *</label>
                 <Rate rate={rate} setRate={setRate}></Rate>
@@ -202,10 +206,23 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
                 <textarea name="body" cols="60" rows="5" minLength="50" maxLength="1000" placeholder="Why did you like the product or not?" required onChange={(e) => {setBody(e.target.value)}}></textarea>
                 {body.length < 50 ? <span>Minimum required characters left: {50-body.length}</span> : <span>Minimum reached</span>}
               </Question>
-              <Question>
+              {numPhotos < 5 && <Question>
                 <label htmlFor="photos">Upload your photos&nbsp;</label>
-                <input type="file" name="photos" accept="image/png, image/jpeg" multiple onChange={(e) => {console.log('UPLOADED IMAGES', e.target.files)}}></input>
-              </Question>
+                <input type="file" name="photos" accept="image/png, image/jpeg" multiple="true" onChange={(e) => {
+                  let files = e.target.files;
+                  if (files.length > 5) {
+                    setNumPhotos(5);
+                  } else {
+                    setNumPhotos(files.length);
+                  }
+                }}></input>
+                {numPhotos >=5 && <Question>
+                  <span>Max # of photos uploaded</span>
+                </Question>}
+                <div>
+                  {numPhotos === 0 ? <p>No photos selected yet</p> : <p>all photos will go here</p>}
+                </div>
+              </Question>}
               <Question>
                 <label htmlFor="nickname">What is your nickname *&nbsp;</label>
                 <textarea name="nickname" cols="60" rows="1" maxLength="60" placeholder="Example: jackson11!" required onChange={(e) => {setNickname(e.target.value)}}></textarea>
