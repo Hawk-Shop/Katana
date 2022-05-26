@@ -12,46 +12,46 @@ const Image = styled.img`
   margin-top: 3px;
 `
 
-const toggleModal = (e) => {
-  // console.log(e.target.currentSrc);
-  setUrl(e.target.currentSrc);
-  setModal(!modal);
-}
-
 const Answer = styled.div`
-  margin-bottom: 0.5em;
+margin-bottom: 0.5em;
 `
 
 const Helpful = styled.span`
-  font-size: 14px;
-  margin-left: 40px;
+font-size: 14px;
+margin-left: 40px;
 `
 
 const Yes = styled.button`
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-  text-decoration: underline;
+background: none;
+color: inherit;
+border: none;
+padding: 0;
+font: inherit;
+cursor: pointer;
+outline: inherit;
+text-decoration: underline;
 `
 
 const User = styled.div`
-  margin-top: 2px;
-  margin-left: 15px;
-  margin-bottom: 10px;
+margin-top: 2px;
+margin-left: 15px;
+margin-bottom: 10px;
 `
 
 const Border = styled.div`
-  border-bottom: 1px solid black;
+border-bottom: 1px solid black;
 `
 
 const AnswersList = ({answer}) => {
   const {body, date, answerer_name, helpfulness, photos} = answer;
   const [modal, setModal] = useState(false);
   const [url, setUrl] = useState('');
+
+  const toggleModal = (e) => {
+    // console.log(e.target.currentSrc);
+    setUrl(e.target.currentSrc);
+    setModal(!modal);
+  }
 
   return (
     <Answer>

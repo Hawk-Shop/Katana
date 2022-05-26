@@ -42,7 +42,7 @@ const QuestionsList = (props) => {
 
   useEffect(() => {
     axios
-      .get(`/qa/questions/?product_id=${id}&count=300`)
+      .get(`/qa/questions/?product_id=${id}&count=1000`)
       .then(response => {
         // console.log('response.data: ', response.data.results);
         setQuestions(response.data.results);
@@ -50,8 +50,7 @@ const QuestionsList = (props) => {
       .catch(err => {
         alert('Unable to get questions. Sorry...', err);
       })
-  }, [])
-
+  }, [showQModel])
 
   const showMoreQuestions = (
     <Button onClick={() => setQuestionCount(questionCount + 2)}>
@@ -78,7 +77,7 @@ const QuestionsList = (props) => {
         <Button onClick={() => setShowQModel(true)}>
           Add a Question +
         </Button>
-        <QuestionModal id={id} onClose={() => setShowQModel(false)} showQModel={showQModel} />
+        <QuestionModal id={id} onClose={() => setShowQModel(false)} showQModel={showQModel} questionCount={questionCount} setQuestionCount={setQuestionCount}/>
       </Sort>
     </>
   )
