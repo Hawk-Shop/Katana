@@ -16,6 +16,13 @@ const Container = styled.div`
   `
 
 const Rate = ({rate, setRate}) => {
+  const legend = {
+    1: 'Poor',
+    2: 'Fair',
+    3: 'Average',
+    4: 'Good',
+    5: 'Great'
+  };
   return (
     <Container>
       {[...Array(5)].map((item, index) => {
@@ -41,6 +48,7 @@ const Rate = ({rate, setRate}) => {
           </label>
         );
       })}
+      {rate && <span>{legend[rate]}</span>}
     </Container>
   );
 };

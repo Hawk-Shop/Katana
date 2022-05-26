@@ -5,7 +5,7 @@ body {
 
 .stars:before {
   content: "★★★★★";
-  background: linear-gradient(90deg, green var(--percents), pink var(--percents));
+  background: linear-gradient(90deg, green var(--percents), lightgrey var(--percents));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

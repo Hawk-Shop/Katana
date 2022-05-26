@@ -35,7 +35,6 @@ app.get("/*", (req, res) => {
   });
 
 app.post('/*', (req, res) => {
-  console.log(req.body)
   axios
   .post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${req.url}`, req.body, {
     headers: {
