@@ -4,10 +4,11 @@ import styled from "styled-components";
 import Stars from "../R&R/Stars.jsx";
 import avgRating from "../util/getAvgRating.js"
 import Style from "./Style.jsx"
+import Cart from "./Cart.jsx"
 const Onsale = styled.span`
-  color: blue;
+  color: red;
   text-decoration: line-through;
-  margin-right: 5%;
+  margin-right: 2%;
   font-style: italic;
   font-size: 0.9rem;
 `;
@@ -71,6 +72,7 @@ const ProductInfo = (props) => {
         <span>{"$" + props.currentStyle.original_price}</span>
       )}
       <Style product={props.product} styles={props.styles.results} currentStyle={props.currentStyle} setStyle={props.setStyle}/>
+      <Cart currentStyle={props.currentStyle}/>
     </FlexFit>
   );
 };

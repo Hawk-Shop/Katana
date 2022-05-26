@@ -76,7 +76,7 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
                 Answer:
                 <textarea type="text" name="body" rows="10" cols="70" value={body} onChange={e => setBody(e.target.value)}/>
               </label>
-              {/* <input type="file" value={file} onChange={e => setFile(e.target.files[0])}/> */}
+              {/* <input type="file" value={file} accept="image/png, image/jpeg" onChange={e => setFile(e.target.files[0])}/> */}
               <input className="submit-button" type="submit" value="Submit" />
             </form>
           </div>
