@@ -32,6 +32,23 @@ font: inherit;
 cursor: pointer;
 outline: inherit;
 text-decoration: underline;
+&:hover {
+  color: darkgreen;
+}
+`
+
+const Report = styled.button`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  text-decoration: underline;
+  &:hover {
+    color: crimson;
+  }
 `
 
 const User = styled.div`
@@ -44,7 +61,7 @@ const Border = styled.div`
 border-bottom: 1px solid black;
 `
 
-const AnswersList = ({answer, handleHelpful, question_id, aRerender, setARerender}) => {
+const AnswersList = ({answer, handleFeedback, question_id, aRerender, setARerender}) => {
   let {answer_id, body, date, answerer_name, helpfulness, photos} = answer;
   let [modal, setModal] = useState(false);
   let [url, setUrl] = useState('');
@@ -62,7 +79,7 @@ const AnswersList = ({answer, handleHelpful, question_id, aRerender, setARerende
       <User>
         <span>by {answerer_name}, </span>
         <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
-        <Helpful> Helpful? <Yes onClick={() => handleHelpful(clickedAHelpful, 'answers', answer_id, setClickedAHelpful, aRerender, setARerender)}>Yes &#40;{helpfulness}&#41;</Yes> | <Yes>Report</Yes></Helpful>
+        <Helpful> Helpful? <Yes onClick={() => handleFeedback(clickedAHelpful, 'answers', answer_id, 'helpful', setClickedAHelpful, aRerender, setARerender)}>Yes &#40;{helpfulness}&#41;</Yes> | <Report onClick={() => handleFeedback(clickedAHelpful, 'answers', question_id, 'report', setClickedAHelpful, aRerender, setARerender)}> Report </Report></Helpful>
         <div>
           {photos.map((photo, index) => {
             return  <Image

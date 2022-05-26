@@ -71,7 +71,7 @@ const Yes = styled.button`
   }
 `
 
-const AddAnswer = styled.button`
+const Report = styled.button`
   background: none;
   color: inherit;
   border: none;
@@ -82,6 +82,20 @@ const AddAnswer = styled.button`
   text-decoration: underline;
   &:hover {
     color: crimson;
+  }
+`
+
+const AddAnswer = styled.button`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  text-decoration: underline;
+  &:hover {
+    color: #6B5B95;
   }
 `
 
@@ -117,31 +131,22 @@ const Question = ({question, id, qRerender, setQRerender}) => {
     setQuestionClicked(!questionClicked);
   }
 
-  const handleHelpful = (stateVariable, qOrA, id, setStateVariable, rerender, setRerender) => {
-    console.log(`/qa/${qOrA}/${id}/helpful`);
+  const handleFeedback = (stateVariable, qOrA, id, helpfulOrReport, setStateVariable, rerender, setRerender) => {
+    console.log(`/qa/${qOrA}/${id}/${helpfulOrReport}`);
     if (stateVariable === true) {
-      swal("Helpful", "You can only click helpful once. Thank you for your feedback. It helps others in their decision making.", "error");
+      swal("Helpful?", "We only one click of 'Yes'. Thank you for your feedback. It helps others in their decision making.", "error");
     } else {
       setStateVariable(true);
+      let customerSupport = 'We will remove this review for the time being to perform a formal review.'
+      swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback. ${helpfulOrReport === 'report' ?customerSupport : ''}`, "success");
       axios
-        .put(`/qa/${qOrA}/${id}/helpful`)
+        .put(`/qa/${qOrA}/${id}/${helpfulOrReport}`)
         .then(response => console.log(response))
         .catch(err => console.error(err))
-        .then(() => setRerender(rerender + 1));
-    }
-  }
-
-  const handleReport = (stateVariable, qOrA, id, setStateVariable, rerender, setRerender) => {
-    console.log(`/qa/${qOrA}/${id}/helpful`);
-    if (stateVariable === true) {
-      swal("Helpful", "You can only click helpful once. Thank you for your feedback. It helps others in their decision making.", "error");
-    } else {
-      setStateVariable(true);
-      axios
-        .put(`/qa/${qOrA}/${id}/helpful`)
-        .then(response => console.log(response))
-        .catch(err => console.error(err))
-        .then(() => setRerender(rerender + 1));
+        .then(() => {
+          setRerender(rerender + 1)
+          console.log(rerender);
+        });
     }
   }
 
@@ -176,7 +181,7 @@ const Question = ({question, id, qRerender, setQRerender}) => {
           <ContainText><b>Q: {question_body}</b></ContainText>
         </QStyle>
         <Helpful>
-          Helpful? <Yes onClick={() => handleHelpful(clickedQHelpful, 'questions', question_id, setClickedQHelpful, qRerender, setQRerender)}>Yes <span>&#40;{question_helpfulness}&#41;</span></Yes>  | <AddAnswer onClick={() => setShow(true)}>Add Answer</AddAnswer>
+          Helpful? <Yes onClick={() => handleFeedback(clickedQHelpful, 'questions', question_id, 'helpful', setClickedQHelpful, qRerender, setQRerender)}> Yes <span>&#40;{question_helpfulness}&#41;</span></Yes> | <Report onClick={() => handleFeedback(clickedQHelpful, 'questions', question_id, 'report', setClickedQHelpful, qRerender, setQRerender)}> Report </Report>  | <AddAnswer onClick={() => setShow(true)}>Add Answer</AddAnswer>
         </Helpful>
         <AnswerModal
           id={id}
@@ -200,7 +205,7 @@ const Question = ({question, id, qRerender, setQRerender}) => {
                       key={index}
                       answer={answer}
                       id={id}
-                      handleHelpful={handleHelpful}
+                      handleFeedback={handleFeedback}
                       question_id={question_id}
                       aRerender={aRerender}
                       setARerender={setARerender}

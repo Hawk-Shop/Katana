@@ -66,7 +66,7 @@ const QuestionsList = (props) => {
       <Sort>
         <Search />
         <br/>
-        <p>Click on a question to view their respective answers.</p>
+        <>Click on a question to view it's respective answers.</>
         <Section>
           {questions.slice(0, questionCount).map((question, index) => {
             return  <Question
