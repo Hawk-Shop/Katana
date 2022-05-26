@@ -19,7 +19,9 @@ const Button = styled.button`
   `;
 
   const Section = styled.section`
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
   max-height:500px;
   width: 100%;
   display: flex;

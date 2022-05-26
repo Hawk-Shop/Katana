@@ -120,7 +120,7 @@ const NewReview = ({showModal, setShowModal}) => {
       const idLeg = {};
       let charNames = Object.keys(results.data.characteristics);
       charNames.forEach((charName) => {
-        idLeg[charName] = results.data.characteristics[charName].id;
+        idLeg[charName] = Number(results.data.characteristics[charName].id);
       })
       setCharacteristics(charNames);
       setIdLegend(idLeg);

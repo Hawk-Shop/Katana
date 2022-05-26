@@ -74,6 +74,7 @@ const ReviewTile = ({review}) => {
   const [url, setUrl] = useState('');
   const [disabled, setDisabled] = useState(false);
   const [reported, setReported] = useState(false);
+  const [revealAll, setRevealAll] = useState(false);
 
   const toggleModal = (e) => {
     setUrl(e.target.currentSrc);
@@ -135,7 +136,8 @@ const ReviewTile = ({review}) => {
         </div> :
         <div>
           {review.body.substring(0,250)}
-          <button>Show more</button>
+          {!revealAll && <HelpButtons onClick={() => {setRevealAll(true)}}>Show more</HelpButtons>}
+          {revealAll && <span>{review.body.substring(250)}</span>}
         </div>}
       </Body>
       {review.photos.length !== 0 &&
