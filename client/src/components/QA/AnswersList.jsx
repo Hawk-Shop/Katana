@@ -79,7 +79,7 @@ const AnswersList = ({answer, handleFeedback, question_id, aRerender, setARerend
       <User>
         <span>by {answerer_name}, </span>
         <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
-        <Helpful> Helpful? <Yes onClick={() => handleFeedback(clickedAHelpful, 'answers', answer_id, 'helpful', setClickedAHelpful, aRerender, setARerender)}>Yes &#40;{helpfulness}&#41;</Yes> | <Report onClick={() => handleFeedback(clickedAHelpful, 'answers', question_id, 'report', setClickedAHelpful, aRerender, setARerender)}> Report </Report></Helpful>
+        <Helpful> Helpful? <Yes onClick={() => handleFeedback(clickedAHelpful, 'answers', answer_id, 'helpful', setClickedAHelpful, aRerender, setARerender)}>Yes &#40;{helpfulness}&#41;</Yes> | <Report onClick={() => handleFeedback(clickedAHelpful, 'answers', answer_id, 'report', setClickedAHelpful, aRerender, setARerender)}> Report </Report></Helpful>
         <div>
           {photos.map((photo, index) => {
             return  <Image

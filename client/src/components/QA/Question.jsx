@@ -107,8 +107,9 @@ const Question = ({question, id, qRerender, setQRerender}) => {
   let [questionClicked, setQuestionClicked] = useState(false);
   let [seeMoreClicked, setSeeMoreClicked] = useState(false);
   let [show, setShow] = useState(false);
-  let [clickedQHelpful, setClickedQHelpful] = useState(false);
+  let [qHelpful, setQHelpful] = useState(false);
   let [aRerender, setARerender] = useState(0);
+  let [qReported, setQReported] = useState(false);
 
 
   useEffect(() => {
@@ -121,7 +122,7 @@ const Question = ({question, id, qRerender, setQRerender}) => {
       .catch(err => {
         console.error('Unable to get answers. Sorry...', err);
       })
-  }, [show, clickedQHelpful, aRerender])
+  }, [show, qHelpful, aRerender])
 
   const toggleAddAnswerModal = () => {
     setAddAnswerModal(!addAnswerModal);
@@ -133,19 +134,24 @@ const Question = ({question, id, qRerender, setQRerender}) => {
 
   const handleFeedback = (stateVariable, qOrA, id, helpfulOrReport, setStateVariable, rerender, setRerender) => {
     console.log(`/qa/${qOrA}/${id}/${helpfulOrReport}`);
-    if (stateVariable === true) {
-      swal("Helpful?", "We only one click of 'Yes'. Thank you for your feedback. It helps others in their decision making.", "error");
+    if (stateVariable) {
+      swal("Helpful?", "We only allow one click of 'Yes'. Thank you for your feedback. It helps others in their decision making.", "error");
     } else {
       setStateVariable(true);
-      let customerSupport = 'We will remove this review for the time being to perform a formal review.'
+      let customerSupport = `We have marked this ${qOrA.slice(0, -1)} as "Reported" and will perform a formal review.`
       swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback. ${helpfulOrReport === 'report' ?customerSupport : ''}`, "success");
       axios
         .put(`/qa/${qOrA}/${id}/${helpfulOrReport}`)
-        .then(response => console.log(response))
+        .then(response => console.log('put request successful: ', response))
         .catch(err => console.error(err))
         .then(() => {
-          setRerender(rerender + 1)
-          console.log(rerender);
+          console.log(stateVariable);
+          if (stateVariable) {
+            console.log(`this ${qOrA.slice(0, -1)} has been flagged as reported and will be removed on refresh`)
+          } else {
+            setRerender(rerender + 1)
+            console.log(rerender);
+          }
         });
     }
   }
@@ -181,7 +187,30 @@ const Question = ({question, id, qRerender, setQRerender}) => {
           <ContainText><b>Q: {question_body}</b></ContainText>
         </QStyle>
         <Helpful>
-          Helpful? <Yes onClick={() => handleFeedback(clickedQHelpful, 'questions', question_id, 'helpful', setClickedQHelpful, qRerender, setQRerender)}> Yes <span>&#40;{question_helpfulness}&#41;</span></Yes> | <Report onClick={() => handleFeedback(clickedQHelpful, 'questions', question_id, 'report', setClickedQHelpful, qRerender, setQRerender)}> Report </Report>  | <AddAnswer onClick={() => setShow(true)}>Add Answer</AddAnswer>
+          Helpful?
+          <Yes onClick={() =>
+            handleFeedback(
+              qHelpful,
+              'questions',
+              question_id,
+              'helpful',
+              setQHelpful,
+              qRerender,
+              setQRerender
+            )}> Yes <span>&#40;{question_helpfulness}&#41;</span>
+          </Yes> |
+          <Report onClick={() => {
+            handleFeedback(
+              qReported,
+              'questions',
+              question_id,
+              'report',
+              setQReported,
+              qRerender,
+              setQRerender
+            )}}> {qReported ? 'Reported' : 'Report'}
+          </Report> |
+          <AddAnswer onClick={() => setShow(true)}>Add Answer</AddAnswer>
         </Helpful>
         <AnswerModal
           id={id}
