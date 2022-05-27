@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
 import { Context } from "./util/context.js";
 import Overview from "./overview/Overview.jsx";
@@ -6,6 +6,7 @@ import QuestionsList from "./QA/QuestionsList.jsx";
 import ReviewsOverview from './R&R/Overview.jsx';
 import RelatedProducts from './RelatedItems/Main.jsx';
 import axios from 'axios';
+window.React = React
 
 const StyledApp = styled.div`
   max-width: 80%;
