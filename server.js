@@ -17,12 +17,19 @@ app.use((req, res, next) => {
 });
 axios.defaults.headers.common['Authorization'] = process.env.AUTH
 //routes
-app.get("/*", (req, res) => {
 
-    console.log("headers: ", req.headers);
-    console.log("method: ", req.method);
-    console.log("req.url: ", req.url);
-    console.log("req.body: ", req.body);
+app.post('/upload', (req, res) => {
+  axios
+    .post(`https://api.imgbb.com/1/upload/?key=${process.env.IMG_API}&image=${req.body.url}`)
+    .then((result) => {result.status(200).send(result.data)})
+    .catch((err) => res.sendStatus(404))
+})
+
+app.get("/*", (req, res) => {
+    // console.log("headers: ", req.headers);
+    // console.log("method: ", req.method);
+    // console.log("req.url: ", req.url);
+    // console.log("req.body: ", req.body);
     axios
       .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${req.url}`, {
         headers: {

@@ -209,11 +209,23 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
                 <label htmlFor="photos">Upload your photos&nbsp;</label>
                 <input type="file" name="photos" accept="image/png, image/jpeg" multiple="true" onChange={(e) => {
                   let files = e.target.files;
-                  if (files.length > 5) {
-                    setNumPhotos(5);
-                  } else {
-                    setNumPhotos(files.length);
+                  var reader = new FileReader();
+                  reader.onloadend = function() {
+                    console.log('RESULT', reader.result);
+                    axios.post('https://api.imgbb.com/upload', {
+                      image: reader.result,
+                    })
                   }
+                  reader.readAsDataURL(files[0]);
+
+
+
+                  // console.log('FILES2', FileReader.readAsBinaryString(files[0]));
+                  // if (files.length > 5) {
+                  //   setNumPhotos(5);
+                  // } else {
+                  //   setNumPhotos(files.length);
+                  // }
                 }}></input>
                 {numPhotos >=5 && <Question>
                   <span>Max # of photos uploaded</span>
