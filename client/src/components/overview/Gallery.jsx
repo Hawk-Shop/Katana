@@ -16,7 +16,7 @@ const Image = styled.div`
   background-size: auto 100%;
   display: flex;
   &.zoomed {
-    transform: scale(5);
+    transform: scale(3.5);
     height: 50%;
     position: relative;
   }
@@ -29,9 +29,8 @@ const ImageCtn = styled.div`
   margin-right: 8%;
   &.zoomed {
     background-color: transparent;
-    width: 85%;
+    width: 30%;
   }
-
 `;
 
 const LeftRight = styled.div`
@@ -81,6 +80,7 @@ const GallFlex = styled.div`
   }
   &.zoomed {
     overflow: hidden;
+    justify-content: center;
   }
 `;
 
@@ -100,10 +100,10 @@ const Gallery = (props) => {
   console.log(expanded);
 
   const handleMouse = (e) => {
-    setX(500 - e.clientX)
-    setY(500 - e.clientY)
-    console.log(window.innerWidth, e.clientX)
-  }
+    setX(500 - e.clientX);
+    setY(500 - e.clientY);
+    console.log(window.innerWidth, e.clientX);
+  };
 
   return (
     <GallFlex className={[expanded, zoomOverflow].join(" ")}>
@@ -130,17 +130,19 @@ const Gallery = (props) => {
             }
             className={zoomOverflow}
           >
-            <LeftRight
-              onClick={() => {
-                currImg > 0 && setCurrImg(currImg - 1);
-              }}
-            >
-              {currImg !== 0 && <Arrow icon={faArrowLeft} />}
-            </LeftRight>
+            {!isZoomed && (
+              <LeftRight
+                onClick={() => {
+                  currImg > 0 && setCurrImg(currImg - 1);
+                }}
+              >
+                {currImg !== 0 && <Arrow icon={faArrowLeft} />}
+              </LeftRight>
+            )}
             {props.expandedView ? (
               <Center
                 onClick={() => setIsZoomed(!isZoomed)}
-                className={[cursor, zoomOverflow].join(' ')}
+                className={[cursor, zoomOverflow].join(" ")}
                 onMouseMove={handleMouse}
               ></Center>
             ) : (
@@ -149,23 +151,26 @@ const Gallery = (props) => {
                 className={cursor}
               ></Center>
             )}
-
-            <Expand
-              icon={faExpand}
-              onClick={() => props.setExpandedView(!props.expandedView)}
-            />
-            <LeftRight
-              onClick={() => {
-                currImg < props.currentStyle.photos.length - 1 &&
-                  setCurrImg(currImg + 1);
-              }}
-            >
-              {currImg !== props.currentStyle.photos.length - 1 && (
-                <Arrow icon={faArrowRight} />
-              )}
-            </LeftRight>
+            {!isZoomed && (
+              <Expand
+                icon={faExpand}
+                onClick={() => props.setExpandedView(!props.expandedView)}
+              />
+            )}
+            {!isZoomed && (
+              <LeftRight
+                onClick={() => {
+                  currImg < props.currentStyle.photos.length - 1 &&
+                    setCurrImg(currImg + 1);
+                }}
+              >
+                {currImg !== props.currentStyle.photos.length - 1 && (
+                  <Arrow icon={faArrowRight} />
+                )}
+              </LeftRight>
+            )}
           </Image>
-          {(props.expandedView && !isZoomed) && (
+          {props.expandedView && !isZoomed && (
             <IconGall
               currImg={currImg}
               setCurrImg={setCurrImg}
