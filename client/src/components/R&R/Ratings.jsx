@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import ProductBreakdown from './ProductBreakdown.jsx';
 
 const Container = styled.div`
-  border: solid;
   width: 24%;
   padding: 2%;
   float: left;
