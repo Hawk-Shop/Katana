@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
 import ImageModal from './Modals/ImageModal.jsx';
+import axios from 'axios';
+import swal from 'sweetalert';
 
 const Image = styled.img`
   border-radius: 8px;
@@ -30,6 +32,23 @@ font: inherit;
 cursor: pointer;
 outline: inherit;
 text-decoration: underline;
+&:hover {
+  color: darkgreen;
+}
+`
+
+const Report = styled.button`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  text-decoration: underline;
+  &:hover {
+    color: crimson;
+  }
 `
 
 const User = styled.div`
@@ -42,10 +61,12 @@ const Border = styled.div`
 border-bottom: 1px solid black;
 `
 
-const AnswersList = ({answer}) => {
-  const {body, date, answerer_name, helpfulness, photos} = answer;
-  const [modal, setModal] = useState(false);
-  const [url, setUrl] = useState('');
+const AnswersList = ({answer, handleHelpful, handleReported, question_id, aRerender, setARerender}) => {
+  let {answer_id, body, date, answerer_name, helpfulness, photos} = answer;
+  let [modal, setModal] = useState(false);
+  let [url, setUrl] = useState('');
+  let [aHelpful, setAHelpful] = useState(false);
+  let [aReported, setAReported] = useState(false);
 
   const toggleModal = (e) => {
     // console.log(e.target.currentSrc);
@@ -59,14 +80,34 @@ const AnswersList = ({answer}) => {
       <User>
         <span>by {answerer_name}, </span>
         <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
-        <Helpful> Helpful? <Yes>Yes &#40;{helpfulness}&#41;</Yes> | <Yes>Report</Yes></Helpful>
+        <Helpful> Helpful?
+          <Yes onClick={() =>
+            handleHelpful(
+              aHelpful,
+              'answers',
+              answer_id,
+              'helpful',
+              setAHelpful,
+              aRerender,
+              setARerender
+            )}>Yes &#40;{helpfulness}&#41;
+          </Yes> |
+          <Report onClick={() =>
+            handleReported(
+              aReported,
+              'answers',
+              answer_id,
+              'report',
+              setAReported
+            )}> {aReported ? 'Reported' : 'Report'} </Report>
+        </Helpful>
         <div>
           {photos.map((photo, index) => {
             return  <Image
-            src={photo.url}
-            key={index}
-            onClick={toggleModal}
-            alt="unable to display">
+                      src={photo.url}
+                      key={index}
+                      onClick={toggleModal}
+                      alt="unable to display">
                     </Image>
           })}
           {modal && (<ImageModal url={url} toggleModal={toggleModal} modal={modal}/>)}

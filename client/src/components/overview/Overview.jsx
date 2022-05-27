@@ -34,6 +34,7 @@ const Overview = (props) => {
   const [styles, setStyles] = useState("");
   const [reviews, setReviews] = useState("");
   const [currentStyle, setCurrentStyle] = useState("");
+  const [expandedView, setExpandedView] = useState(false)
 
   useEffect(() => {
     let productGet = axios.get(`/products/${id}`);
@@ -56,9 +57,11 @@ const Overview = (props) => {
             product={product}
             styles={styles}
             currentStyle={currentStyle}
+            expandedView={expandedView}
+            setExpandedView={setExpandedView}
           />
         )}
-        {currentStyle && (
+        {(currentStyle && !expandedView) && (
           <ProductInfo
             product={product}
             styles={styles}

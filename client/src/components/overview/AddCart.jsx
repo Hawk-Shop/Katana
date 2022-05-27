@@ -11,7 +11,7 @@ const Addbtn = styled.button`
   background-color: #fff;
   background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
   display: flex;
-  width: 20%;
+  width: 25%;
   justify-content: space-between
 `;
 

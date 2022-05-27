@@ -7,6 +7,7 @@ import Question from './Question.jsx';
 import QuestionModal from './Modals/QuestionModal.jsx';
 import { results } from './Data.js';
 
+
 const Button = styled.button`
   background: transparent;
   border-radius: 3px;
@@ -39,6 +40,9 @@ const QuestionsList = (props) => {
   let [questions, setQuestions] = useState([]);
   let [questionCount, setQuestionCount] = useState(4);
   let [showQModel, setShowQModel] = useState(false);
+  let [qRerender, setQRerender] = useState(0);
+  let [searched, setSearched] = useState([]);
+  let [searching, setSearching] = useState(false);
 
   useEffect(() => {
     axios
@@ -50,7 +54,7 @@ const QuestionsList = (props) => {
       .catch(err => {
         alert('Unable to get questions. Sorry...', err);
       })
-  }, [showQModel])
+  }, [showQModel, qRerender])
 
   const showMoreQuestions = (
     <Button onClick={() => setQuestionCount(questionCount + 2)}>
@@ -62,12 +66,25 @@ const QuestionsList = (props) => {
     <>
       <h2>Questions &#38; Answers</h2>
       <Sort>
-        <Search />
+        <Search
+          questions={questions}
+          searched={searched}
+          setSearched={setSearched}
+        />
         <br/>
-        <p>Click on a question to view their respective answers.</p>
+        <>Click on a question to view it's respective answers.</>
         <Section>
+          {/* {searching && (
+
+          )} */}
           {questions.slice(0, questionCount).map((question, index) => {
-            return <Question key={index} question={question} id={id}/>
+            return  <Question
+                      key={index}
+                      question={question}
+                      id={id}
+                      qRerender={qRerender}
+                      setQRerender={setQRerender}
+                    />
           })}
         </Section>
         {questionCount < questions.length ? <p>Viewing {questionCount} of {questions.length} questions</p> : <p>Viewing {questions.length} of {questions.length} questions</p>}
@@ -77,7 +94,7 @@ const QuestionsList = (props) => {
         <Button onClick={() => setShowQModel(true)}>
           Add a Question +
         </Button>
-        <QuestionModal id={id} onClose={() => setShowQModel(false)} showQModel={showQModel} questionCount={questionCount} setQuestionCount={setQuestionCount}/>
+        <QuestionModal id={id} onClose={() => setShowQModel(false)} showQModel={showQModel}/>
       </Sort>
     </>
   )
