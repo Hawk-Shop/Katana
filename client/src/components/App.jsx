@@ -48,18 +48,3 @@ const App = (props) => {
 };
 
 export default App;
-
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props)
-//   }
-
-//   render() {
-//     return (
-//       <Reviews></Reviews>
-//     )
-//   }
-// }
-
-// export default App;
-``
