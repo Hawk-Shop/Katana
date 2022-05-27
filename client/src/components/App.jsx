@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
 import { Context } from "./util/context.js";
 import Overview from "./overview/Overview.jsx";
@@ -6,6 +6,7 @@ import QuestionsList from "./QA/QuestionsList.jsx";
 import ReviewsOverview from './R&R/Overview.jsx';
 import RelatedProducts from './RelatedItems/Main.jsx';
 import axios from 'axios';
+window.React = React
 
 const StyledApp = styled.div`
   max-width: 80%;
@@ -14,7 +15,7 @@ const StyledApp = styled.div`
 `
 
 const App = (props) => {
-  const [id, setId] = useState(40344);
+  const [id, setId] = useState(40348);
   const [productName, setProductName] = useState('');
 
   axios.get(`/products/${id}`)
@@ -48,18 +49,3 @@ const App = (props) => {
 };
 
 export default App;
-
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props)
-//   }
-
-//   render() {
-//     return (
-//       <Reviews></Reviews>
-//     )
-//   }
-// }
-
-// export default App;
-``
