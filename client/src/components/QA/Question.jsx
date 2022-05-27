@@ -132,26 +132,41 @@ const Question = ({question, id, qRerender, setQRerender}) => {
     setQuestionClicked(!questionClicked);
   }
 
-  const handleFeedback = (stateVariable, qOrA, id, helpfulOrReport, setStateVariable, rerender, setRerender) => {
-    console.log(`/qa/${qOrA}/${id}/${helpfulOrReport}`);
+  const handleHelpful = (stateVariable, qOrA, id, helpful, setStateVariable, rerender, setRerender) => {
+    console.log(`/qa/${qOrA}/${id}/${helpful}`);
+    if (stateVariable) {
+      swal("Helpful?", "We only allow one click of 'Reported'. Thank you for your feedback. It helps others in their decision making.", "error");
+    } else {
+      swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback.`, "success");
+      axios
+        .put(`/qa/${qOrA}/${id}/${helpful}`)
+        .then(() => setStateVariable(true))
+        .catch(err => console.error(err))
+        .then(() => {
+          console.log(qReported);
+          if (qReported === true) {
+            console.log(`this ${qOrA.slice(0, -1)} has been flagged as reported and will be removed on refresh`)
+          } else {
+            setRerender(rerender + 1);
+            console.log(rerender);
+          }
+        });
+    }
+  }
+
+  const handleReported = (stateVariable, qOrA, id, report, setStateVariable) => {
+    console.log(`/qa/${qOrA}/${id}/${report}`);
     if (stateVariable) {
       swal("Helpful?", "We only allow one click of 'Yes'. Thank you for your feedback. It helps others in their decision making.", "error");
     } else {
-      setStateVariable(true);
       let customerSupport = `We have marked this ${qOrA.slice(0, -1)} as "Reported" and will perform a formal review.`
-      swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback. ${helpfulOrReport === 'report' ?customerSupport : ''}`, "success");
+      swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback. ${report === 'report' ?customerSupport : ''}`, "success");
       axios
-        .put(`/qa/${qOrA}/${id}/${helpfulOrReport}`)
-        .then(response => console.log('put request successful: ', response))
+        .put(`/qa/${qOrA}/${id}/${report}`)
+        .then(() => setStateVariable(true))
         .catch(err => console.error(err))
         .then(() => {
-          console.log(stateVariable);
-          if (stateVariable) {
-            console.log(`this ${qOrA.slice(0, -1)} has been flagged as reported and will be removed on refresh`)
-          } else {
-            setRerender(rerender + 1)
-            console.log(rerender);
-          }
+          console.log(`this ${qOrA.slice(0, -1)} has been flagged as reported and will be removed on refresh`)
         });
     }
   }
@@ -189,7 +204,7 @@ const Question = ({question, id, qRerender, setQRerender}) => {
         <Helpful>
           Helpful?
           <Yes onClick={() =>
-            handleFeedback(
+            handleHelpful(
               qHelpful,
               'questions',
               question_id,
@@ -199,16 +214,14 @@ const Question = ({question, id, qRerender, setQRerender}) => {
               setQRerender
             )}> Yes <span>&#40;{question_helpfulness}&#41;</span>
           </Yes> |
-          <Report onClick={() => {
-            handleFeedback(
+          <Report onClick={() =>
+            handleReported(
               qReported,
               'questions',
               question_id,
               'report',
-              setQReported,
-              qRerender,
-              setQRerender
-            )}}> {qReported ? 'Reported' : 'Report'}
+              setQReported
+            )}> {qReported ? 'Reported' : 'Report'}
           </Report> |
           <AddAnswer onClick={() => setShow(true)}>Add Answer</AddAnswer>
         </Helpful>
@@ -234,7 +247,8 @@ const Question = ({question, id, qRerender, setQRerender}) => {
                       key={index}
                       answer={answer}
                       id={id}
-                      handleFeedback={handleFeedback}
+                      handleHelpful={handleHelpful}
+                      handleReported={handleReported}
                       question_id={question_id}
                       aRerender={aRerender}
                       setARerender={setARerender}

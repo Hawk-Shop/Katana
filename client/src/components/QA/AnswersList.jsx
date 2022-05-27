@@ -61,11 +61,12 @@ const Border = styled.div`
 border-bottom: 1px solid black;
 `
 
-const AnswersList = ({answer, handleFeedback, question_id, aRerender, setARerender}) => {
+const AnswersList = ({answer, handleHelpful, handleReported, question_id, aRerender, setARerender}) => {
   let {answer_id, body, date, answerer_name, helpfulness, photos} = answer;
   let [modal, setModal] = useState(false);
   let [url, setUrl] = useState('');
-  let [clickedAHelpful, setClickedAHelpful] = useState(false);
+  let [aHelpful, setAHelpful] = useState(false);
+  let [aReported, setAReported] = useState(false);
 
   const toggleModal = (e) => {
     // console.log(e.target.currentSrc);
@@ -79,7 +80,27 @@ const AnswersList = ({answer, handleFeedback, question_id, aRerender, setARerend
       <User>
         <span>by {answerer_name}, </span>
         <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
-        <Helpful> Helpful? <Yes onClick={() => handleFeedback(clickedAHelpful, 'answers', answer_id, 'helpful', setClickedAHelpful, aRerender, setARerender)}>Yes &#40;{helpfulness}&#41;</Yes> | <Report onClick={() => handleFeedback(clickedAHelpful, 'answers', answer_id, 'report', setClickedAHelpful, aRerender, setARerender)}> Report </Report></Helpful>
+        <Helpful> Helpful?
+          <Yes onClick={() =>
+            handleHelpful(
+              aHelpful,
+              'answers',
+              answer_id,
+              'helpful',
+              setAHelpful,
+              aRerender,
+              setARerender
+            )}>Yes &#40;{helpfulness}&#41;
+          </Yes> |
+          <Report onClick={() =>
+            handleReported(
+              aReported,
+              'answers',
+              answer_id,
+              'report',
+              setAReported
+            )}> {aReported ? 'Reported' : 'Report'} </Report>
+        </Helpful>
         <div>
           {photos.map((photo, index) => {
             return  <Image
