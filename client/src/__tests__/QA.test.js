@@ -8,3 +8,13 @@ describe('true is truthy and false is falsy', () => {
   });
 });
 
+import React from 'react';
+import { render, screen } from "@testing-library/react";
+
+import QuestionsList from '../components/QA/QuestionsList.jsx';
+
+test('renders learn react link', () => {
+  render(<QuestionsList />);
+  const linkElement = screen.getByText(/Read/i);
+  expect(linkElement).toBeInTheDocument();
+});
