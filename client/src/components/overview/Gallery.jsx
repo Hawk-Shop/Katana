@@ -15,6 +15,11 @@ const Image = styled.div`
   background-repeat: no-repeat;
   background-size: auto 100%;
   display: flex;
+  &.zoomed {
+    transform: scale(5);
+    height: 50%;
+    position: relative;
+  }
 `;
 
 const ImageCtn = styled.div`
@@ -22,6 +27,11 @@ const ImageCtn = styled.div`
   height: 55vh;
   background-color: rgb(0, 0, 0, 0.3);
   margin-right: 8%;
+  &.zoomed {
+    background-color: transparent;
+    width: 85%;
+  }
+
 `;
 
 const LeftRight = styled.div`
@@ -38,7 +48,15 @@ const Center = styled.div`
   flex: 90%;
   height: 100%;
   background-color: transparent;
-  cursor: zoom-in;
+  &.crosshair {
+    cursor: crosshair;
+  }
+  &.zoom {
+    cursor: zoom-in;
+  }
+  &.zoomed {
+    overflow: hidden;
+  }
 `;
 
 const Arrow = styled(FontAwesomeIcon)`
@@ -61,6 +79,9 @@ const GallFlex = styled.div`
   &.regular {
     width: 70%;
   }
+  &.zoomed {
+    overflow: hidden;
+  }
 `;
 
 // const Thumbgall = styled.div`
@@ -69,12 +90,23 @@ const GallFlex = styled.div`
 
 const Gallery = (props) => {
   const [currImg, setCurrImg] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
 
-  const changeWidth = props.expandedView ? "full" : "regular";
-  console.log(changeWidth);
+  const expanded = props.expandedView ? "full" : "regular";
+  const zoomOverflow = isZoomed ? "zoomed" : "nothing";
+  const cursor = props.expandedView ? "crosshair" : "zoom";
+  console.log(expanded);
+
+  const handleMouse = (e) => {
+    setX(500 - e.clientX)
+    setY(500 - e.clientY)
+    console.log(window.innerWidth, e.clientX)
+  }
 
   return (
-    <GallFlex className={changeWidth}>
+    <GallFlex className={[expanded, zoomOverflow].join(" ")}>
       {!props.expandedView && (
         <ThumbGall
           currImg={currImg}
@@ -83,11 +115,20 @@ const Gallery = (props) => {
         />
       )}
       {props.currentStyle.photos[currImg].url && (
-        <ImageCtn>
+        <ImageCtn className={zoomOverflow}>
           <Image
-            style={{
-              backgroundImage: `url(${props.currentStyle.photos[currImg].url})`,
-            }}
+            style={
+              isZoomed
+                ? {
+                    backgroundImage: `url(${props.currentStyle.photos[currImg].url})`,
+                    left: `${x}px`,
+                    top: `${y}px`,
+                  }
+                : {
+                    backgroundImage: `url(${props.currentStyle.photos[currImg].url})`,
+                  }
+            }
+            className={zoomOverflow}
           >
             <LeftRight
               onClick={() => {
@@ -96,9 +137,19 @@ const Gallery = (props) => {
             >
               {currImg !== 0 && <Arrow icon={faArrowLeft} />}
             </LeftRight>
-            <Center
-              onClick={() => props.setExpandedView(!props.expandedView)}
-            ></Center>
+            {props.expandedView ? (
+              <Center
+                onClick={() => setIsZoomed(!isZoomed)}
+                className={[cursor, zoomOverflow].join(' ')}
+                onMouseMove={handleMouse}
+              ></Center>
+            ) : (
+              <Center
+                onClick={() => props.setExpandedView(!props.expandedView)}
+                className={cursor}
+              ></Center>
+            )}
+
             <Expand
               icon={faExpand}
               onClick={() => props.setExpandedView(!props.expandedView)}
@@ -114,7 +165,7 @@ const Gallery = (props) => {
               )}
             </LeftRight>
           </Image>
-          {props.expandedView && (
+          {(props.expandedView && !isZoomed) && (
             <IconGall
               currImg={currImg}
               setCurrImg={setCurrImg}
