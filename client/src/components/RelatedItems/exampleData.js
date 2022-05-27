@@ -1,4 +1,4 @@
-export const sample = [
+const [list, setList] = useState([
   {
     "id": 40345,
     "rating": 2,
@@ -79,4 +79,4 @@ export const sample = [
     "default_price": "120.00",
     "thumbnail": "https://images.unsplash.com/photo-1611937663571-51248fbe6d7a?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687"
   }
-];
+]);

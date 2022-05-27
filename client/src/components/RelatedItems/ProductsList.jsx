@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import styled from 'styled-components';
 import ProductCard from './ProductCard.jsx';
@@ -36,18 +36,31 @@ const ProductsList = (props) => {
     setActiveIndex(newIndex);
   };
 
+  // useEffect(() => {
+  //   let newState = props.list.map((card) => (
+  //       <ProductCard
+  //       card={card}
+  //       width={{ width: "25%"}}
+  //       show={props.show}
+  //       setShow={props.setShow}
+  //       />
+  //   ));
+  //   props.setList(newState);
+  // }, [props.setList])
+  console.log("WHATS LIST", props.list);
   return (
     <Carousel>
       <Inner
         style={{ transform: `translateX(-${activeIndex * 100}%)`}}>
-        {props.list.map((card) => (
+        { props.list ? props.list.map((card) => (
            <ProductCard
            card={card}
            width={{ width: "25%"}}
            show={props.show}
            setShow={props.setShow}
            />
-        ))}
+        )): null}
+        {/* <ProductCard list={props.list}/> */}
       </Inner>
       <Indicators>
         <IndicatorButton onClick={() => {updateIndex(activeIndex - 1);}}>
@@ -62,3 +75,7 @@ const ProductsList = (props) => {
 }
 
 export default ProductsList;
+
+//async data
+  // when data exist
+  // when data does not exist

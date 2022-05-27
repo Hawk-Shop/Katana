@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import Modal from './Comparison.jsx';
+import avgRating from "../util/getAvgRating.js";
+import Stars from "../R&R/Stars.jsx";
 
 
 const CarouselItem = styled.div`
@@ -42,13 +44,18 @@ const Star = styled(FontAwesomeIcon)`
 const ImageContainer = styled.div`
   position: relative;
 `
+const Reviews = styled(Stars)`
+  display: inline;
+`;
 
 const ProductCard = (props) => {
+  const ratings = props.card.ratings;
+  let averageNums = avgRating(ratings);
 
   return (
     <CarouselItem style={props.width}>
       <ImageContainer>
-        <CardThumbnail src={props.card.thumbnail}></CardThumbnail>
+        <CardThumbnail src={props.card.results[0].photos[0].url}></CardThumbnail>
         <div>
           <ActionButton onClick={() => props.setShow(true)}>
             <Star icon={farStar}/>
@@ -70,7 +77,9 @@ const ProductCard = (props) => {
         ${props.card.default_price}
       </div>
       <div>
-        <span className="stars" style={{ "--rating": props.card.rating}}></span>
+        {/* <span className="stars" style={{ "--rating": props.card.rating}}></span> */}
+        <Reviews rating={averageNums.averageRating} />
+          {averageNums.ratingTotal > 0}
       </div>
     </CarouselItem>
   )
