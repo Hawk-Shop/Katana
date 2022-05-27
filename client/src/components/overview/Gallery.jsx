@@ -16,7 +16,7 @@ const Image = styled.div`
   background-size: auto 100%;
   display: flex;
   &.zoomed {
-    transform: scale(3.5);
+    transform: scale(5);
     height: 50%;
     position: relative;
   }
@@ -52,6 +52,9 @@ const Center = styled.div`
   }
   &.zoom {
     cursor: zoom-in;
+  }
+  &.zoomOut {
+    cursor: zoom-out;
   }
   &.zoomed {
     overflow: hidden;
@@ -96,9 +99,11 @@ const Gallery = (props) => {
 
   const expanded = props.expandedView ? "full" : "regular";
   const zoomOverflow = isZoomed ? "zoomed" : "nothing";
-  const cursor = props.expandedView ? "crosshair" : "zoom";
-  console.log(expanded);
+  let cursor = props.expandedView ? "crosshair" : "zoom";
 
+  if (isZoomed) {
+    cursor = "zoomOut"
+  }
   const handleMouse = (e) => {
     setX(500 - e.clientX);
     setY(500 - e.clientY);
