@@ -18,15 +18,15 @@ app.use((req, res, next) => {
 axios.defaults.headers.common['Authorization'] = process.env.AUTH
 //routes
 
-app.post('/upload', (req, res) => {
-  axios
-    .post(`https://api.imgbb.com/1/upload/?key=${process.env.IMG_API}&image=${req.body.image}`)
-    .then((result) => {
-      console.log('THIS IS THE RESULT ON THE SERVER SIDE');
-      res.status(200).send(result.data)
-    })
-    .catch((err) => console.log('ERROR ON SERVER SIDE', err))
-})
+// app.post('/upload', (req, res) => {
+//   axios
+//     .post(`https://api.imgbb.com/1/upload/?key=${process.env.IMG_API}&image=${req.body.image}`)
+//     .then((result) => {
+//       console.log('THIS IS THE RESULT ON THE SERVER SIDE');
+//       res.status(200).send(result.data)
+//     })
+//     .catch((err) => console.log('ERROR ON SERVER SIDE', err))
+// })
 
 app.get("/*", (req, res) => {
     // console.log("headers: ", req.headers);

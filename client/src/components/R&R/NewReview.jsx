@@ -81,11 +81,15 @@ border: dotted blue;
 margin: 0;
 `;
 
+const Thumbnails = styled.img`
+width: 6em;
+height: 6em;
+padding: .2em;
+`;
+
 const NewReview = ({closeModal, showModal, setShowModal}) => {
   const id = useContext(Context).id;
   const productName = useContext(Context).productName;
-
-  const [numPhotos, setNumPhotos] = useState(0);
 
   const [rate, setRate] = useState(null); // for stars
   const [recommend, setRecommend] = useState('');
@@ -126,7 +130,10 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
     };
     console.log(axiosBody);
     axios.post('/reviews', axiosBody)
-    .then((res) => console.log('successfully added reviews'))
+    .then((res) => {
+      console.log('successfully added reviews');
+      closeModal();
+    })
     .catch((err) => console.log('error', err));
   }
 
@@ -221,37 +228,44 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
                 <textarea name="body" cols="60" rows="5" minLength="50" maxLength="1000" placeholder="Why did you like the product or not?" required onChange={(e) => {setBody(e.target.value)}}></textarea>
                 {body.length < 50 ? <span>Minimum required characters left: {50-body.length}</span> : <span>Minimum reached</span>}
               </Question>
-              {numPhotos < 5 && <Question>
-                <label htmlFor="photos">Upload your photos&nbsp;</label>
+              {photos.length < 5 && <Question>
+                <label htmlFor="photos">Upload your photos</label> <br></br>
                 <input type="file" name="photos" accept="image/png, image/jpeg" multiple="true" onChange={(e) => {
-
-
+                  let allPhotos = [];
                   let files = e.target.files;
-                  getBase64(files[0])
-                    .then((base64) => {
+                  for (var i = 0; i < files.length; i++) {
+                    let base64 = getBase64(files[i]);
+                    allPhotos.push(base64);
+                  }
+
+                  Promise.all(allPhotos)
+                  .then((allBase64) => {
+                    let allUrl = [];
+                    allBase64.forEach((base64) => {
                       let body = new FormData();
                       body.append('image', base64);
 
-                      axios.post(`https://api.imgbb.com/1/upload?key=193e1e2ee600f99c92cf7b198b721403`, body)
-                        .then((result) => console.log('RESULT', result.data.data.display_url))
+                      allUrl.push(axios.post(`https://api.imgbb.com/1/upload?key=193e1e2ee600f99c92cf7b198b721403`, body));
+                    });
+                    Promise.all(allUrl)
+                    .then((result) => {
+                      let urls = result.map((each) => each.data.data.display_url);
+                      setPhotos(urls);
                     })
-                    .catch((err) => console.log('error', err));
-
-
-                  // console.log('FILES2', FileReader.readAsBinaryString(files[0]));
-                  // if (files.length > 5) {
-                  //   setNumPhotos(5);
-                  // } else {
-                  //   setNumPhotos(files.length);
-                  // }
+                  })
                 }}></input>
-                {numPhotos >=5 && <Question>
-                  <span>Max # of photos uploaded</span>
-                </Question>}
-                <div>
-                  {numPhotos === 0 ? <p>No photos selected yet</p> : <p>all photos will go here</p>}
-                </div>
               </Question>}
+              {photos.length >= 5 && <Question>
+                  <span>Max 5 photo uploads reached</span>
+                </Question>}
+              <div>
+                {console.log('photos', photos)}
+                {photos.length === 0 ?
+                  <p>No photos selected yet</p> :
+                  <p>
+                    {photos.map((photo) => <Thumbnails src={photo}></Thumbnails>)}
+                  </p>}
+              </div>
               <Question>
                 <label htmlFor="nickname">What is your nickname *&nbsp;</label>
                 <textarea name="nickname" cols="60" rows="1" maxLength="60" placeholder="Example: jackson11!" required onChange={(e) => {setNickname(e.target.value)}}></textarea>
