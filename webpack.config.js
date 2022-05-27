@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
   mode: "development",
-  entry: path.join(__dirname, 'client/src/index.jsx'),
+  entry: './client/src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'client/dist'),
     filename: 'bundle.js'
@@ -12,12 +12,12 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /.(js|jsx)$/,
         use: 'babel-loader',
         exclude: /node_modules/
       },
       {
-        test: /\.css$/,
+        test: /.css$/,
         use: [
           'style-loader',
           'css-loader'
@@ -28,6 +28,9 @@ const config = {
   plugins: [new HtmlWebpackPlugin({
     title: "Hawkeyes",
   })],
+  resolve: {
+    extensions: ['.jsx', '.js']
+  }
 };
 
 module.exports = config;
