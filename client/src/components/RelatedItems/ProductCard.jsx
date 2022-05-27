@@ -3,6 +3,7 @@ import { Context } from '../util/context.js';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+import Modal from './Comparison.jsx';
 
 
 const CarouselItem = styled.div`
@@ -43,13 +44,20 @@ const ImageContainer = styled.div`
 `
 
 const ProductCard = (props) => {
+
   return (
     <CarouselItem style={props.width}>
       <ImageContainer>
         <CardThumbnail src={props.card.thumbnail}></CardThumbnail>
-        <ActionButton >
-          <Star icon={farStar}/>
-        </ActionButton>
+        <div>
+          <ActionButton onClick={() => props.setShow(true)}>
+            <Star icon={farStar}/>
+          </ActionButton>
+          <Modal
+            onClose={() => props.setShow(false)}
+            show={props.show}
+          />
+        </div>
       </ImageContainer>
 
       <div>

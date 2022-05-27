@@ -44,6 +44,8 @@ const ProductsList = (props) => {
            <ProductCard
            card={card}
            width={{ width: "25%"}}
+           show={props.show}
+           setShow={props.setShow}
            />
         ))}
       </Inner>

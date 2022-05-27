@@ -8,6 +8,7 @@ import sample from './exampleData.js';
 
 const RelatedProducts = (props) => {
   const id = useContext(Context).id;
+  const [show, setShow] = useState(false);
   const [product, setProduct] = useState("");
   const [styles, setStyles] = useState("");
   const [reviews, setReviews] = useState("");
@@ -139,7 +140,7 @@ const RelatedProducts = (props) => {
   return(
     <div>
       <h3>Related Products</h3>
-      <ProductsList list={list}/>
+      <ProductsList list={list} show={show} setShow={setShow}/>
       <h3>Your Outfit</h3>
       {/* <OutfitList /> */}
     </div>
