@@ -13,15 +13,12 @@ const RelatedProducts = (props) => {
   const [reviews, setReviews] = useState("");
   const [demo, setDemo] = useState("");
 
-  // const [demo, setDemo] = useState([product, styles, reviews]);
-
   let storage = [];
 
   useEffect(() => {
     axios.get(`/products/${id}/related`)
       .then((related) => {
-        // console.log("get related request:", related);
-        // let currentID;
+        console.log("RELATED PRODUCT IDS:", related.data)
         for (var i = 0; i < related.data.length; i++) {
           let currentID = related.data[i];
           let currentProduct = axios.get(`/products/${currentID}`);
@@ -40,14 +37,21 @@ const RelatedProducts = (props) => {
         }
       })
       .then(() => {
-        console.log("STORAGE OUTSIDE", storage)
         setDemo(storage);
       })
       .catch((err) => console.log(err));
   }, []);
   // console.log("WHATS IN HEREEEEEE", demo)
-  // console.log("STORAGE OUTSIDE", storage)
+  console.log("STORAGE OUTSIDE", storage)
   console.log("WHATS IN HEREEEEEE", demo)
+  // console.log("WHATS IN HEREEEEEE", demo[0])
+  // console.log("WHATS IN HEREEEEEE", demo[0].id)
+  // console.log("WHATS IN HEREEEEEE", product.id)
+
+
+
+
+
 
 
   const [list, setList] = useState([

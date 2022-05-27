@@ -21,7 +21,7 @@ const IndicatorButton = styled.button`
   margin: 5px;
 `;
 
-const ProductsList = ({list}) => {
+const ProductsList = (props) => {
   const id = useContext(Context).id;
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -30,8 +30,8 @@ const ProductsList = ({list}) => {
     // console.log("content length:", list.length);
     if (newIndex < 0) {
       newIndex = 0;
-    } else if (newIndex >= (list.length/4)) {
-      newIndex = (list.length/4) -1;
+    } else if (newIndex >= (props.list.length/4)) {
+      newIndex = (props.list.length/4) -1;
     }
     setActiveIndex(newIndex);
   };
@@ -40,12 +40,12 @@ const ProductsList = ({list}) => {
     <Carousel>
       <Inner
         style={{ transform: `translateX(-${activeIndex * 100}%)`}}>
-        {list.map((card) => {
-          return <ProductCard
-            card={card}
-            width={{ width: "25%"}}
-            />
-        })}
+        {props.list.map((card) => (
+           <ProductCard
+           card={card}
+           width={{ width: "25%"}}
+           />
+        ))}
       </Inner>
       <Indicators>
         <IndicatorButton onClick={() => {updateIndex(activeIndex - 1);}}>

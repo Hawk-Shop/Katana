@@ -42,28 +42,28 @@ const ImageContainer = styled.div`
   position: relative;
 `
 
-const ProductCard = ({card, width}) => {
+const ProductCard = (props) => {
   return (
-    <CarouselItem style={width}>
+    <CarouselItem style={props.width}>
       <ImageContainer>
-        <CardThumbnail src={`${card.thumbnail}`}></CardThumbnail>
+        <CardThumbnail src={props.card.thumbnail}></CardThumbnail>
         <ActionButton >
           <Star icon={farStar}/>
         </ActionButton>
       </ImageContainer>
 
       <div>
-        {card.name}
+        {props.card.name}
       </div>
       <div>
-        {card.category}
+        {props.card.category}
       </div>
       <div>
-        ${card.default_price}
+        ${props.card.default_price}
       </div>
       <div>
-      <span className="stars" style={{ "--rating": card.rating}}></span>
-    </div>
+        <span className="stars" style={{ "--rating": props.card.rating}}></span>
+      </div>
     </CarouselItem>
   )
 }
