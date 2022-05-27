@@ -22,10 +22,19 @@ const Search = ({questions, searched, setSearched}) => {
     console.log('search for :', searchInput);
   }
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setSearchInput(e.target.value)
-  }
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   setSearchInput(e.target.value);
+  //   questions.filter(question => {
+  //     if (searchInput === "") {
+  //       return question;
+  //     } else if ()
+  //   }).map((question, key) => {
+  //     return (
+
+  //     )
+  //   })
+  // }
 
   return (
     <div>
