@@ -23,7 +23,7 @@ const PriceFit = styled.div`
 const FlexFit = styled.div`
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 30%;
 `;
 const ProductC = styled.div`
   display: flex;
