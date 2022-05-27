@@ -13,13 +13,18 @@ import styled from 'styled-components';
 //   box-sizing: border-box;
 // `;
 
-const Search = (props) => {
+const Search = ({questions, searched, setSearched}) => {
   const id = useContext(Context).id;
   const [searchInput, setSearchInput] = useState('')
 
 
   let handleSearch = () => {
     console.log('search for :', searchInput);
+  }
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchInput(e.target.value)
   }
 
   return (
@@ -29,7 +34,7 @@ const Search = (props) => {
         placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
         value={searchInput}
         size='70'
-        onChange={(e) => {setSearchInput(e.target.value)}}
+        onChange={e => handleSearch}
       />
       <button onClick={handleSearch}>Search</button>
     </div>

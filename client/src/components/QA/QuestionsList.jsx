@@ -41,6 +41,8 @@ const QuestionsList = (props) => {
   let [questionCount, setQuestionCount] = useState(4);
   let [showQModel, setShowQModel] = useState(false);
   let [qRerender, setQRerender] = useState(0);
+  let [searched, setSearched] = useState([]);
+  let [searching, setSearching] = useState(false);
 
   useEffect(() => {
     axios
@@ -64,7 +66,11 @@ const QuestionsList = (props) => {
     <>
       <h2>Questions &#38; Answers</h2>
       <Sort>
-        <Search />
+        <Search
+          questions={questions}
+          searched={searched}
+          setSearched={setSearched}
+        />
         <br/>
         <>Click on a question to view it's respective answers.</>
         <Section>
