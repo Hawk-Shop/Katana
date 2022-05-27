@@ -1,5 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
-import { Context } from '../util/context.js';
+ import { useState, useContext, useEffect } from 'react';
 import ReviewTile from './ReviewTile.jsx';
 import NewReview from './NewReview.jsx';
 import styled from 'styled-components';
@@ -16,14 +15,18 @@ const Button = styled.button`
   &:hover {
     background: lightgrey;
   }
+  cursor: pointer;
   `;
 
   const Section = styled.section`
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
   max-height:500px;
   width: 100%;
   display: flex;
   flex-direction: column;
+  min-width: 100%
   `;
 
   const Sort = styled.div`
@@ -31,8 +34,21 @@ const Button = styled.button`
   `;
 
   const Container = styled.div`
+  width: 70%;
+  float: right;
   border: solid;
-  width: 100%;
+  height: 100%
+  `;
+
+  const Dropdown = styled.select`
+  border: none;
+  text-decoration: underline;
+  background-color: transparent;
+  &:hover {
+    color: grey;
+    font-size: 1em;
+  };
+  cursor: pointer;
   `;
 
 const Reviews = ({count, getSorted, selectValue, reviews}) => {
@@ -43,18 +59,22 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
     setShowModal(prev => !prev);
   }
 
+  const closeModal = () => {
+    setShowModal(false);
+  }
+
   return (
-    <div>
-      <NewReview showModal={showModal} setShowModal={setShowModal}></NewReview>
-      <Container>
+    <Container>
+      <NewReview showModal={showModal} setShowModal={setShowModal} closeModal={closeModal}></NewReview>
+      <div>
         <Sort>
           {count} reviews,
           <label htmlFor="sort"> sorted by </label>
-          <select value={selectValue} name="sort" onChange={(e) => {getSorted(e.target.value)}}>
+          <Dropdown value={selectValue} name="sort" onChange={(e) => {getSorted(e.target.value)}}>
             <option value="relevant">most relevant</option>
             <option value="helpful">most helpful </option>
             <option value="newest">newest</option>
-          </select>
+          </Dropdown>
         </Sort>
         <Section>
           {reviews.slice(0, displayCount).map((review) => (
@@ -65,8 +85,8 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
           setDisplayCount(displayCount + 2)
         }}>More Reviews</Button>}
         <Button onClick={openModal}>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
-      </Container>
-    </div>
+      </div>
+    </Container>
       )
 }
 

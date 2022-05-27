@@ -6,7 +6,8 @@ import Ratings from './Ratings.jsx'
 import styled from 'styled-components';
 
 const Container = styled.div`
-display: flex;
+display: inline-block;
+width: 100%;
 `;
 
 let ReviewsOverview = (props) => {
@@ -61,7 +62,7 @@ let ReviewsOverview = (props) => {
   const getSorted = (type) => {
     axios.get(`/reviews/?product_id=${id}&count=1000&sort=${type}`)
       .then((result) => {
-        console.log('RESULT HEREEEEE!@#*&!#()@*', result.data.results);
+        // console.log('RESULT HEREEEEE!@#*&!#()@*', result.data.results);
         let arr = result.data.results;
         if (Object.keys(filters).length !== 0) {
           arr = arr.filter((each) => (filters[each.rating]));
@@ -74,7 +75,7 @@ let ReviewsOverview = (props) => {
 
   useEffect(() => {
       getSorted(selectValue);
-    }, []);
+    }, [filters]);
 
 
   return (

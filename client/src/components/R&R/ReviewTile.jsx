@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faUserCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faUserCheck, faFontAwesome } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 
 import Stars from './Stars.jsx';
@@ -52,7 +52,6 @@ import ImageModal from '../QA/Modals/ImageModal.jsx';
 
   const Photos = styled.div`
   padding-top: 1em;
-
   `;
 
   const Photo = styled.img`
@@ -60,6 +59,7 @@ import ImageModal from '../QA/Modals/ImageModal.jsx';
   height: 7em;
   margin: .2em;
   border: solid .5px grey;
+  cursor: pointer;
   `;
 
   const Response = styled.div`
@@ -73,6 +73,8 @@ const ReviewTile = ({review}) => {
   const [modal, setModal] = useState(false);
   const [url, setUrl] = useState('');
   const [disabled, setDisabled] = useState(false);
+  const [reported, setReported] = useState(false);
+  const [revealAll, setRevealAll] = useState(false);
 
   const toggleModal = (e) => {
     setUrl(e.target.currentSrc);
@@ -102,6 +104,15 @@ const ReviewTile = ({review}) => {
     }
   }
 
+  const clickReported = () => {
+    if (!reported) {
+      axios.put(`/reviews/${review.review_id}/report`)
+      .then((result) => {
+        setReported(true);
+      })
+    }
+  }
+
   return (
     <Tile>
       <div>
@@ -125,7 +136,8 @@ const ReviewTile = ({review}) => {
         </div> :
         <div>
           {review.body.substring(0,250)}
-          <button>Show more</button>
+          {!revealAll && <HelpButtons onClick={() => {setRevealAll(true)}}>Show more</HelpButtons>}
+          {revealAll && <span>{review.body.substring(250)}</span>}
         </div>}
       </Body>
       {review.photos.length !== 0 &&
@@ -154,6 +166,10 @@ const ReviewTile = ({review}) => {
           </HelpButtons>
         <HelpButtons onClick={clickThumbsDown}>
         <FontAwesomeIcon icon={faThumbsDown} /> {` No (${noCount})`}
+          </HelpButtons>
+        <HelpButtons onClick={clickReported}>
+          {!reported && <span>Report &nbsp;<FontAwesomeIcon icon={faFontAwesome} /></span>}
+          {reported && <span>Reported</span>}
           </HelpButtons>
       </Helpful>
 

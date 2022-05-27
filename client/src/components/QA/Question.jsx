@@ -67,7 +67,7 @@ const Yes = styled.button`
   text-decoration: underline;
 `
 
-const Question = ({question, id}) => {
+const Question = ({question, id, questionCount, setQuestionCount}) => {
   const {question_id, question_body, question_date, question_asker, question_helpfulness, answers} = question;
   let [answersList, setAnswersList] = useState([]);
   let [answerCount, setAnswerCount] = useState(2);
@@ -78,7 +78,7 @@ const Question = ({question, id}) => {
 
   useEffect(() => {
     axios
-      .get(`/qa/questions/${question_id}/answers`)
+      .get(`/qa/questions/${question_id}/answers/?count=1000`)
       .then(response => {
         // console.log('response.data: ', response.data.results);
         setAnswersList(response.data.results);
@@ -86,7 +86,7 @@ const Question = ({question, id}) => {
       .catch(err => {
         console.error('Unable to get answers. Sorry...', err);
       })
-  }, [])
+  }, [show])
 
   const toggleAddAnswerModal = () => {
     setAddAnswerModal(!addAnswerModal);
@@ -96,12 +96,18 @@ const Question = ({question, id}) => {
     setQuestionClicked(!questionClicked);
   }
 
+  const handleHelpful = () => {
+    axios
+      .put(`/qa/questions/${question_id}/helpful`)
+      .then(response => console.log(response))
+      .catch(err => console.error(err));
+  }
+
   if (addAnswerModal) {
     document.body.classList.add('active-modal');
   } else {
     document.body.classList.remove('active-modal');
   }
-
 
   const seeMoreAnswers = (
     <Button onClick={() => {

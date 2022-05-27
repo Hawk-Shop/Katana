@@ -6,11 +6,13 @@ import Bars from './Bars.jsx';
 import avgRating from '../util/getAvgRating.js';
 import percentRec from '../util/percentRec.js';
 import styled from 'styled-components';
+import ProductBreakdown from './ProductBreakdown.jsx';
 
 const Container = styled.div`
   border: solid;
-  width: 30%;
-  padding: 2%
+  width: 24%;
+  padding: 2%;
+  float: left;
   `;
 
   const NumRating = styled.span`
@@ -49,6 +51,7 @@ const Ratings = (props) => {
       </div>
       {percRec && <div style={{margin: " 1em 0"}}>{percRec}% of reviews recommend this product</div>}
       <div>
+        <h4>Rating Breakdown</h4>
         <Bars
           reviews={props.reviews}
           setReviews={props.setReviews}
@@ -59,7 +62,8 @@ const Ratings = (props) => {
           setFilters={props.setFilters}></Bars>
       </div>
       <div>
-        here are my rating slides
+        <ProductBreakdown
+          id={id}></ProductBreakdown>
       </div>
     </Container>
   )
