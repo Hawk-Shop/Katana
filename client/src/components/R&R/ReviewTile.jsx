@@ -89,8 +89,8 @@ const ReviewTile = ({review}) => {
 
   const clickThumbsUp = () => {
     if (!disabled) {
-      // console.log(review.review_id)
-      axios.put(`/reviews/${review.review_id}/helpful`)
+      console.log(review.review_id)
+      axios.put(`/reviews/${review.review_id}/helpful`, null)
       .then((result) => {
         console.log('it worked');
         setYesCount(yesCount+1);

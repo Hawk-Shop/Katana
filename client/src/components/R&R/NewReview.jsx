@@ -56,35 +56,58 @@ const Question = styled.div`
 padding: 1em;
 `;
 
+// const Option = styled.span`
+// display: flex;
+// flex-direction: row-reverse;
+// align-items: flex-end;
+// align-text: left;
+// border: dotted red;
+// font-size: 1em;
+// `;
+
+// const OptionCol = styled.div`
+// display: flex;
+// flex-direction: column;
+// width: 100%;
+// border: dotted green;
+// margin: 0;
+// flex-grow: 1;
+// `;
+
+// const OptionContainer = styled.div`
+// display: flex;
+// flex-direction: row;
+// border: dotted blue;
+// margin: 0;
+// height: 0em;
+// `;
+
 const Option = styled.span`
-display: flex;
-flex-direction: row-reverse;
-align-items: flex-end;
-align-text: left;
-border: dotted red;
-font-size: 1em;
+width: 20%;
+text-align: -webkit-center;
+font-size: smaller;
 `;
 
 const OptionCol = styled.div`
+background-color: lightgrey;
+border-radius: 10px 15px 15px 10px;
 display: flex;
-flex-direction: column;
-width: 100%;
-border: dotted green;
-margin: 0;
-flex-grow: 1;
+margin: .5em;
+padding: .2em;
 `;
 
 const OptionContainer = styled.div`
-display: flex;
-flex-direction: row;
-border: dotted blue;
-margin: 0;
 `;
 
 const Thumbnails = styled.img`
 width: 6em;
 height: 6em;
 padding: .2em;
+`;
+
+const Footnote = styled.div`
+font-size: smaller;
+font-style: italic;
 `;
 
 const NewReview = ({closeModal, showModal, setShowModal}) => {
@@ -198,11 +221,11 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
                   {characteristics.map((char) => {
                     let ratings = Object.keys(charLegend[char]); // ratings are numbers
                     return (
+                      <>
+                        <label> {char} </label>
                         <OptionCol>
-                          <label> {char}
                             {ratings.map((rating) => (
                               <Option>
-                                <label htmlFor={char}>{charLegend[char][rating]}</label>
                                 <input type="radio" name={char} value={rating + char} onChange={(e) => {
                                   let newCharObject = {...charObject};
                                   let numRating = Number(e.target.value.substring(0, 1));
@@ -211,22 +234,24 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
                                   newCharObject[charId] = numRating;
                                   setCharObject(newCharObject);
                                 }} required></input>
+                                <br></br>
+                                <label htmlFor={char}>{(rating === '1' || rating === '5') && charLegend[char][rating]}</label>
                               </Option>
                             ))}
-                          </label>
                         </OptionCol>
+                      </>
                     )
                   })}
                 </OptionContainer>
               </Question>
               <Question>
-                <label htmlFor="summary">Review summary&nbsp;</label>
+                <label htmlFor="summary">Review summary&nbsp;</label><br></br>
                 <textarea name="summary" cols="60" rows="2" maxLength="60" placeholder="Example: Best purchase ever!" onChange={(e) => {setSummary(e.target.value)}}></textarea>
               </Question>
               <Question>
-                <label htmlFor="body">Review body *&nbsp;</label>
+                <label htmlFor="body">Review body *&nbsp;</label><br></br>
                 <textarea name="body" cols="60" rows="5" minLength="50" maxLength="1000" placeholder="Why did you like the product or not?" required onChange={(e) => {setBody(e.target.value)}}></textarea>
-                {body.length < 50 ? <span>Minimum required characters left: {50-body.length}</span> : <span>Minimum reached</span>}
+                {body.length < 50 ? <Footnote>Minimum required characters left: {50-body.length}</Footnote> : <span>Minimum reached</span>}
               </Question>
               {photos.length < 5 && <Question>
                 <label htmlFor="photos">Upload your photos</label> <br></br>
@@ -261,20 +286,20 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
               <div>
                 {console.log('photos', photos)}
                 {photos.length === 0 ?
-                  <p>No photos selected yet</p> :
-                  <p>
+                  <div>No photos selected yet</div> :
+                  <div>
                     {photos.map((photo) => <Thumbnails src={photo}></Thumbnails>)}
-                  </p>}
+                  </div>}
               </div>
               <Question>
                 <label htmlFor="nickname">What is your nickname *&nbsp;</label>
-                <textarea name="nickname" cols="60" rows="1" maxLength="60" placeholder="Example: jackson11!" required onChange={(e) => {setNickname(e.target.value)}}></textarea>
-                <span>For privacy reasons, do not use your full name or email address</span>
+                <input type="text" name="nickname" size="60" maxLength="60" placeholder="Example: jackson11!" required onChange={(e) => {setNickname(e.target.value)}}></input>
+                <Footnote>For privacy reasons, do not use your full name or email address</Footnote>
               </Question>
               <Question>
                 <label htmlFor="email">Your email *&nbsp;</label>
                 <input type="email" name="email" size="60" maxLength="60" placeholder="Example: jackson11@email.com" required onChange={(e) => {setEmail(e.target.value)}}></input>
-                <span>For authentication reasons, you will not be emailed</span>
+                <Footnote>For authentication reasons, you will not be emailed</Footnote>
               </Question>
               <input type="submit" value="Submit review"></input>
             </form>
