@@ -6,6 +6,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faExpand } from "@fortawesome/free-solid-svg-icons";
 import ThumbGall from "./ThumbGall.jsx";
+import IconGall from "./IconGall.jsx";
 
 const Image = styled.div`
   height: 100%;
@@ -37,6 +38,7 @@ const Center = styled.div`
   flex: 90%;
   height: 100%;
   background-color: transparent;
+  cursor: zoom-in;
 `;
 
 const Arrow = styled(FontAwesomeIcon)`
@@ -73,11 +75,13 @@ const Gallery = (props) => {
 
   return (
     <GallFlex className={changeWidth}>
-      <ThumbGall
-        currImg={currImg}
-        setCurrImg={setCurrImg}
-        photos={props.currentStyle.photos}
-      />
+      {!props.expandedView && (
+        <ThumbGall
+          currImg={currImg}
+          setCurrImg={setCurrImg}
+          photos={props.currentStyle.photos}
+        />
+      )}
       {props.currentStyle.photos[currImg].url && (
         <ImageCtn>
           <Image
@@ -92,7 +96,9 @@ const Gallery = (props) => {
             >
               {currImg !== 0 && <Arrow icon={faArrowLeft} />}
             </LeftRight>
-            <Center></Center>
+            <Center
+              onClick={() => props.setExpandedView(!props.expandedView)}
+            ></Center>
             <Expand
               icon={faExpand}
               onClick={() => props.setExpandedView(!props.expandedView)}
@@ -108,6 +114,13 @@ const Gallery = (props) => {
               )}
             </LeftRight>
           </Image>
+          {props.expandedView && (
+            <IconGall
+              currImg={currImg}
+              setCurrImg={setCurrImg}
+              photos={props.currentStyle.photos}
+            />
+          )}
         </ImageCtn>
       )}
     </GallFlex>
