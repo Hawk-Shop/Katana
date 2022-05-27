@@ -143,6 +143,22 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
     })
   }, [])
 
+  // helper
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
+        if ((encoded.length % 4) > 0) {
+          encoded += '='.repeat(4 - (encoded.length % 4));
+        }
+        resolve(encoded);
+      };
+      reader.onerror = error => reject(error);
+    });
+  }
+
   return (
     <>
       {showModal ? (
@@ -208,16 +224,18 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
               {numPhotos < 5 && <Question>
                 <label htmlFor="photos">Upload your photos&nbsp;</label>
                 <input type="file" name="photos" accept="image/png, image/jpeg" multiple="true" onChange={(e) => {
-                  let files = e.target.files;
-                  var reader = new FileReader();
-                  reader.onloadend = function() {
-                    console.log('RESULT', reader.result);
-                    axios.post('https://api.imgbb.com/upload', {
-                      image: reader.result,
-                    })
-                  }
-                  reader.readAsDataURL(files[0]);
 
+
+                  let files = e.target.files;
+                  getBase64(files[0])
+                    .then((base64) => {
+                      let body = new FormData();
+                      body.append('image', base64);
+
+                      axios.post(`https://api.imgbb.com/1/upload?key=193e1e2ee600f99c92cf7b198b721403`, body)
+                        .then((result) => console.log('RESULT', result.data.data.display_url))
+                    })
+                    .catch((err) => console.log('error', err));
 
 
                   // console.log('FILES2', FileReader.readAsBinaryString(files[0]));
