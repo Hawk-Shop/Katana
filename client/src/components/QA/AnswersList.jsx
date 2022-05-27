@@ -15,7 +15,7 @@ const Image = styled.img`
 `
 
 const Answer = styled.div`
-margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 `
 
 const Helpful = styled.span`
@@ -78,7 +78,10 @@ const AnswersList = ({answer, handleHelpful, handleReported, question_id, aReren
     <Answer>
       <span>{body}</span>
       <User>
-        <span>by {answerer_name}, </span>
+        {answerer_name.toLowerCase() === "seller" ?
+          <span>by <b>Seller</b>, </span> :
+          <span>by {answerer_name}, </span>
+        }
         <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
         <Helpful> Helpful?
           <Yes onClick={() =>
