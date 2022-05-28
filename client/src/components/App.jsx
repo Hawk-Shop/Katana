@@ -6,6 +6,13 @@ import QuestionsList from "./QA/QuestionsList.jsx";
 import ReviewsOverview from './R&R/Overview.jsx';
 import RelatedProducts from './RelatedItems/Main.jsx';
 import axios from 'axios';
+
+import {ThemeProvider} from "styled-components";
+import {useDarkMode} from "./DarkMode/UseDarkMode"
+import { GlobalStyles } from "./DarkMode/GlobalStyles.jsx";
+import { lightTheme, darkTheme } from "./DarkMode/Themes.jsx";
+import Toggle from "./DarkMode/Toggler.jsx";
+
 window.React = React
 
 const StyledApp = styled.div`
@@ -17,34 +24,42 @@ const StyledApp = styled.div`
 const App = (props) => {
   const [id, setId] = useState(40348);
   const [productName, setProductName] = useState('');
+  const [theme, themeToggler] = useDarkMode();
+
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
+
 
   axios.get(`/products/${id}`)
   .then((res) => setProductName(res.data.name));
 
   return (
-    <StyledApp>
-      <div>
-        <Context.Provider value={{ id: id }}>
-          <h1>Overview</h1>
-          <Overview></Overview>
-        </Context.Provider>
-      </div>
-      <div>
-        <Context.Provider value={{id: id}}>
-          <RelatedProducts></RelatedProducts>
-        </Context.Provider>
-      </div>
-      <div>
-        <Context.Provider value={{id: id}}>
-          <QuestionsList></QuestionsList>
-        </Context.Provider>
-      </div>
-      <div>
-        <Context.Provider value={{id: id, productName: productName}}>
-          <ReviewsOverview></ReviewsOverview>
-        </Context.Provider>
-      </div>
-    </StyledApp>
+    <ThemeProvider theme={themeMode}>
+      <GlobalStyles/>
+      <StyledApp>
+        <Toggle theme={theme} toggleTheme={themeToggler} />
+        <div>
+          <Context.Provider value={{ id: id }}>
+            <h1>Overview</h1>
+            <Overview></Overview>
+          </Context.Provider>
+        </div>
+        <div>
+          <Context.Provider value={{id: id}}>
+            <RelatedProducts></RelatedProducts>
+          </Context.Provider>
+        </div>
+        <div>
+          <Context.Provider value={{id: id}}>
+            <QuestionsList></QuestionsList>
+          </Context.Provider>
+        </div>
+        <div>
+          <Context.Provider value={{id: id, productName: productName}}>
+            <ReviewsOverview></ReviewsOverview>
+          </Context.Provider>
+        </div>
+      </StyledApp>
+    </ThemeProvider>
   );
 };
 
