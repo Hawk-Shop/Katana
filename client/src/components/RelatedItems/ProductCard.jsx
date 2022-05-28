@@ -6,6 +6,7 @@ import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import Modal from './Comparison.jsx';
 import avgRating from "../util/getAvgRating.js";
 import Stars from "../R&R/Stars.jsx";
+import placeholder from './placeholder.png';
 
 
 const CarouselItem = styled.div`
@@ -51,11 +52,19 @@ const Reviews = styled(Stars)`
 const ProductCard = (props) => {
   const ratings = props.card.ratings;
   let averageNums = avgRating(ratings);
+  let thumbURL = props.card.results[0].photos[0].url;
+
+  let thumbPath;
+  if (thumbURL != null) {
+    thumbPath = thumbURL
+  } else {
+    thumbPath = placeholder;
+  }
 
   return (
     <CarouselItem style={props.width}>
       <ImageContainer>
-        <CardThumbnail src={props.card.results[0].photos[0].url}></CardThumbnail>
+        <CardThumbnail src={thumbPath}></CardThumbnail>
         <div>
           <ActionButton onClick={() => props.setShow(true)}>
             <Star icon={farStar}/>
@@ -77,7 +86,6 @@ const ProductCard = (props) => {
         ${props.card.default_price}
       </div>
       <div>
-        {/* <span className="stars" style={{ "--rating": props.card.rating}}></span> */}
         <Reviews rating={averageNums.averageRating} />
           {averageNums.ratingTotal > 0}
       </div>
