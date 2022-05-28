@@ -42,6 +42,7 @@ const ProductRev = styled.span`
   display: inline;
   margin-left: 5%;
   text-decoration: underline;
+  cursor: pointer;
 `;
 
 const StarLink = styled(Stars)`
@@ -52,13 +53,17 @@ const ProductInfo = (props) => {
   const ratings = props.reviews.ratings;
   let averageNums = avgRating(ratings)
 
+  const handleRevClick = () => {
+    props.reviewsRef.current.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <FlexFit>
       {averageNums.ratingTotal > 0 && (
         <ProductC>
           <StarLink rating={averageNums.averageRating} />
           {averageNums.ratingTotal > 0}
-          <ProductRev>Read {averageNums.ratingTotal} reviews</ProductRev>
+          <ProductRev onClick={handleRevClick}>Read {averageNums.ratingTotal} reviews</ProductRev>
         </ProductC>
       )}
       <div>{props.product.category}</div>

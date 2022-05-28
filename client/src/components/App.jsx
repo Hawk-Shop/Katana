@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from 'styled-components';
 import { Context } from "./util/context.js";
 import Overview from "./overview/Overview.jsx";
@@ -18,6 +18,8 @@ const App = (props) => {
   const [id, setId] = useState(40344);
   const [productName, setProductName] = useState('');
 
+  const reviewsRef = useRef();
+
   axios.get(`/products/${id}`)
   .then((res) => setProductName(res.data.name));
 
@@ -26,7 +28,7 @@ const App = (props) => {
       <div>
         <Context.Provider value={{ id: id }}>
           <h1>Overview</h1>
-          <Overview></Overview>
+          <Overview reviewsRef={reviewsRef}></Overview>
         </Context.Provider>
       </div>
       <div>
@@ -41,7 +43,7 @@ const App = (props) => {
       </div>
       <div>
         <Context.Provider value={{id: id, productName: productName}}>
-          <ReviewsOverview></ReviewsOverview>
+          <ReviewsOverview reviewsRef={reviewsRef}></ReviewsOverview>
         </Context.Provider>
       </div>
     </StyledApp>
