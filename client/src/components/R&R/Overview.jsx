@@ -80,7 +80,7 @@ let ReviewsOverview = (props) => {
 
 
   return (
-    <Container>
+    <Container ref={props.reviewsRef}>
       <Ratings
         setReviews={setReviews}
         reviews={reviews}
