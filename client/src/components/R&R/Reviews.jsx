@@ -36,7 +36,6 @@ const Button = styled.button`
   const Container = styled.div`
   width: 70%;
   float: right;
-  border: solid;
   height: 100%
   `;
 
