@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import axios from 'axios';
 import styled from 'styled-components';
-import Search from './Search.jsx';
 import Question from './Question.jsx';
 import QuestionModal from './Modals/QuestionModal.jsx';
 import { results } from './Data.js';
@@ -42,6 +41,7 @@ const QuestionsList = (props) => {
   let [questionCount, setQuestionCount] = useState(4);
   let [showQModel, setShowQModel] = useState(false);
   let [qRerender, setQRerender] = useState(0);
+  let [searchInput, setSearchInput] = useState('')
   let [searched, setSearched] = useState([]);
   let [searching, setSearching] = useState(false);
 
@@ -79,10 +79,22 @@ const QuestionsList = (props) => {
     <>
       <h2>Questions &#38; Answers</h2>
       <Sort>
-        <Search
+        {/* <Search
           questions={questions}
           searched={searched}
           setSearched={setSearched}
+          searching={searching}
+          setSearching={setSearching}
+        /> */}
+        SEARCH:
+        <input
+          type="text"
+          placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+          size={80}
+          value={searchInput}
+          onChange={(e) => {
+            setSearchInput(e.target.value);
+          }}
         />
         <br/>
         {questions.length > 0 ?
@@ -93,7 +105,13 @@ const QuestionsList = (props) => {
           ]
         }
         <Section>
-          {questions.slice(0, questionCount).map((question, index) => {
+          {questions.filter((question) => {
+            if (searchInput.length < 3) {
+              return question;
+            } else if (question.question_body.toLowerCase().includes(searchInput.toLowerCase())) {
+              return question;
+            }
+          }).slice(0, questionCount).map((question, index) => {
             return  <Question
                       key={index}
                       question={question}
@@ -103,7 +121,7 @@ const QuestionsList = (props) => {
                     />
           })}
         </Section>
-        { questionCount < questions.length ? <p>Viewing {questionCount} of {questions.length} questions</p> : <p>Viewing {questions.length} of {questions.length} questions</p>}
+        {questionCount < questions.length ? <p>Viewing {questionCount} of {questions.length} questions</p> : <p>Viewing {questions.length} of {questions.length} questions</p>}
         {questionCount < questions.length && [
           showMoreQuestions
         ]}

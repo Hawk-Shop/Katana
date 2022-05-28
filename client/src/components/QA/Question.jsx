@@ -16,6 +16,7 @@ const Questions = styled.div`
   -moz-transition: background-color .5s ease-out;
   -o-transition: background-color .5s ease-out;
   transition: background-color .5s ease-out;
+  cursor: ns-resize;
   &:hover {
     background-color: rgba(240, 240, 240, .75);
   }
@@ -24,6 +25,7 @@ const Questions = styled.div`
 const QStyle = styled.span`
   font-size: 1.2em;
   display: flex;
+  cursor: ns-resize;
 `;
 
 const Helpful = styled.span`
