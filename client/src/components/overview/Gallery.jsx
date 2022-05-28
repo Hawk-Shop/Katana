@@ -4,28 +4,39 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faExpand } from "@fortawesome/free-solid-svg-icons";
 import ThumbGall from "./ThumbGall.jsx";
+import IconGall from "./IconGall.jsx";
 
 const Image = styled.div`
   height: 100%;
   width: 100%;
   background-position: 50% 20%;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: auto 100%;
   display: flex;
+  &.zoomed {
+    transform: scale(5);
+    height: 50%;
+    position: relative;
+  }
 `;
 
 const ImageCtn = styled.div`
   width: 100%;
-  height: 85vh;
-  background-color: black;
+  height: 55vh;
+  background-color: rgb(0, 0, 0, 0.3);
   margin-right: 8%;
+  &.zoomed {
+    background-color: transparent;
+    width: 30%;
+  }
 `;
 
 const LeftRight = styled.div`
   flex: 4%;
   height: 100%;
-  background-color: rgb(0, 0, 0, 0.6);
+  background-color: rgb(0, 0, 0, 0.2);
   display: grid;
   place-items: center;
   color: white;
@@ -36,16 +47,44 @@ const Center = styled.div`
   flex: 90%;
   height: 100%;
   background-color: transparent;
+  &.crosshair {
+    cursor: crosshair;
+  }
+  &.zoom {
+    cursor: zoom-in;
+  }
+  &.zoomOut {
+    cursor: zoom-out;
+  }
+  &.zoomed {
+    overflow: hidden;
+  }
 `;
 
 const Arrow = styled(FontAwesomeIcon)`
   background-color: transparent;
 `;
+const Expand = styled(FontAwesomeIcon)`
+  position: relative;
+  top: 1%;
+  right: 1%;
+  color: white;
+  cursor: pointer;
+`;
 
 const GallFlex = styled.div`
   display: flex;
   align-items: flex-start;
-  width: 60%;
+  &.full {
+    width: 100%;
+  }
+  &.regular {
+    width: 70%;
+  }
+  &.zoomed {
+    overflow: hidden;
+    justify-content: center;
+  }
 `;
 
 // const Thumbgall = styled.div`
@@ -54,40 +93,95 @@ const GallFlex = styled.div`
 
 const Gallery = (props) => {
   const [currImg, setCurrImg] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+
+  const expanded = props.expandedView ? "full" : "regular";
+  const zoomOverflow = isZoomed ? "zoomed" : "nothing";
+  let cursor = props.expandedView ? "crosshair" : "zoom";
+
+  if (isZoomed) {
+    cursor = "zoomOut"
+  }
+  const handleMouse = (e) => {
+    setX(500 - e.clientX);
+    setY(500 - e.clientY);
+    console.log(window.innerWidth, e.clientX);
+  };
 
   return (
-    <GallFlex>
-      <ThumbGall
-        currImg={currImg}
-        setCurrImg={setCurrImg}
-        photos={props.currentStyle.photos}
-      />
+    <GallFlex className={[expanded, zoomOverflow].join(" ")}>
+      {!props.expandedView && (
+        <ThumbGall
+          currImg={currImg}
+          setCurrImg={setCurrImg}
+          photos={props.currentStyle.photos}
+        />
+      )}
       {props.currentStyle.photos[currImg].url && (
-        <ImageCtn>
+        <ImageCtn className={zoomOverflow}>
           <Image
-            style={{
-              backgroundImage: `url(${props.currentStyle.photos[currImg].url})`,
-            }}
+            style={
+              isZoomed
+                ? {
+                    backgroundImage: `url(${props.currentStyle.photos[currImg].url})`,
+                    left: `${x}px`,
+                    top: `${y}px`,
+                  }
+                : {
+                    backgroundImage: `url(${props.currentStyle.photos[currImg].url})`,
+                  }
+            }
+            className={zoomOverflow}
           >
-            <LeftRight
-              onClick={() => {
-                currImg > 0 && setCurrImg(currImg - 1);
-              }}
-            >
-              {currImg !== 0 && <Arrow icon={faArrowLeft} />}
-            </LeftRight>
-            <Center></Center>
-            <LeftRight
-              onClick={() => {
-                currImg < props.currentStyle.photos.length - 1 &&
-                  setCurrImg(currImg + 1);
-              }}
-            >
-              {currImg !== props.currentStyle.photos.length - 1 && (
-                <Arrow icon={faArrowRight} />
-              )}
-            </LeftRight>
+            {!isZoomed && (
+              <LeftRight
+                onClick={() => {
+                  currImg > 0 && setCurrImg(currImg - 1);
+                }}
+              >
+                {currImg !== 0 && <Arrow icon={faArrowLeft} />}
+              </LeftRight>
+            )}
+            {props.expandedView ? (
+              <Center
+                onClick={() => setIsZoomed(!isZoomed)}
+                className={[cursor, zoomOverflow].join(" ")}
+                onMouseMove={handleMouse}
+              ></Center>
+            ) : (
+              <Center
+                onClick={() => props.setExpandedView(!props.expandedView)}
+                className={cursor}
+              ></Center>
+            )}
+            {!isZoomed && (
+              <Expand
+                icon={faExpand}
+                onClick={() => props.setExpandedView(!props.expandedView)}
+              />
+            )}
+            {!isZoomed && (
+              <LeftRight
+                onClick={() => {
+                  currImg < props.currentStyle.photos.length - 1 &&
+                    setCurrImg(currImg + 1);
+                }}
+              >
+                {currImg !== props.currentStyle.photos.length - 1 && (
+                  <Arrow icon={faArrowRight} />
+                )}
+              </LeftRight>
+            )}
           </Image>
+          {props.expandedView && !isZoomed && (
+            <IconGall
+              currImg={currImg}
+              setCurrImg={setCurrImg}
+              photos={props.currentStyle.photos}
+            />
+          )}
         </ImageCtn>
       )}
     </GallFlex>

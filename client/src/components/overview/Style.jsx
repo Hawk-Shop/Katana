@@ -25,7 +25,9 @@ const StylesCtn = styled.div`
 `;
 const IconCtn = styled.div`
   display: inline-block;
-  width: 11%
+  width: 15%;
+  margin: 0 auto;
+  position: relative;
 `;
 
 const ImgStyle = styled.img`
@@ -37,15 +39,14 @@ const ImgStyle = styled.img`
   cursor: pointer;
 `;
 const CheckmarkCtn = styled.div`
-  position: relative;
-  bottom: 40px;
+  position: absolute;
+  left: 50%;
+  bottom: 80%;
   width: 15px;
   height: 15px;
-  display: inline-block;
   background-color: white;
   border-radius: 50%;
   text-align: center;
-  margin-left: -20%;
   border: 1px solid black;
 `;
 
@@ -57,6 +58,7 @@ const Checkmark = styled(FontAwesomeIcon)`
 
 const ThmCtn = styled.span`
   margin-bottom: 2%;
+  width: 100%;
 `;
 
 const Style = ({ product, styles, currentStyle, setStyle }) => {

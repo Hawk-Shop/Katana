@@ -6,6 +6,8 @@ import Search from './Search.jsx';
 import Question from './Question.jsx';
 import QuestionModal from './Modals/QuestionModal.jsx';
 import { results } from './Data.js';
+import swal from 'sweetalert';
+
 
 const Button = styled.button`
   background: transparent;
@@ -21,8 +23,8 @@ const Button = styled.button`
 const Section = styled.section`
   overflow: auto;
   height:100%;
-  max-height: 50vh;
-  width: 45em;
+  max-height: 85vh;
+  width: auto;
   display: flex;
   flex-direction: column;
 `;
@@ -34,11 +36,14 @@ const Sort = styled.div`
 `;
 
 const QuestionsList = (props) => {
-  const id = 40355;
-  // const id = useContext(Context).id;
+  // const id = 40355;
+  const id = useContext(Context).id;
   let [questions, setQuestions] = useState([]);
   let [questionCount, setQuestionCount] = useState(4);
   let [showQModel, setShowQModel] = useState(false);
+  let [qRerender, setQRerender] = useState(0);
+  let [searched, setSearched] = useState([]);
+  let [searching, setSearching] = useState(false);
 
   useEffect(() => {
     axios
@@ -47,14 +52,26 @@ const QuestionsList = (props) => {
         // console.log('response.data: ', response.data.results);
         setQuestions(response.data.results);
       })
-      .catch(err => {
-        alert('Unable to get questions. Sorry...', err);
+      .catch(() => {
+        swal('Uh oh...', 'On error occurred on our side. Unable to get the questions related to this product right now. Please refresh and try again in a little bit.', 'error');
       })
-  }, [showQModel])
+  }, [showQModel, qRerender])
 
   const showMoreQuestions = (
-    <Button onClick={() => setQuestionCount(questionCount + 2)}>
+    <Button onClick={() => setQuestionCount(questions.length)}>
       More Questions
+    </Button>
+  )
+
+  // const collapseQuestions = (
+  //   <Button onClick={() => setQuestionCount(4)}>
+  //     Collapse Questions
+  //   </Button>
+  // )
+
+  const addQuestion = (
+    <Button onClick={() => setShowQModel(true)}>
+      Add a Question +
     </Button>
   )
 
@@ -62,22 +79,41 @@ const QuestionsList = (props) => {
     <>
       <h2>Questions &#38; Answers</h2>
       <Sort>
-        <Search />
+        <Search
+          questions={questions}
+          searched={searched}
+          setSearched={setSearched}
+        />
         <br/>
-        <p>Click on a question to view their respective answers.</p>
+        {questions.length > 0 ?
+          <p>Click on a question to view it's respective answers.</p> :
+          [
+            <p>There are no questions yet for this product. Click "Add a Question" to be the first to add one.</p>,
+            addQuestion
+          ]
+        }
         <Section>
           {questions.slice(0, questionCount).map((question, index) => {
-            return <Question key={index} question={question} id={id}/>
+            return  <Question
+                      key={index}
+                      question={question}
+                      id={id}
+                      qRerender={qRerender}
+                      setQRerender={setQRerender}
+                    />
           })}
         </Section>
-        {questionCount < questions.length ? <p>Viewing {questionCount} of {questions.length} questions</p> : <p>Viewing {questions.length} of {questions.length} questions</p>}
-        {questionCount < questions.length && (
+        { questionCount < questions.length ? <p>Viewing {questionCount} of {questions.length} questions</p> : <p>Viewing {questions.length} of {questions.length} questions</p>}
+        {questionCount < questions.length && [
           showMoreQuestions
+        ]}
+        {/* {questions.length > 4 && questionCount === questions.length && (
+          collapseQuestions
+        )} */}
+        {questions.length > 0 && (
+          addQuestion
         )}
-        <Button onClick={() => setShowQModel(true)}>
-          Add a Question +
-        </Button>
-        <QuestionModal id={id} onClose={() => setShowQModel(false)} showQModel={showQModel} questionCount={questionCount} setQuestionCount={setQuestionCount}/>
+        <QuestionModal id={id} onClose={() => setShowQModel(false)} showQModel={showQModel}/>
       </Sort>
     </>
   )
