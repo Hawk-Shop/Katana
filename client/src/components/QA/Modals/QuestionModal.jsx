@@ -47,30 +47,72 @@ export default function AnswerModal ({id, showQModel, onClose}) {
     }
   }
 
+  const Username = (
+    <label>
+      Username:
+      <input
+        type="text"
+        name="username"
+        maxLength={60}
+        size={36}
+        placeholder="Example: jackson11!"
+        value={username}
+        onChange={e => setUsername(e.target.value)}
+        required
+      />
+      <p>For privacy reasons, do not use your full name or email address.</p>
+    </label>
+  )
+
+  const Email = (
+    <label>
+      Email:
+      <input
+        type="email"
+        name="email"
+        maxLength={60}
+        size={40}
+        placeholder="Example: jack@email.com"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        required
+      />
+      <p>For authentication reasons, you will not be emailed.</p>
+    </label>
+  )
+
+  const Question = (
+    <label>
+      Question:
+      <textarea
+        type="text"
+        name="body"
+        rows="10"
+        cols="70"
+        maxLength={1000}
+        placeholder="Enter your question here..."
+        value={body}
+        onChange={e => setBody(e.target.value)}
+        required
+      />
+    </label>
+  )
+
   return (
     <div className={`modal ${showQModel ? 'show' : ''}`}>
       <div className="modal-content">
         <div className="modal-header">
           <div className="modal-header">
-            <h4 className="modal-title">Add your question below</h4>
+            <h4 className="modal-title">Submit Your Question</h4>
           </div>
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
-              <label>
-                Username:
-                <input type="text" name="username" value={username} onChange={e => setUsername(e.target.value)}/>
-              </label>
-              <label>
-                Email:
-                <input type="email" name="email" value={email} onChange={e => setEmail(e.target.value)}/>
-              </label>
+              {Username}
+              {Email}
               <br/>
               Product ID: {id}
               <br/>
-              <label>
-                Question:
-                <textarea type="text" name="body" rows="10" cols="70" value={body} onChange={e => setBody(e.target.value)}/>
-              </label>
+              {Question}
               <input className="submit-button" type="submit" value="Submit" />
             </form>
           </div>

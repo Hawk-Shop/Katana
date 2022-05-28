@@ -68,6 +68,7 @@ const Overview = (props) => {
             reviews={reviews}
             currentStyle={currentStyle}
             setStyle={setCurrentStyle}
+            reviewsRef={props.reviewsRef}
           />
         )}
       </TopCtn>
