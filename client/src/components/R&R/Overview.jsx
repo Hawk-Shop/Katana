@@ -67,6 +67,7 @@ let ReviewsOverview = (props) => {
         if (Object.keys(filters).length !== 0) {
           arr = arr.filter((each) => (filters[each.rating]));
         }
+        console.log('this is my arr', arr[0])
         setReviews(arr);
         setCount(arr.length);
       })
