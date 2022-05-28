@@ -48,23 +48,62 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
     }
   }
 
+  const Username = (
+    <label>
+      Username:
+      <input
+        type="text"
+        name="username"
+        placeholder="Example: jackson11!"
+        maxLength={60}
+        value={username}
+        onChange={e => setUsername(e.target.value)}
+        required
+      />
+    </label>
+  )
+
+  const Email = (
+    <label>
+      Email:
+      <input
+        type="email"
+        name="email"
+        placeholder="Example: jack@email.com"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        required
+      />
+    </label>
+  )
+
+  const Answer = (
+    <label>
+      Answer:
+      <textarea
+        type="text"
+        name="body"
+        rows="10"
+        cols="70"
+        maxLength={1000}
+        value={body}
+        onChange={e => setBody(e.target.value)}
+        required
+      />
+    </label>
+  )
+
   return (
     <div className="modal">
       <div className="modal-content">
         <div className="modal-header">
           <div className="modal-header">
-            <h4 className="modal-title">Add your answer below</h4>
+            <h4 className="modal-title">Submit Your Answer</h4>
           </div>
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
-              <label>
-                Username:
-                <input type="text" name="username" value={username} onChange={e => setUsername(e.target.value)}/>
-              </label>
-              <label>
-                Email:
-                <input type="email" name="email" value={email} onChange={e => setEmail(e.target.value)}/>
-              </label>
+              {Username}
+              {Email}
               <br/>
               Product ID: {id}
               <br/>
@@ -72,10 +111,7 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
               <br/>
               Question to answer: {question_body}
               <br/>
-              <label>
-                Answer:
-                <textarea type="text" name="body" rows="10" cols="70" value={body} onChange={e => setBody(e.target.value)}/>
-              </label>
+              {Answer}
               {/* <input type="file" value={file} accept="image/png, image/jpeg" onChange={e => setFile(e.target.files[0])}/> */}
               <input className="submit-button" type="submit" value="Submit" />
             </form>
