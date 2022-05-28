@@ -16,7 +16,7 @@ const charLegend = {
   Comfort: {
     1: 'Uncomfortable',
     2: 'Slightly uncomfortable',
-    3: 'Ok',
+    3: 'Okay',
     4: 'Comfortable',
     5: 'Perfect'
   },
