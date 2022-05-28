@@ -40,7 +40,7 @@ const Dropdown = ({
   }
   return (
     <SelectDrop value={value} onChange={onChange} required disabled={disabled}>
-      <option value="" selected hidden>
+      <option value="" defaultValue hidden>
         {placeholder}
       </option>
       {mapper.map((option) => {

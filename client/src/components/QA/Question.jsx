@@ -9,18 +9,28 @@ import swal from 'sweetalert';
 
 const Questions = styled.div`
   border-bottom: .05em solid;
-  padding-bottom: 0.5em;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  -webkit-transition: background-color .5s ease-out;
+  -moz-transition: background-color .5s ease-out;
+  -o-transition: background-color .5s ease-out;
+  transition: background-color .5s ease-out;
+  cursor: ns-resize;
+  &:hover {
+    background-color: rgba(240, 240, 240, .75);
+  }
 `;
 
 const QStyle = styled.span`
-  padding-top: 0.5em;
   font-size: 1.2em;
-  margin-bottom: 0.15em;
-  display: inline-block;
+  display: flex;
+  cursor: ns-resize;
 `;
 
 const Helpful = styled.span`
   font-size: 14px;
+  margin-left: 100px;
 `
 
 const AStyle = styled.span`
@@ -31,13 +41,15 @@ const AStyle = styled.span`
 `;
 
 const ContainText = styled.p`
-  width: 500px;
+  width: 600px;
 `
 
 const Answers = styled.span`
   margin-left: 10px;
   margin-top: 3px;
+  width: auto;
   display: inline-block;
+  flex-direction: column;
 `
 
 const Container = styled.div`
@@ -135,21 +147,19 @@ const Question = ({question, id, qRerender, setQRerender}) => {
   const handleHelpful = (stateVariable, qOrA, id, helpful, setStateVariable, rerender, setRerender) => {
     console.log(`/qa/${qOrA}/${id}/${helpful}`);
     if (stateVariable) {
-      swal("Helpful?", "We only allow one click of 'Reported'. Thank you for your feedback. It helps others in their decision making.", "error");
+      swal("Helpful?", "We only allow one click of 'Yes'. Thank you for your feedback. It helps others in their decision making.", "error");
     } else {
-      swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback.`, "success");
+
       axios
         .put(`/qa/${qOrA}/${id}/${helpful}`)
-        .then(() => setStateVariable(true))
+        .then(() => {
+          setStateVariable(true);
+          swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback.`, "success");
+        })
         .catch(err => console.error(err))
         .then(() => {
-          console.log(qReported);
-          if (qReported === true) {
-            console.log(`this ${qOrA.slice(0, -1)} has been flagged as reported and will be removed on refresh`)
-          } else {
-            setRerender(rerender + 1);
-            console.log(rerender);
-          }
+          setRerender(rerender + 1);
+          console.log(rerender);
         });
     }
   }
@@ -157,17 +167,20 @@ const Question = ({question, id, qRerender, setQRerender}) => {
   const handleReported = (stateVariable, qOrA, id, report, setStateVariable) => {
     console.log(`/qa/${qOrA}/${id}/${report}`);
     if (stateVariable) {
-      swal("Helpful?", "We only allow one click of 'Yes'. Thank you for your feedback. It helps others in their decision making.", "error");
+      swal("Helpful?", "We only allow one click of 'Reported'. We will review this as soon as possible.", "error");
     } else {
-      let customerSupport = `We have marked this ${qOrA.slice(0, -1)} as "Reported" and will perform a formal review.`
-      swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback. ${report === 'report' ?customerSupport : ''}`, "success");
+
       axios
         .put(`/qa/${qOrA}/${id}/${report}`)
-        .then(() => setStateVariable(true))
-        .catch(err => console.error(err))
         .then(() => {
-          console.log(`this ${qOrA.slice(0, -1)} has been flagged as reported and will be removed on refresh`)
-        });
+          setStateVariable(true);
+          let customerSupport = `We have marked this ${qOrA.slice(0, -1)} as "Reported" and will perform a formal review.`
+          swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback. ${report === 'report' ?customerSupport : ''}`, "success");
+        })
+        .catch(err => {
+          console.error(err);
+          swal('An error happened...', 'Unfortunately, there was an error on our side. Please try again in a little bit.', 'error');
+        })
     }
   }
 
@@ -235,7 +248,7 @@ const Question = ({question, id, qRerender, setQRerender}) => {
       </Container>
       {questionClicked && (
         answers.length === 0 ?
-          <p><b>Be the first to add an answer to this question!</b></p> :
+          <p><b>No answers yet. Be the first to add an answer to this question!</b></p> :
           <AStyle><b>A:</b></AStyle>
       )}
       <Answers>
