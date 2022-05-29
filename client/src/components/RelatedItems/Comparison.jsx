@@ -115,15 +115,15 @@ const Modal = (props) => {
     return null;
   }
 
-  useEffect(() => {
-    axios.get(`/products/${id}`)
-      .then((res) => {
-        props.setMain(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  },[])
+  // useEffect(() => {
+  //   axios.get(`/products/${id}`)
+  //     .then((res) => {
+  //       props.setMain(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // },[])
 
   // console.log("THIS IS MODAL PROPS", props)
 
