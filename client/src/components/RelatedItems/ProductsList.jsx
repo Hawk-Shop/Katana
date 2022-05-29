@@ -23,38 +23,26 @@ const IndicatorButton = styled.button`
   margin: 5px;
 `;
 
-const ProductsList = (props) => {
+const ProductsList = ({list, show, activeIndex, setShow, setRef, updateIndex}) => {
   const id = useContext(Context).id;
-  const [activeIndex, setActiveIndex] = useState(0);
-  const length = props.list.length;
-
-  const updateIndex = (newIndex) => {
-    // console.log("checkIndex:",newIndex);
-    // console.log("content length:", list.length);
-    if (newIndex < 0) {
-      newIndex = 0;
-    } else if (newIndex >= (length/4)) {
-      newIndex = (length/4) -1;
-    }
-    setActiveIndex(newIndex);
-  };
+  const length = list.length;
 
   return (
     <Carousel>
       <Inner
         style={{ transform: `translateX(-${activeIndex * 100}%)`}}>
-        { props.list ? props.list.map((card) => (
+        { list ? list.map((card) => (
            <ProductCard
            card={card}
            width={{ width: "25%"}}
-           show={props.show}
-           setShow={props.setShow}
-           setRef={props.setRef}
+           show={show}
+           setShow={setShow}
+           setRef={setRef}
            />
         )): null}
       </Inner>
       <Indicators>
-        {props.list.length > 4 ?
+        {length > 4 ?
           <>
           <IndicatorButton onClick={() => {updateIndex(activeIndex - 1);}}>
             Prev
@@ -64,7 +52,6 @@ const ProductsList = (props) => {
           </IndicatorButton>
           </>
         : null}
-
       </Indicators>
     </Carousel>
   )
@@ -72,6 +59,3 @@ const ProductsList = (props) => {
 
 export default ProductsList;
 
-//async data
-  // when data exist
-  // when data does not exist
