@@ -17,19 +17,19 @@ const CarouselItem = styled.div`
   height: 275px;
   background-color: transparent;
   color: gray;
-
+  font-family: Arial Regular;
 `;
 
 const CardThumbnail = styled.img`
   object-fit: contain;
-  max-width: 100%;
+  max-width: 96%;
   max-height: 200px;
 `;
 
 const ActionButton = styled.button`
   position: absolute;
   top: 0;
-  right: 0;
+  right: 5%;
   background-color: transparent;
   color: white;
   padding: 8px 8px;
@@ -49,6 +49,16 @@ const Reviews = styled(Stars)`
   display: inline;
 `;
 
+const ProductName = styled.div`
+  font-weight: bold;
+  color: black;
+  font-size: medium;
+`;
+
+const Category = styled.div`
+  font-size: small;
+`;
+
 const ProductCard = (props) => {
   const ratings = props.card.ratings;
   let averageNums = avgRating(ratings);
@@ -61,27 +71,29 @@ const ProductCard = (props) => {
     thumbPath = placeholder;
   }
 
+  let productID = {
+    name: props.card.name,
+    product_id: props.card.id,
+    features: props.card.features
+  }
+
   return (
     <CarouselItem style={props.width}>
       <ImageContainer>
         <CardThumbnail src={thumbPath}></CardThumbnail>
         <div>
-          <ActionButton onClick={() => props.setShow(true)}>
+          <ActionButton onClick={() => {props.setShow(true); props.setRef(productID) }}>
             <Star icon={farStar}/>
           </ActionButton>
-          <Modal
-            onClose={() => props.setShow(false)}
-            show={props.show}
-          />
+
         </div>
       </ImageContainer>
-
-      <div>
-        {props.card.name}
-      </div>
-      <div>
+      <Category>
         {props.card.category}
-      </div>
+      </Category>
+      <ProductName>
+        {props.card.name}
+      </ProductName>
       <div>
         ${props.card.default_price}
       </div>
