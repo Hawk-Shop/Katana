@@ -109,7 +109,7 @@ const App = (props) => {
               <FontIcon icon={faUser} size="lg" />{" "}
             </ListItem>
 
-            <ListItem onClick={changeView("Cart")}>
+            <ListItem>
               {" "}
               <FontIcon icon={faCartShopping} size="lg" />
             </ListItem>
