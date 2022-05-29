@@ -3,11 +3,10 @@ import { Context } from '../util/context.js';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
-import Modal from './Comparison.jsx';
 import avgRating from "../util/getAvgRating.js";
 import Stars from "../R&R/Stars.jsx";
 import placeholder from './placeholder.png';
-
+import addOutfit from './AddOutfit.jpeg'
 
 const CarouselItem = styled.div`
   display: inline-flex;
@@ -28,14 +27,14 @@ const CardThumbnail = styled.img`
 
 const ActionButton = styled.button`
   position: absolute;
-  top: 0;
-  right: 5%;
+  top: 35%;
+  right: 35%;
   background-color: transparent;
-  color: white;
   padding: 8px 8px;
-  border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
 `;
 
 const Star = styled(FontAwesomeIcon)`
@@ -63,14 +62,16 @@ const Price = styled.div`
   font-size: small;
 `
 
-const ProductCard = (props) => {
+const OutfitCard = (props) => {
   const ratings = props.card.ratings;
   let averageNums = avgRating(ratings);
-  let thumbURL = props.card.results[0].photos[0].url;
 
   let thumbPath;
-  if (thumbURL != null) {
-    thumbPath = thumbURL
+  if (!props.card.result) {
+    thumbPath = addOutfit;
+  }
+  else if (props.card.results[0].photos[0].url != null) {
+    thumbPath = props.card.results[0].photos[0].url
   } else {
     thumbPath = placeholder;
   }
@@ -81,29 +82,34 @@ const ProductCard = (props) => {
     features: props.card.features
   }
 
+
   return (
     <CarouselItem style={props.width}>
       <ImageContainer>
         <CardThumbnail src={thumbPath}></CardThumbnail>
         <ActionButton onClick={() => {props.setShow(true); props.setRef(productID) }}>
-          <Star icon={farStar}/>
+          {/* <Star icon={farStar}/> */}
         </ActionButton>
       </ImageContainer>
       <Category>
-        {props.card.category}
+        {props.card.category ? props.card.category : null}
       </Category>
       <ProductName>
         {props.card.name}
       </ProductName>
       <Price>
-        ${props.card.default_price}
+        {props.card.default_price ? props.card.default_price : null}
       </Price>
       <div>
+        {ratings ? (
         <Reviews rating={averageNums.averageRating} />
-          {/* {averageNums.ratingTotal > 0} */}
+        ):null}
+          {/* {ratings ? (averageNums.ratingTotal > 0): null} */}
       </div>
     </CarouselItem>
   )
+
+
 }
 
-export default ProductCard;
+export default OutfitCard;
