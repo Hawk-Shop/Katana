@@ -11,6 +11,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import HomePage from "./HomePage.jsx";
 window.React = React;
+Window.sessionStorage = {cart: []}
 
 const StyledApp = styled.div`
   max-width: 80%;

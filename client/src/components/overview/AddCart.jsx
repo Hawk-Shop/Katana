@@ -31,6 +31,7 @@ const AddCart = ({skus, size, qty}) => {
     let axiosPromises = [...Array(Number(qty))].map((number, i) => {
       return axios.post('/cart', {sku_id: Number(sku)})
     });
+    console.log(axiosPromises)
     Promise.all(axiosPromises) .then(() => axios.get('/cart')) .then((res) => console.log('CART', res)) .catch((err) => console.log(err))
   }
   return (
