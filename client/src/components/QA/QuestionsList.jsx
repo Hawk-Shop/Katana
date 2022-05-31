@@ -36,14 +36,12 @@ const Sort = styled.div`
 
 const QuestionsList = (props) => {
   // const id = 40355;
-  const id = useContext(Context).id;
+  const id = useContext(Context).id || 40355;
   let [questions, setQuestions] = useState([]);
   let [questionCount, setQuestionCount] = useState(4);
   let [showQModel, setShowQModel] = useState(false);
   let [qRerender, setQRerender] = useState(0);
   let [searchInput, setSearchInput] = useState('')
-  let [searched, setSearched] = useState([]);
-  let [searching, setSearching] = useState(false);
 
   useEffect(() => {
     axios
@@ -79,13 +77,6 @@ const QuestionsList = (props) => {
     <>
       <h2>Questions &#38; Answers</h2>
       <Sort>
-        {/* <Search
-          questions={questions}
-          searched={searched}
-          setSearched={setSearched}
-          searching={searching}
-          setSearching={setSearching}
-        /> */}
         SEARCH:
         <input
           type="text"
