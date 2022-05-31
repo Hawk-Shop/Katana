@@ -139,7 +139,6 @@ const Gallery = (props) => {
     setY(e.clientY - e.target.offsetTop);
     console.log(window.innerWidth, e.clientX);
   };
-  console.log(props.currentStyle.photos[currImg].url);
   return (
     <GallFlex className={[expanded, zoomOverflow].join(" ")}>
       {!props.expandedView && (
