@@ -38,6 +38,7 @@ const ProductsList = ({list, show, activeIndex, setShow, setRef, updateIndex}) =
            show={show}
            setShow={setShow}
            setRef={setRef}
+           key={card.id}
            />
         )): null}
       </Inner>
