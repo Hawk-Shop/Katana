@@ -105,10 +105,9 @@ const App = (props) => {
       case "Home":
         return <HomePage />;
 
-      case "Admin":
-        return <Admin />;
-      default:
-        return <FourOhFour />;
+      case "Cart":
+        return <Cart />;
+
     }
   };
 
