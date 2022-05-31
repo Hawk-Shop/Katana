@@ -25,7 +25,6 @@ let ReviewsOverview = (props) => {
     setLoading(true);
     axios.get(`/reviews/?product_id=${id}&page=${page}&sort=${selectValue}`)
       .then((result) => {
-        console.log('RESULT HEREEEEE!@#*&!#()@*');
         let arr = result.data.results;
         if (Object.keys(filters).length !== 0) {
           arr = arr.filter((each) => (filters[each.rating]));
