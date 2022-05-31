@@ -115,7 +115,6 @@ const Question = ({question, id, qRerender, setQRerender}) => {
   const {question_id, question_body, question_date, question_asker, question_helpfulness} = question;
   let [answers, setAnswers] = useState([]);
   let [answerCount, setAnswerCount] = useState(2);
-  let [addAnswerModal, setAddAnswerModal] = useState(false);
   let [questionClicked, setQuestionClicked] = useState(false);
   let [seeMoreClicked, setSeeMoreClicked] = useState(false);
   let [show, setShow] = useState(false);
@@ -136,9 +135,7 @@ const Question = ({question, id, qRerender, setQRerender}) => {
       })
   }, [show, qHelpful, aRerender])
 
-  const toggleAddAnswerModal = () => {
-    setAddAnswerModal(!addAnswerModal);
-  }
+
 
   const handleShowingAnswers = () => {
     setQuestionClicked(!questionClicked);
@@ -182,12 +179,6 @@ const Question = ({question, id, qRerender, setQRerender}) => {
           swal('An error happened...', 'Unfortunately, there was an error on our side. Please try again in a little bit.', 'error');
         })
     }
-  }
-
-  if (addAnswerModal) {
-    document.body.classList.add('active-modal');
-  } else {
-    document.body.classList.remove('active-modal');
   }
 
   const seeMoreAnswers = (
