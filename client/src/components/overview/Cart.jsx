@@ -86,7 +86,7 @@ const Cart = (props) => {
         )}
       </Selectors>
 
-      <AddCart skus={options} size={size} qty={qty}/>
+      <AddCart skus={options} size={size} qty={qty} currentStyle={props.currentStyle}/>
 
     </ContainCart>
   );

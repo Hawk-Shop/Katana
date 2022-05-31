@@ -11,7 +11,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import HomePage from "./HomePage.jsx";
 window.React = React;
-Window.sessionStorage = {cart: []}
+Window.sessionStorage = { cart: [], qty: 0 };
 
 const StyledApp = styled.div`
   max-width: 80%;
@@ -42,16 +42,29 @@ const ListItem = styled.li`
   cursor: pointer;
 `;
 
+const CartNum = styled.span`
+  font-size: 0.7rem;
+  position: relative;
+  bottom: 15px;
+  font-weight: bold;
+`;
+
 const FontIcon = styled(FontAwesomeIcon)``;
 
 const App = (props) => {
   const [id, setId] = useState(40344);
   const [productName, setProductName] = useState("");
   const [view, setView] = useState({ name: "Product", viewProps: {} });
+  const [cartQty, setCartQty] = useState(0);
+  const [cart, setCart] = useState([]);
 
   const reviewsRef = useRef();
 
-  axios.get(`/products/${id}`).then((res) => setProductName(res.data.name));
+  axios
+    .get(`/products/${id}`)
+    .then((res) => setProductName(res.data.name))
+    .catch((err) => console.log(err));
+  console.log("CART", cart);
 
   const changeView = (name, someProps = {}) => {
     return (moreProps = {}) => {
@@ -66,7 +79,9 @@ const App = (props) => {
         return (
           <StyledApp>
             <div>
-              <Context.Provider value={{ id: id }}>
+              <Context.Provider
+                value={{ id: id, setCartQty, cartQty, cart, setCart }}
+              >
                 <Overview reviewsRef={reviewsRef}></Overview>
               </Context.Provider>
             </div>
@@ -113,6 +128,7 @@ const App = (props) => {
             <ListItem>
               {" "}
               <FontIcon icon={faCartShopping} size="lg" />
+              <CartNum>{cartQty}</CartNum>
             </ListItem>
           </List>
         </NavBar>
