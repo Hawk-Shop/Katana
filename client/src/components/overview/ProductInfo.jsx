@@ -5,6 +5,8 @@ import Stars from "../R&R/Stars.jsx";
 import avgRating from "../util/getAvgRating.js"
 import Style from "./Style.jsx"
 import Cart from "./Cart.jsx"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faTwitter, faPinterest } from "@fortawesome/free-brands-svg-icons";
 const Onsale = styled.span`
   color: red;
   text-decoration: line-through;
@@ -15,6 +17,15 @@ const Onsale = styled.span`
 const RegularPrice = styled.span`
   color: black;
 `;
+
+const Socials = styled.div`
+  margin-top: 5%;
+  display: flex;
+  flex-direction: row;
+  width: 35%;
+  justify-content: space-around
+`;
+
 const PriceFit = styled.div`
   display: flex;
   flex-direction: row;
@@ -78,6 +89,11 @@ const ProductInfo = (props) => {
       )}
       <Style product={props.product} styles={props.styles.results} currentStyle={props.currentStyle} setStyle={props.setStyle}/>
       <Cart currentStyle={props.currentStyle}/>
+      <Socials>
+        <a href="https://www.facebook.com"><FontAwesomeIcon icon={faFacebook} size="xl"/></a>
+        <a href="https://www.twitter.com"><FontAwesomeIcon icon={faTwitter} size="xl"/></a>
+        <a href="https://www.pinterest.com"><FontAwesomeIcon icon={faPinterest} size="xl" /></a>
+      </Socials>
     </FlexFit>
   );
 };
