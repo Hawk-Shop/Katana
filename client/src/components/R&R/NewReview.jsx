@@ -4,6 +4,7 @@ import Rate from './Rate.jsx';
 import axios from 'axios';
 import { Context } from '../util/context.js';
 import charLegend from './Legends/Characteristics.jsx';
+import photoUrlsToArray from './ConvertPhoto.jsx';
 
 const Modal = styled.div`
   width: 100vw;
@@ -173,22 +174,6 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
     })
   }, [])
 
-  // helper
-  function getBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
-        if ((encoded.length % 4) > 0) {
-          encoded += '='.repeat(4 - (encoded.length % 4));
-        }
-        resolve(encoded);
-      };
-      reader.onerror = error => reject(error);
-    });
-  }
-
   return (
     <>
       {showModal ? (
@@ -256,35 +241,14 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
               {photos.length < 5 && <Question>
                 <label htmlFor="photos">Upload your photos</label> <br></br>
                 <input type="file" name="photos" accept="image/png, image/jpeg" multiple="true" onChange={(e) => {
-                  let allPhotos = [];
                   let files = e.target.files;
-                  for (var i = 0; i < files.length; i++) {
-                    let base64 = getBase64(files[i]);
-                    allPhotos.push(base64);
-                  }
-
-                  Promise.all(allPhotos)
-                  .then((allBase64) => {
-                    let allUrl = [];
-                    allBase64.forEach((base64) => {
-                      let body = new FormData();
-                      body.append('image', base64);
-
-                      allUrl.push(axios.post(`https://api.imgbb.com/1/upload?key=193e1e2ee600f99c92cf7b198b721403`, body));
-                    });
-                    Promise.all(allUrl)
-                    .then((result) => {
-                      let urls = result.map((each) => each.data.data.display_url);
-                      setPhotos(urls);
-                    })
-                  })
+                  photoUrlsToArray(files, setPhotos);
                 }}></input>
               </Question>}
               {photos.length >= 5 && <Question>
                   <span>Max 5 photo uploads reached</span>
                 </Question>}
               <div>
-                {console.log('photos', photos)}
                 {photos.length === 0 ?
                   <div>No photos selected yet</div> :
                   <div>
@@ -313,16 +277,3 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
 }
 
 export default NewReview;
-
-
-// {
-//   "product_id": 40344,
-//   "rating": 3,
-//   "summary": "this is my summar",
-//   "body": "this is my body",
-//   "recommend": true,
-//   "name": "mynickname",
-//   "email": "beep@gmail.com",
-//   "photos": [],
-//   "characteristics": {135219:1}
-// }

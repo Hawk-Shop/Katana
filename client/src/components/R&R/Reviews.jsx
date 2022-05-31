@@ -22,11 +22,12 @@ const Button = styled.button`
   overflow-y: auto;
   overflow-x: hidden;
   overflow-wrap: break-word;
-  max-height:500px;
+  max-height: 700px;
   width: 100%;
   display: flex;
   flex-direction: column;
   min-width: 100%
+  flex-wrap: wrap;
   `;
 
   const Sort = styled.div`
@@ -50,7 +51,7 @@ const Button = styled.button`
   cursor: pointer;
   `;
 
-const Reviews = ({count, getSorted, selectValue, reviews}) => {
+const Reviews = ({setSelectValue, count, page, setPage, selectValue, reviews}) => {
   const [displayCount, setDisplayCount] = useState(2);
   const [showModal, setShowModal] = useState(false);
 
@@ -62,6 +63,11 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
     setShowModal(false);
   }
 
+  const showMoreImages = () => {
+    setPage(page+1);
+  }
+
+
   return (
     <Container>
       <NewReview showModal={showModal} setShowModal={setShowModal} closeModal={closeModal}></NewReview>
@@ -69,7 +75,10 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
         <Sort>
           {count} reviews,
           <label htmlFor="sort"> sorted by </label>
-          <Dropdown value={selectValue} name="sort" onChange={(e) => {getSorted(e.target.value)}}>
+          <Dropdown value={selectValue} name="sort" onChange={(e) => {
+            setSelectValue(e.target.value);
+            setPage(1);
+            }}>
             <option value="relevant">most relevant</option>
             <option value="helpful">most helpful </option>
             <option value="newest">newest</option>
@@ -85,6 +94,7 @@ const Reviews = ({count, getSorted, selectValue, reviews}) => {
         }}>More Reviews</Button>}
         <Button onClick={openModal}>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
       </div>
+      <button onClick={showMoreImages}>replicating infinite scroll</button>
     </Container>
       )
 }
