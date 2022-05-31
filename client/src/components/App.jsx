@@ -94,7 +94,7 @@ const App = (props) => {
             <StyledApp>
               <Toggle theme={theme} toggleTheme={themeToggler} />
               <div>
-                <Context.Provider value={{ id: id }}>
+                <Context.Provider value={{ id: id, cart, setCart, cartQty, setCartQty }}>
                   <h1>Overview</h1>
                   <Overview reviewsRef={reviewsRef}></Overview>
                 </Context.Provider>
