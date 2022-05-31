@@ -144,6 +144,7 @@ const ReviewTile = ({review}) => {
       </Body>
       {review.photos.length !== 0 &&
         <Photos>
+          {console.log('PHOTO URL', review.photos)}
           {review.photos.map((photo) => (
             <Photo
               src={photo.url}
