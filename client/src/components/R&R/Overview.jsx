@@ -16,26 +16,30 @@ let ReviewsOverview = (props) => {
   const [selectValue, setSelectValue] = useState('relevant');
   const [count, setCount] = useState(2);
   const [filters, setFilters] = useState({});
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
 
-  // helper
-  const getSorted = (type) => {
-    axios.get(`/reviews/?product_id=${id}&count=1000&sort=${type}`)
+  // gets all arrays, by sort, 5 at a time by page
+  const getSorted = () => {
+    setLoading(true);
+    axios.get(`/reviews/?product_id=${id}&page=${page}&sort=${selectValue}`)
       .then((result) => {
         console.log('RESULT HEREEEEE!@#*&!#()@*');
         let arr = result.data.results;
         if (Object.keys(filters).length !== 0) {
           arr = arr.filter((each) => (filters[each.rating]));
         }
-        setReviews(arr);
-        setCount(arr.length);
+        setReviews([...reviews, ...arr]);
+        setCount(count + arr.length);
+        setLoading(false);
       })
-    setSelectValue(type);
   }
+
 
   useEffect(() => {
       getSorted(selectValue);
-    }, [filters]);
+    }, [filters, page, selectValue]);
 
 
   return (
@@ -51,7 +55,10 @@ let ReviewsOverview = (props) => {
         reviews={reviews}
         selectValue={selectValue}
         getSorted={getSorted}
-        count={count}>
+        page={page}
+        setPage={setPage}
+        count={count}
+        setSelectValue={setSelectValue}>
       </Reviews>
     </Container>
   )
