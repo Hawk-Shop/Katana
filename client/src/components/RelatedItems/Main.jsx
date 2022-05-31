@@ -5,21 +5,19 @@ import ProductsList from './ProductsList.jsx';
 import OutfitList from './OutfitList.jsx';
 import axios from 'axios';
 import Modal from './Comparison.jsx';
-
-
+import useLocalStorage from './useLocalStorage.js';
 
 const RelatedProducts = (props) => {
   const id = useContext(Context).id;
   const [show, setShow] = useState(false);
   const [reference, setRef] = useState('');
   const [list, setList] = useState('');
-  const [mainProduct, setMain] = useState('');
+  const [mainProduct, setMain] = useState({});
   const [activeIndex, setActiveIndex] = useState(0);
-  const [outfit, setOutfit] = useState([{name: "ADD TO YOUR OUTFIT"}]);
-
+  const [outfit, setOutfit] = useLocalStorage('outfit', [{id: 1, name: "ADD TO YOUR OUTFIT"}])
+  const [deleteID, setDelete] = useState(0);
 
   useEffect(() => {
-
     // GET MAIN PRODUCT DATA
     let productGet = axios.get(`/products/${id}`);
     let stylesGet = axios.get(`/products/${id}/styles`);
@@ -65,9 +63,27 @@ const RelatedProducts = (props) => {
       })
       .catch((err) => console.log(err));
   }, []);
-  // console.log("WHATS IN HEREEEEEE", list)
-  console.log("WHATS IN HEREEEEEE", mainProduct.features)
 
+  // console.log("WHATS IN MOFO LIST", list)
+  // console.log("WHATS IN MAINMOFOPRODUCT", mainProduct);
+  // console.log("THIS IS PRODUCT ID IN CLICK", deleteID)
+
+  const handleAddClick = (e) => {
+      setOutfit((prevState) => ([
+        ...prevState, mainProduct
+      ]))
+  }
+
+  const handleDeleteClick = (e) => {
+    let thisID = deleteID;
+    const index = outfit.findIndex(({id}) => id === thisID);
+    if (index !== -1) {
+      setOutfit([
+        ...outfit.slice(0, index),
+        ...outfit.slice(index + 1)
+      ]);
+    }
+  }
 
   const updateIndex = (newIndex) => {
     if (newIndex < 0) {
@@ -94,11 +110,13 @@ const RelatedProducts = (props) => {
       <OutfitList
         outfit={outfit}
         activeIndex={activeIndex}
+        mainProduct={mainProduct}
         setOutfit={setOutfit}
         setActiveIndex={setActiveIndex}
         updateIndex={updateIndex}
-
-
+        handleAddClick={handleAddClick}
+        handleDeleteClick={handleDeleteClick}
+        setDelete={setDelete}
       />
       <Modal
         onClose={() => setShow(false)}
@@ -122,26 +140,6 @@ export default RelatedProducts;
 // look up local storage and session storage
 
 //******************* */
-
-// OLD AXIOS CALLS
-// console.log("RELATED PRODUCT IDS:", related.data)
-// for (var i = 0; i < related.data.length; i++) {
-//   let currentID = related.data[i];
-//   let currentProduct = axios.get(`/products/${currentID}`);
-//   let currentStyle = axios.get(`/products/${currentID}/styles`);
-//   let currentReview = axios.get(`/reviews/meta/?product_id=${currentID}`);
-
-//   Promise.all([currentProduct, currentStyle, currentReview])
-//     .then((res) => {
-//       console.log("API RESULT", res)
-//       setProduct(res[0].data);
-//       setStyles(res[1].data);
-//       setReviews(res[2].data);
-//       storage.push(res.map((each) => each.data)) ;
-//       console.log("for loop storage:", storage);
-//     })
-//     .catch((err) => console.log(err));
-// }
 
 // if list[0] is not null then consolelog list[0].id
 

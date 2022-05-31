@@ -23,22 +23,26 @@ const IndicatorButton = styled.button`
 `;
 
 
-const OutfitList = ({outfit, activeIndex, setOutfit, updateIndex}) => {
-  const id = useContext(Context).id;
+const OutfitList = ({outfit, activeIndex, updateIndex, handleAddClick, handleDeleteClick, setDelete}) => {
   const length = outfit.length;
 
   return (
     <Carousel>
       <Inner
         style={{ transform: `translateX(-${activeIndex * 100}%)`}}>
-        { outfit ?
+        {outfit ?
           outfit.map((card) => (
             <OutfitCard
             card={card}
             width={{ width: "25%"}}
-            setOutfit={setOutfit}
+            handleAddClick={handleAddClick}
+            handleDeleteClick={handleDeleteClick}
+            key={card.id}
+            setDelete={setDelete}
+
             />
-        )): null}
+          ))
+        :null}
       </Inner>
       <Indicators>
         {length > 4 ?
