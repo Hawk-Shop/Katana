@@ -3,7 +3,6 @@ import { Context } from '../util/context.js';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
-import Modal from './Comparison.jsx';
 import avgRating from "../util/getAvgRating.js";
 import Stars from "../R&R/Stars.jsx";
 import placeholder from './placeholder.png';
@@ -91,7 +90,7 @@ const ProductCard = (props) => {
       <ImageContainer>
         <CardThumbnail src={thumbPath}></CardThumbnail>
         <ActionButton onClick={(e) => {
-          e.stopProgation();
+          e.stopPropagation();
           props.setShow(true);
           props.setRef(productID);
           }}>
@@ -109,7 +108,6 @@ const ProductCard = (props) => {
       </Price>
       <Review>
         <Reviews rating={averageNums.averageRating} />
-          {/* {averageNums.ratingTotal > 0} */}
       </Review>
     </CarouselItem>
   )

@@ -1,8 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { AiFillPlusCircle} from 'react-icons/ai';
 import { TiDelete } from 'react-icons/ti';
 import avgRating from "../util/getAvgRating.js";
@@ -108,10 +106,13 @@ const OutfitCard = (props) => {
       <ImageContainer>
         <CardThumbnail src={thumbPath}></CardThumbnail>
           {props.card.name === 'ADD TO YOUR OUTFIT' ?
-            <AddButton onClick={(props.handleAddClick )}>
+            <AddButton onClick={props.handleAddClick}>
               <Circle size={50}/>
             </AddButton>:
-            <DeleteButton onClick={() => props.setDelete(props.card.id)}>
+            <DeleteButton onClick={(e) => {
+              e.stopPropagation();
+              props.setDelete(props.card.id)
+              }}>
               <Delete size={25}/>
             </DeleteButton>}
       </ImageContainer>

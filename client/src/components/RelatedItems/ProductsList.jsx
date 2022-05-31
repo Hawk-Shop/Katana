@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import styled from 'styled-components';
 import ProductCard from './ProductCard.jsx';
-import Modal from './Comparison.jsx';
 
 
 const Carousel = styled.div`
