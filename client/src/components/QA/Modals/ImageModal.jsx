@@ -14,11 +14,11 @@ const Image = styled.img`
 export default function Modal ({url, toggleModal, modal}) {
   // console.log(url);
 
-  if (modal) {
-    document.body.classList.add('active-modal');
-  } else {
-    document.body.classList.remove('active-modal');
-  }
+  // if (modal) {
+  //   document.body.classList.add('active-modal');
+  // } else {
+  //   document.body.classList.remove('active-modal');
+  // }
 
   return (
     <>
