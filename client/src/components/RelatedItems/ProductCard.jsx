@@ -3,7 +3,6 @@ import { Context } from '../util/context.js';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
-import Modal from './Comparison.jsx';
 import avgRating from "../util/getAvgRating.js";
 import Stars from "../R&R/Stars.jsx";
 import placeholder from './placeholder.png';
@@ -28,14 +27,16 @@ const CardThumbnail = styled.img`
 
 const ActionButton = styled.button`
   position: absolute;
-  top: 0;
+  top: 0%;
   right: 5%;
   background-color: transparent;
   color: white;
-  padding: 8px 8px;
+  padding: 0;
+  border-radius: 50%;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  height: 25px;
+  width: 25px;
 `;
 
 const Star = styled(FontAwesomeIcon)`
@@ -62,6 +63,9 @@ const Category = styled.div`
 const Price = styled.div`
   font-size: small;
 `
+const Review = styled.div`
+  font-size: medium;
+`
 
 const ProductCard = (props) => {
   const ratings = props.card.ratings;
@@ -85,8 +89,12 @@ const ProductCard = (props) => {
     <CarouselItem style={props.width}>
       <ImageContainer>
         <CardThumbnail src={thumbPath}></CardThumbnail>
-        <ActionButton onClick={() => {props.setShow(true); props.setRef(productID) }}>
-          <Star icon={farStar}/>
+        <ActionButton onClick={(e) => {
+          e.stopPropagation();
+          props.setShow(true);
+          props.setRef(productID);
+          }}>
+          <Star icon={farStar} size="lg" />
         </ActionButton>
       </ImageContainer>
       <Category>
@@ -98,10 +106,9 @@ const ProductCard = (props) => {
       <Price>
         ${props.card.default_price}
       </Price>
-      <div>
+      <Review>
         <Reviews rating={averageNums.averageRating} />
-          {/* {averageNums.ratingTotal > 0} */}
-      </div>
+      </Review>
     </CarouselItem>
   )
 }

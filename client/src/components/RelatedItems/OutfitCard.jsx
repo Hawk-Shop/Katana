@@ -1,8 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { AiFillPlusCircle} from 'react-icons/ai';
 import { TiDelete } from 'react-icons/ti';
 import avgRating from "../util/getAvgRating.js";
@@ -84,9 +82,11 @@ const Price = styled.div`
   font-size: small;
 `;
 
+const Review = styled.div`
+  font-size: medium;
+`
 
 const OutfitCard = (props) => {
-
   const ratings = props.card.ratings;
   let averageNums = avgRating(ratings);
 
@@ -101,18 +101,19 @@ const OutfitCard = (props) => {
 
   let priceSign = `$${props.card.default_price}`;
 
-  props.setDelete(props.card.id);
-
   return (
     <CarouselItem style={props.width}>
       <ImageContainer>
         <CardThumbnail src={thumbPath}></CardThumbnail>
           {props.card.name === 'ADD TO YOUR OUTFIT' ?
-            <AddButton onClick={props.handleAddClick }>
-              <Circle size="3x"/>
+            <AddButton onClick={props.handleAddClick}>
+              <Circle size={50}/>
             </AddButton>:
-            <DeleteButton onClick={props.handleDeleteClick}>
-              <Delete size="lg"/>
+            <DeleteButton onClick={(e) => {
+              e.stopPropagation();
+              props.setDelete(props.card.id)
+              }}>
+              <Delete size={25}/>
             </DeleteButton>}
       </ImageContainer>
       <Category>
@@ -124,15 +125,13 @@ const OutfitCard = (props) => {
       <Price>
         {props.card.default_price ? priceSign : null}
       </Price>
-      <div>
+      <Review>
         {ratings ? (
         <Reviews rating={averageNums.averageRating} />
         ):null}
-      </div>
+      </Review>
     </CarouselItem>
   )
-
-
 }
 
 export default OutfitCard;

@@ -22,9 +22,18 @@ const IndicatorButton = styled.button`
   margin: 5px;
 `;
 
-
-const OutfitList = ({outfit, activeIndex, updateIndex, handleAddClick, handleDeleteClick, setDelete}) => {
+const OutfitList = ({outfit, handleAddClick, setDelete}) => {
+  const [activeIndex, setActiveIndex] = useState(0);
   const length = outfit.length;
+
+  const updateIndex = (newIndex) => {
+    if (newIndex < 0) {
+      newIndex = 0;
+    } else if (newIndex >= (length/4)) {
+      newIndex = (length/4) -1;
+    }
+    setActiveIndex(newIndex);
+  };
 
   return (
     <Carousel>
@@ -36,10 +45,8 @@ const OutfitList = ({outfit, activeIndex, updateIndex, handleAddClick, handleDel
             card={card}
             width={{ width: "25%"}}
             handleAddClick={handleAddClick}
-            handleDeleteClick={handleDeleteClick}
             key={card.id}
             setDelete={setDelete}
-
             />
           ))
         :null}
