@@ -53,10 +53,12 @@ let ReviewsOverview = (props) => {
       </Ratings>
       <Reviews
         reviews={reviews}
+        setReviews={setReviews}
         selectValue={selectValue}
         getSorted={getSorted}
         setPage={setPage}
         count={count}
+        setCount={setCount}
         setSelectValue={setSelectValue}
         loading={loading}>
       </Reviews>

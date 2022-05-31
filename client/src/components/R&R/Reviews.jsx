@@ -51,7 +51,7 @@ const Button = styled.button`
   cursor: pointer;
   `;
 
-const Reviews = ({loading, setSelectValue, count, setPage, selectValue, reviews}) => {
+const Reviews = ({loading, setSelectValue, count, setPage, selectValue, reviews, setReviews, setCount}) => {
   const [displayCount, setDisplayCount] = useState(2);
   const [showModal, setShowModal] = useState(false);
   const observer = useRef();
@@ -110,6 +110,9 @@ const Reviews = ({loading, setSelectValue, count, setPage, selectValue, reviews}
           <Dropdown value={selectValue} name="sort" onChange={(e) => {
             setSelectValue(e.target.value);
             setPage(1);
+            setReviews([]);
+            setDisplayCount(2);
+            setCount(0);
             }}>
             <option value="relevant">most relevant</option>
             <option value="helpful">most helpful </option>
@@ -120,7 +123,7 @@ const Reviews = ({loading, setSelectValue, count, setPage, selectValue, reviews}
           {reviews.slice(0, displayCount).map((review, index) => (
             <ReviewTile review={review} key={index}></ReviewTile>
           ))}
-          {displayCount >= 5 && <div ref={finalDivRef}>this is the div to check</div>}
+          {displayCount >= 5 && <div ref={finalDivRef}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>}
           {/* <div ref={finalDivRef}>this is the div to check</div> */}
         </Section>
         {displayCount === 2 && <Button onClick={() => {
