@@ -77,10 +77,10 @@ const ProductBreakdown = ({id}) => {
 
   return(
     <>
-    {Object.keys(chars).map((key) => {
-      let percent = (Math.round(100 -((chars[key].value / 5) * 100))).toString() + '%';
-      return (<Block>
-        {key}
+    {Object.keys(chars).map((objectKey, index) => {
+      let percent = (Math.round(100 -((chars[objectKey].value / 5) * 100))).toString() + '%';
+      return (<Block key={index}>
+        {objectKey}
         <BreakdownBars>
           <SingleBar>placeholder</SingleBar>
           <SingleBar>placeholder</SingleBar>
@@ -88,8 +88,8 @@ const ProductBreakdown = ({id}) => {
         </BreakdownBars>
         <Spectrum>
           <Triangle style={{right: `${percent}`}}><FontAwesomeIcon icon={faCaretDown}/></Triangle>
-          <Low>{charLegend[key][1]}</Low>
-          <High>{charLegend[key][5]}</High>
+          <Low>{charLegend[objectKey][1]}</Low>
+          <High>{charLegend[objectKey][5]}</High>
         </Spectrum>
       </Block>)
     })}

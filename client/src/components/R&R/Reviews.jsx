@@ -1,4 +1,4 @@
- import { useState, useContext, useEffect } from 'react';
+ import { useState, useEffect, useRef, useCallback } from 'react';
 import ReviewTile from './ReviewTile.jsx';
 import NewReview from './NewReview.jsx';
 import styled from 'styled-components';
@@ -51,9 +51,22 @@ const Button = styled.button`
   cursor: pointer;
   `;
 
-const Reviews = ({setSelectValue, count, page, setPage, selectValue, reviews}) => {
+const Reviews = ({loading, setSelectValue, count, setPage, selectValue, reviews}) => {
   const [displayCount, setDisplayCount] = useState(2);
   const [showModal, setShowModal] = useState(false);
+  const observer = useRef();
+  const finalDivRef = useCallback(node => {
+    if (loading) return
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        setPage(prev => prev + 1);
+        setDisplayCount(count);
+        console.log('count', count)
+      }
+    });
+    if (node) observer.current.observe(node);
+  }, [count]);
 
   const openModal = () => {
     setShowModal(prev => !prev);
@@ -63,9 +76,28 @@ const Reviews = ({setSelectValue, count, page, setPage, selectValue, reviews}) =
     setShowModal(false);
   }
 
-  const showMoreImages = () => {
-    setPage(page+1);
-  }
+  // // infinite scroll
+  //   const handleObserver = useCallback((entries) => {
+  //     const target = entries[0];
+  //     if (target.isIntersecting) {
+  //       console.log('intersecting')
+  //       setPage((page) => page + 1);
+  //       console.log('count', count);
+  //       console.log('displayCount', displayCount);
+  //       if (count !== 0) setDisplayCount(count);
+  //     }
+  //   }, []);;
+
+  //   useEffect(() => {
+  //     console.log('use effect count', count)
+  //     const option = {
+  //       root: null,
+  //       rootMargin: "20px",
+  //       threshold: 0
+  //     };
+  //     const observer = new IntersectionObserver(handleObserver, option);
+  //     if (loader.current) observer.observe(loader.current);
+  //   }, [handleObserver]);
 
 
   return (
@@ -85,16 +117,17 @@ const Reviews = ({setSelectValue, count, page, setPage, selectValue, reviews}) =
           </Dropdown>
         </Sort>
         <Section>
-          {reviews.slice(0, displayCount).map((review) => (
-            <ReviewTile review={review}></ReviewTile>
+          {reviews.slice(0, displayCount).map((review, index) => (
+            <ReviewTile review={review} key={index}></ReviewTile>
           ))}
+          {displayCount >= 5 && <div ref={finalDivRef}>this is the div to check</div>}
+          {/* <div ref={finalDivRef}>this is the div to check</div> */}
         </Section>
-        {displayCount < count && <Button onClick={() => {
-          setDisplayCount(displayCount + 2)
+        {displayCount === 2 && <Button onClick={() => {
+          setDisplayCount(count)
         }}>More Reviews</Button>}
         <Button onClick={openModal}>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
       </div>
-      <button onClick={showMoreImages}>replicating infinite scroll</button>
     </Container>
       )
 }

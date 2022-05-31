@@ -63,14 +63,9 @@ const Bars = ({ filters, setFilters, ratings}) => {
         <Button onClick={() => {setFilters({})}}>Remove all filters</Button>
       </div>
       <div>
-        {all.map((each) => {
-          // if (filters[each.rating]) {
-          //   var style = {'background-color': 'blue'}
-          // } else {
-          //   var style = {'background-color': 'pink'}
-          // }
+        {all.map((each, index) => {
         return(
-          <Breakdown onClick={() => {renderByStars(each.rating)}}>
+          <Breakdown key={index} onClick={() => {renderByStars(each.rating)}}>
             <Button>{each.rating} stars</Button>
             <div className="bars" style={{ "--rating": each.percent}}></div>
             <Count>{each.count}</Count>
