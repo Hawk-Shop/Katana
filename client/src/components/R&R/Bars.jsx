@@ -18,7 +18,7 @@ const Breakdown = styled.div`
   font-size: .9em;
   `;
 // parameter = ratings object
-const Bars = ({ filters, setFilters, ratings}) => {
+const Bars = ({ filters, setFilters, ratings, setPage, setReviews, setDisplayCount, setCount}) => {
 
   let five = Number(ratings[5]);
   let four = Number(ratings[4]);
@@ -49,6 +49,10 @@ const Bars = ({ filters, setFilters, ratings}) => {
       newFilters[rating] = 1;
     }
     setFilters(newFilters);
+    setPage(1);
+    setReviews([]);
+    setDisplayCount(2);
+    setCount(0);
   }
 
   let selected = '';

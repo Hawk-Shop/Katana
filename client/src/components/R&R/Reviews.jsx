@@ -51,8 +51,7 @@ const Button = styled.button`
   cursor: pointer;
   `;
 
-const Reviews = ({loading, setSelectValue, count, setPage, selectValue, reviews, setReviews, setCount}) => {
-  const [displayCount, setDisplayCount] = useState(2);
+const Reviews = ({filters, displayCount, setDisplayCount, loading, setSelectValue, count, setPage, selectValue, reviews, setReviews, setCount}) => {
   const [showModal, setShowModal] = useState(false);
   const observer = useRef();
   const finalDivRef = useCallback(node => {
@@ -62,7 +61,6 @@ const Reviews = ({loading, setSelectValue, count, setPage, selectValue, reviews,
       if (entries[0].isIntersecting) {
         setPage(prev => prev + 1);
         setDisplayCount(count);
-        console.log('count', count)
       }
     });
     if (node) observer.current.observe(node);
@@ -75,30 +73,6 @@ const Reviews = ({loading, setSelectValue, count, setPage, selectValue, reviews,
   const closeModal = () => {
     setShowModal(false);
   }
-
-  // // infinite scroll
-  //   const handleObserver = useCallback((entries) => {
-  //     const target = entries[0];
-  //     if (target.isIntersecting) {
-  //       console.log('intersecting')
-  //       setPage((page) => page + 1);
-  //       console.log('count', count);
-  //       console.log('displayCount', displayCount);
-  //       if (count !== 0) setDisplayCount(count);
-  //     }
-  //   }, []);;
-
-  //   useEffect(() => {
-  //     console.log('use effect count', count)
-  //     const option = {
-  //       root: null,
-  //       rootMargin: "20px",
-  //       threshold: 0
-  //     };
-  //     const observer = new IntersectionObserver(handleObserver, option);
-  //     if (loader.current) observer.observe(loader.current);
-  //   }, [handleObserver]);
-
 
   return (
     <Container>
@@ -123,11 +97,11 @@ const Reviews = ({loading, setSelectValue, count, setPage, selectValue, reviews,
           {reviews.slice(0, displayCount).map((review, index) => (
             <ReviewTile review={review} key={index}></ReviewTile>
           ))}
-          {displayCount >= 5 && <div ref={finalDivRef}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>}
+          {(displayCount >= 5 || Object.keys(filters).length !== 0) && <div ref={finalDivRef}>this is what im looking for &nbsp;&nbsp;&nbsp;<br></br></div>}
           {/* <div ref={finalDivRef}>this is the div to check</div> */}
         </Section>
         {displayCount === 2 && <Button onClick={() => {
-          setDisplayCount(count)
+          setDisplayCount(5)
         }}>More Reviews</Button>}
         <Button onClick={openModal}>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
       </div>

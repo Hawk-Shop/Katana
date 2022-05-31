@@ -18,6 +18,7 @@ let ReviewsOverview = (props) => {
   const [filters, setFilters] = useState({});
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [displayCount, setDisplayCount] = useState(2);
 
 
   // gets all arrays, by sort, 5 at a time by page
@@ -49,7 +50,10 @@ let ReviewsOverview = (props) => {
         reviews={reviews}
         setCount={setCount}
         filters={filters}
-        setFilters={setFilters}>
+        setFilters={setFilters}
+        setPage={setPage}
+        setDisplayCount={setDisplayCount}
+        >
       </Ratings>
       <Reviews
         reviews={reviews}
@@ -60,7 +64,10 @@ let ReviewsOverview = (props) => {
         count={count}
         setCount={setCount}
         setSelectValue={setSelectValue}
-        loading={loading}>
+        loading={loading}
+        setDisplayCount={setDisplayCount}
+        displayCount={displayCount}
+        filters={filters}>
       </Reviews>
     </Container>
   )
