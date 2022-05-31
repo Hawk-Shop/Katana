@@ -75,9 +75,7 @@ const RelatedProducts = (props) => {
   }
 
   const handleDeleteClick = (e) => {
-
     let thisID = deleteID;
-    console.log(thisID)
     const index = outfit.findIndex(({id}) => id === thisID);
     if (index !== -1) {
       setOutfit([
