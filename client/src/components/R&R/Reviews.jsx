@@ -1,4 +1,4 @@
- import { useState, useContext, useEffect } from 'react';
+ import { useState, useEffect, useRef, useCallback } from 'react';
 import ReviewTile from './ReviewTile.jsx';
 import NewReview from './NewReview.jsx';
 import styled from 'styled-components';
@@ -51,9 +51,20 @@ const Button = styled.button`
   cursor: pointer;
   `;
 
-const Reviews = ({setSelectValue, count, page, setPage, selectValue, reviews}) => {
-  const [displayCount, setDisplayCount] = useState(2);
+const Reviews = ({filters, displayCount, setDisplayCount, loading, setSelectValue, count, setPage, selectValue, reviews, setReviews, setCount}) => {
   const [showModal, setShowModal] = useState(false);
+  const observer = useRef();
+  const finalDivRef = useCallback(node => {
+    if (loading) return
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        setPage(prev => prev + 1);
+        setDisplayCount(count);
+      }
+    });
+    if (node) observer.current.observe(node);
+  }, [count]);
 
   const openModal = () => {
     setShowModal(prev => !prev);
@@ -62,11 +73,6 @@ const Reviews = ({setSelectValue, count, page, setPage, selectValue, reviews}) =
   const closeModal = () => {
     setShowModal(false);
   }
-
-  const showMoreImages = () => {
-    setPage(page+1);
-  }
-
 
   return (
     <Container>
@@ -78,6 +84,9 @@ const Reviews = ({setSelectValue, count, page, setPage, selectValue, reviews}) =
           <Dropdown value={selectValue} name="sort" onChange={(e) => {
             setSelectValue(e.target.value);
             setPage(1);
+            setReviews([]);
+            setDisplayCount(2);
+            setCount(0);
             }}>
             <option value="relevant">most relevant</option>
             <option value="helpful">most helpful </option>
@@ -85,16 +94,17 @@ const Reviews = ({setSelectValue, count, page, setPage, selectValue, reviews}) =
           </Dropdown>
         </Sort>
         <Section>
-          {reviews.slice(0, displayCount).map((review) => (
-            <ReviewTile review={review}></ReviewTile>
+          {reviews.slice(0, displayCount).map((review, index) => (
+            <ReviewTile review={review} key={index}></ReviewTile>
           ))}
+          {(displayCount >= 5 || Object.keys(filters).length !== 0) && <div ref={finalDivRef}>this is what im looking for &nbsp;&nbsp;&nbsp;<br></br></div>}
+          {/* <div ref={finalDivRef}>this is the div to check</div> */}
         </Section>
-        {displayCount < count && <Button onClick={() => {
-          setDisplayCount(displayCount + 2)
+        {displayCount === 2 && <Button onClick={() => {
+          setDisplayCount(5)
         }}>More Reviews</Button>}
         <Button onClick={openModal}>Add a review <FontAwesomeIcon icon={faPlus}/></Button>
       </div>
-      <button onClick={showMoreImages}>replicating infinite scroll</button>
     </Container>
       )
 }

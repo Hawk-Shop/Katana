@@ -18,7 +18,7 @@ const Breakdown = styled.div`
   font-size: .9em;
   `;
 // parameter = ratings object
-const Bars = ({ filters, setFilters, ratings}) => {
+const Bars = ({ filters, setFilters, ratings, setPage, setReviews, setDisplayCount, setCount}) => {
 
   let five = Number(ratings[5]);
   let four = Number(ratings[4]);
@@ -49,6 +49,10 @@ const Bars = ({ filters, setFilters, ratings}) => {
       newFilters[rating] = 1;
     }
     setFilters(newFilters);
+    setPage(1);
+    setReviews([]);
+    setDisplayCount(2);
+    setCount(0);
   }
 
   let selected = '';
@@ -63,14 +67,9 @@ const Bars = ({ filters, setFilters, ratings}) => {
         <Button onClick={() => {setFilters({})}}>Remove all filters</Button>
       </div>
       <div>
-        {all.map((each) => {
-          // if (filters[each.rating]) {
-          //   var style = {'background-color': 'blue'}
-          // } else {
-          //   var style = {'background-color': 'pink'}
-          // }
+        {all.map((each, index) => {
         return(
-          <Breakdown onClick={() => {renderByStars(each.rating)}}>
+          <Breakdown key={index} onClick={() => {renderByStars(each.rating)}}>
             <Button>{each.rating} stars</Button>
             <div className="bars" style={{ "--rating": each.percent}}></div>
             <Count>{each.count}</Count>

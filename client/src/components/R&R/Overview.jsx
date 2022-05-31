@@ -14,10 +14,11 @@ let ReviewsOverview = (props) => {
   const id = useContext(Context).id;
   const [reviews, setReviews] = useState([]);
   const [selectValue, setSelectValue] = useState('relevant');
-  const [count, setCount] = useState(2);
+  const [count, setCount] = useState(0);
   const [filters, setFilters] = useState({});
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [displayCount, setDisplayCount] = useState(2);
 
 
   // gets all arrays, by sort, 5 at a time by page
@@ -33,11 +34,12 @@ let ReviewsOverview = (props) => {
         setCount(count + arr.length);
         setLoading(false);
       })
+      .catch((err) => console.log('getSorted error', err));
   }
 
 
   useEffect(() => {
-      getSorted(selectValue);
+      getSorted();
     }, [filters, page, selectValue]);
 
 
@@ -48,16 +50,24 @@ let ReviewsOverview = (props) => {
         reviews={reviews}
         setCount={setCount}
         filters={filters}
-        setFilters={setFilters}>
+        setFilters={setFilters}
+        setPage={setPage}
+        setDisplayCount={setDisplayCount}
+        >
       </Ratings>
       <Reviews
         reviews={reviews}
+        setReviews={setReviews}
         selectValue={selectValue}
         getSorted={getSorted}
-        page={page}
         setPage={setPage}
         count={count}
-        setSelectValue={setSelectValue}>
+        setCount={setCount}
+        setSelectValue={setSelectValue}
+        loading={loading}
+        setDisplayCount={setDisplayCount}
+        displayCount={displayCount}
+        filters={filters}>
       </Reviews>
     </Container>
   )
