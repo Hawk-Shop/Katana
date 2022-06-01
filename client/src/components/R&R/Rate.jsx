@@ -28,7 +28,7 @@ const Rate = ({rate, setRate}) => {
       {[...Array(5)].map((item, index) => {
         const givenRating = index + 1;
         return (
-          <label>
+          <label key={index}>
             <Radio
               type="radio"
               value={givenRating}
@@ -48,7 +48,7 @@ const Rate = ({rate, setRate}) => {
           </label>
         );
       })}
-      {rate && <span>{legend[rate]}</span>}
+      {rate && <span style={{fontSize:".8em"}}>{legend[rate]}</span>}
     </Container>
   );
 };

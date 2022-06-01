@@ -3,10 +3,8 @@ import { render, screen } from '@testing-library/react';
 
 import App from '../components/App.jsx';
 
-describe('App', () => {
-  test('renders App component', () => {
-    render(<App />);
-
-    screen.debug();
-  });
+test('renders header', () => {
+  render(<ReviewsOverview />);
+  const linkElement = screen.getByText("Ratings and Reviews");
+  expect(linkElement).toBeInTheDocument();
 });

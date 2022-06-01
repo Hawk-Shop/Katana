@@ -75,32 +75,41 @@ const App = (props) => {
   const [cart, setCart] = useState([]);
   const [cartModal, setCartModal] = useState(false);
 
+  const [id, setId] = useState(40344);
+
   const reviewsRef = useRef();
 
   const changeView = (name, someProps = {}) => {
+    console.log('name', name);
     return (moreProps = {}) => {
       console.log("Changing view to: " + name);
       setView({ name, viewProps: { ...someProps, ...moreProps } });
     };
   };
 
+  useEffect(() => {
+    renderView();
+  }, [view]);
+
+
   const renderView = () => {
     switch (view.name) {
       case "Product":
-        return (
-          <Product
-            themeMode={themeMode}
-            theme={theme}
-            themeToggler={themeToggler}
-            cart={cart}
-            setCart={setCart}
-            cartQty={cartQty}
-            setCartQty={setCartQty}
-            reviewsRef={reviewsRef}
-          />
-        );
-      case "Home":
-        return <HomePage />;
+        return <Product
+        themeMode={themeMode}
+        theme={theme}
+        themeToggler={themeToggler}
+        cart={cart}
+        setCart={setCart}
+        cartQty={cartQty}
+        setCartQty={setCartQty}
+        reviewsRef={reviewsRef}
+        id={id}
+        setId={setId}
+        />;
+        case "Home":
+          return <HomePage changeView={changeView} setId={setId}/>;
+
 
       case "Cart":
         return <Cart />;
@@ -111,7 +120,7 @@ const App = (props) => {
     <>
       <HeaderStyle>
         <NavBar>
-          <h1 onClick={changeView("Home")} style={{ cursor: "pointer" }}>
+          <h1 onClick={() => changeView("Home")()} style={{ cursor: "pointer" }}>
             Hawk Shop{" "}
           </h1>
           <List>
