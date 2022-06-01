@@ -86,7 +86,6 @@ const App = (props) => {
   const renderView = () => {
     switch (view.name) {
       case "Product":
-<<<<<<< HEAD
         return <Product
         themeMode={themeMode}
         theme={theme}
@@ -99,36 +98,6 @@ const App = (props) => {
         />;
         case "Home":
           return <HomePage />;
-=======
-        return (
-          <StyledApp>
-            <div>
-              <Context.Provider
-                value={{ id: id, setCartQty, cartQty, cart, setCart }}
-              >
-                <Overview reviewsRef={reviewsRef}></Overview>
-              </Context.Provider>
-            </div>
-            <div>
-              <Context.Provider value={{ id: id, productName: productName }}>
-                <RelatedProducts></RelatedProducts>
-              </Context.Provider>
-            </div>
-            <div>
-              <Context.Provider value={{ id: id }}>
-                <QuestionsList id={id} productName={productName}></QuestionsList>
-              </Context.Provider>
-            </div>
-            <div>
-              <Context.Provider value={{ id: id, productName: productName }}>
-                <ReviewsOverview reviewsRef={reviewsRef}></ReviewsOverview>
-              </Context.Provider>
-            </div>
-          </StyledApp>
-        );
-      case "Home":
-        return <HomePage />;
->>>>>>> master
 
       case "Cart":
         return <Cart />;
