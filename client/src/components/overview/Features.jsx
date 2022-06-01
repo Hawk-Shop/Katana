@@ -25,8 +25,8 @@ const Features = (props) => {
 
   return(
     <FeatureList>
-      {props.product.features.map((feature) => (
-        <InnerFeature><Feature>{feature.feature}: {feature.value}</Feature></InnerFeature>
+      {props.product.features.map((feature, index) => (
+        <InnerFeature key={index}><Feature>{feature.feature}: {feature.value}</Feature></InnerFeature>
       ))}
     </FeatureList>
   )

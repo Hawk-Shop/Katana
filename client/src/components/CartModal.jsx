@@ -52,6 +52,8 @@ const ItemCtn = styled.div`
 const List = styled.div`
   margin-top: 15%;
   margin-left: 5%;
+  max-height: 80vh;
+  overflow: scroll;
 `;
 const ImageDiv = styled.div`
   width: 15%;
@@ -71,46 +73,71 @@ const Right = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   margin-left: 30%;
-`
-const Price = styled.div`
 `;
+const Price = styled.div``;
+
+const Text = styled.span`
+  align-self: center;
+  margin-top: 25%;
+  font-size: 1.3rem;
+`;
+
 
 const XItem = styled(XIcon)`
   margin: 0;
 `;
 
+const Addbtn = styled.button`
+  border: 1px solid #212a2f;
+  border-radius: 0.25em;
+  background-color: #212a2f;
+  color: white;
+  padding: 0.25em 0.5em;
+  font-weight: bold;
+  line-height: 1.5;
+  align-self: center;
+  width: 50%;
+  margin-top: 10%;
+  cursor: pointer;
+  &:hover {
+    background-color: white;
+    color: #212a2f;
+  }
+`;
+
 const CartModal = ({ setCartQty, cartQty, setCart, setCartModal, cart }) => {
   const removeItem = (index, qty) => {
-    const copy = [...cart]
-    copy.splice(index, 1)
-    setCart(copy)
-    setCartQty(cartQty - Number(qty))
-  }
-  console.log("CARTTTT", cart)
-  let cartItems = cart.map((item, i) => {
+    const copy = [...cart];
+    copy.splice(index, 1);
+    setCart(copy);
+    setCartQty(cartQty - Number(qty));
+  };
 
+  const handlePurchase = () => {};
+  console.log("CARTTTT", cart);
+  let cartItems = cart.map((item, i) => {
     return (
       <ItemCtn key={i}>
         <ImageDiv>
           <Image src={item.currentStyle.photos[0].thumbnail_url} />
         </ImageDiv>
         <Details>
-          <span style={{fontSize: '1.2rem', fontWeight: 'bold'}}>{item.name}</span>
+          <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            {item.name}
+          </span>
           <span>{item.currentStyle.name}</span>
           <span>Size: {item.size}</span>
           <span>Qty: {item.qty}</span>
         </Details>
         <Right>
-          <Price>${item.currentStyle.sale_price || item.currentStyle.original_price}</Price>
-          <XItem
-            icon={faX}
-            size="xs"
-            onClick={() => removeItem(i, item.qty)}
-          />
+          <Price>
+            ${item.currentStyle.sale_price || item.currentStyle.original_price}
+          </Price>
+          <XItem icon={faX} size="xs" onClick={() => removeItem(i, item.qty)} />
         </Right>
       </ItemCtn>
-    )
-  })
+    );
+  });
 
   return (
     <Modal>
@@ -121,7 +148,14 @@ const CartModal = ({ setCartQty, cartQty, setCart, setCartModal, cart }) => {
           icon={faX}
           size="xl"
         />
-        <List>{cartItems}</List>
+        {cart.length ? (
+          <>
+            <List>{cartItems}</List>
+            <Addbtn onClick={() => handlePurchase()}>PURCHASE</Addbtn>
+          </>
+        ) : (
+          <Text>Your Cart is Empty</Text>
+        )}
       </ModalContent>
     </Modal>
   );

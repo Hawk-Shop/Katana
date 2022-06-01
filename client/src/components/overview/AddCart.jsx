@@ -31,27 +31,42 @@ const AddCart = ({ skus, size, qty, currentStyle, name }) => {
           sku = key;
         }
       }
-      console.log(sku);
-      let axiosPromises = [...Array(Number(qty))].map((number, i) => {
-        return axios
-          .post("/cart", { sku_id: Number(sku) })
-          .catch((err) => console.log(err));
-      });
 
-      context.setCart([
-        ...context.cart,
-        {
-          currentStyle,
-          sku,
-          size,
-          qty,
-          axiosPromises,
-          id: context.id,
-          name,
-        },
-      ]);
+      let isInCart = false;
+      const newCart = [...context.cart]
+      for (let item of newCart) {
+        if (item.sku === sku) {
+          context.setCartQty(context.cartQty + Number(qty));
+          item.qty = JSON.stringify(Number(item.qty) + Number(qty))
+          context.setCart(newCart)
+          isInCart = true;
+        }
+      }
 
-      context.setCartQty(context.cartQty + Number(qty));
+      if (!isInCart) {
+
+        let axiosPromises = [...Array(Number(qty))].map((number, i) => {
+          return axios
+            .post("/cart", { sku_id: Number(sku) })
+            .catch((err) => console.log(err));
+        });
+
+        context.setCart([
+          ...context.cart,
+          {
+            currentStyle,
+            sku,
+            size,
+            qty,
+            axiosPromises,
+            id: context.id,
+            name,
+          },
+        ]);
+
+        context.setCartQty(context.cartQty + Number(qty));
+      }
+
 
     }
   };
