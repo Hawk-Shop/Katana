@@ -15,15 +15,20 @@ const Image = styled.img`
 `
 
 const Answer = styled.div`
+  background-color: #EFE1CE;
   border: 1px solid;
   border-radius: 5px;
   margin-bottom: 0.5em;
-  min-width: 500px;
+  margin-left: auto;
+  margin-righ: auto;
+  min-width: 40vw;
+  max-width: 50vw;
 `
 
 const Helpful = styled.div`
 font-size: 14px;
 margin-right: 10px;
+margin-top: 10px;
 `
 
 const Yes = styled.button`
@@ -64,7 +69,7 @@ const Size = styled.span`
   text-size: 12px;
 `
 
-const AnswersList = ({answer, handleHelpful, handleReported, question_id, aRerender, setARerender}) => {
+const AnswersList = ({answer, id, productName, handleHelpful, handleReported, question_id, aRerender, setARerender}) => {
   let {answer_id, body, date, answerer_name, helpfulness, photos} = answer;
   let [modal, setModal] = useState(false);
   let [url, setUrl] = useState('');
@@ -102,7 +107,12 @@ const AnswersList = ({answer, handleHelpful, handleReported, question_id, aReren
                       alt="unable to display">
                     </Image>
           })}
-          {modal && (<ImageModal url={url} toggleModal={toggleModal} modal={modal}/>)}
+          {modal && (
+            <ImageModal
+              url={url}
+              toggleModal={toggleModal}
+              modal={modal}
+            />)}
         </div>
         <Helpful> Helpful?
           <Yes onClick={() =>

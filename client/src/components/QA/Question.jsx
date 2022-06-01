@@ -116,11 +116,11 @@ const AddAnswer = styled.button`
   }
 `
 
-const noAnswer = styled.p`
-
+const NoAnswer = styled.div`
+  margin-left: 50px;
 `
 
-const Question = ({question, id, qRerender, setQRerender}) => {
+const Question = ({question, id, productName, qRerender, setQRerender}) => {
   const {question_id, question_body, question_date, question_asker, question_helpfulness} = question;
   let [answers, setAnswers] = useState([]);
   let [answerCount, setAnswerCount] = useState(2);
@@ -241,6 +241,7 @@ const Question = ({question, id, qRerender, setQRerender}) => {
         </Helpful>
         <AnswerModal
           id={id}
+          productName={productName}
           question_id={question_id}
           question_body={question_body}
           onClose={() => setShow(false)}
@@ -249,18 +250,17 @@ const Question = ({question, id, qRerender, setQRerender}) => {
       </Container>
       {questionClicked && (
         answers.length === 0 ?
-          <noAnswer><b>No answers yet. Be the first to add an answer to this question!</b></noAnswer> :
+          <NoAnswer><b>No answers yet. Be the first to add an answer to this question!</b></NoAnswer> :
           <AStyle><b>A:</b></AStyle>
       )}
       <Answers>
-        <div>{question_asker}</div>
+        {/* <div>{question_asker}</div> */}
         {questionClicked && (
           answers.slice(0, answerCount).map((answer, index) => {
             // console.log(answer);
             return  <AnswersList
                       key={index}
                       answer={answer}
-                      id={id}
                       handleHelpful={handleHelpful}
                       handleReported={handleReported}
                       question_id={question_id}

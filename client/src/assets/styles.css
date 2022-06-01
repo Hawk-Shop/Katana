@@ -39,6 +39,16 @@ body {
   margin: 0 .5em;
 }
 
+.question {
+  overflow: hidden;
+  max-height: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+#state:checked ~ .content {
+  max-height: 500px;
+}
+
 /* stupid carousel classes */
 
 /* .carousel {

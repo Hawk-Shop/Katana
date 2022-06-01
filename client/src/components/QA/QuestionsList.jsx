@@ -64,7 +64,7 @@ const Icon = styled.i`
   vertical-align: middle;
 `
 
-const QuestionsList = ({id}) => {
+const QuestionsList = ({id, productName}) => {
   // const id = 40355;
   // const id = useContext(Context).id;
   let [questions, setQuestions] = useState([]);
@@ -139,6 +139,7 @@ const QuestionsList = ({id}) => {
                       key={index}
                       question={question}
                       id={id}
+                      productName={productName}
                       qRerender={qRerender}
                       setQRerender={setQRerender}
                     />
@@ -154,7 +155,12 @@ const QuestionsList = ({id}) => {
         {questions.length > 0 && (
           addQuestion
         )}
-        <QuestionModal id={id} onClose={() => setShowQModel(false)} showQModel={showQModel}/>
+        <QuestionModal
+          id={id}
+          productName={productName}
+          onClose={() => setShowQModel(false)}
+          showQModel={showQModel}
+        />
       </Sort>
     </>
   )
