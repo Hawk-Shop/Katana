@@ -13,7 +13,8 @@ const Button = styled.button`
   margin: 2em 1em;
   padding: 0.5em 1em;
   &:hover {
-    background: lightgrey;
+    box-shadow: rgba(0, 0, 0, 0.10) 0px 5px 10px;
+    transform: scale(1.05);
   }
   cursor: pointer;
   `;
