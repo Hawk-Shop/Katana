@@ -124,6 +124,8 @@ const NoAnswers = styled.div`
 
 const Question = ({question, id, productName, qRerender, setQRerender}) => {
   const {question_id, question_body, question_date, question_asker, question_helpfulness} = question;
+  // console.log(question_id);
+  // const id = useContext(Context).id;
   let [answers, setAnswers] = useState([]);
   let [answerCount, setAnswerCount] = useState(2);
   let [questionClicked, setQuestionClicked] = useState(false);
@@ -143,7 +145,7 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
       .catch(err => {
         console.error('Unable to get answers. Sorry...', err);
       })
-  }, [show, qHelpful, aRerender])
+  }, [question_id, show, qHelpful, aRerender])
 
   const handleShowingAnswers = () => {
     setQuestionClicked(!questionClicked);
