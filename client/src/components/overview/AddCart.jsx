@@ -8,15 +8,16 @@ const Addbtn = styled.button`
   color: ${(props) => `${props.orgCol}`};;;
   border: 1px solid black;
   border-radius: 0.25em;
-  padding: 0.25em 0.5em;
+  padding: 1% 12.5%;
   cursor: ${(props) => `${props.cursor}`};
   line-height: 1.5;
   background-color: ${(props) => `${props.bColor}`};
-  width: 40%;
+  width: auto;
   &:hover{
     background-color: ${(props) => `${props.hover}`};;
     color: ${(props) => `${props.textCol}`};;
   }
+  white-space: nowrap;
 `;
 
 const Plus = styled.span``;
@@ -27,9 +28,6 @@ const AddCart = ({ skus, size, qty, currentStyle, name }) => {
   const hover = size === "SELECT SIZE" ? "#d0d0d0" : "white";
   const textCol = size === "SELECT SIZE" ? "black" : "black";
   const orgCol = size === "SELECT SIZE" ? "black" : "white";
-
-
-  console.log(color)
 
   const context = useContext(Context);
   const handleAdd = () => {

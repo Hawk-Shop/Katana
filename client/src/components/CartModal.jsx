@@ -2,16 +2,21 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
+import {ThemeProvider} from "styled-components";
 
 const Modal = styled.div`
   width: 25%;
-  height: 85vh;
+  height: 100vh;
   top: 0;
   left: 75%;
   right: 0;
   bottom: 0;
   position: fixed;
   z-index: 10;
+  &.dark {
+    color: white;
+    background-color: black;
+  }
 `;
 const Overlay = styled.div`
   width: 100vw;
@@ -27,13 +32,17 @@ const Overlay = styled.div`
 const ModalContent = styled.div`
   position: absolute;
   line-height: 1.4;
-  background: #f1f1f1;
+  // background: #f1f1f1;
   min-height: 100vh;
   width: 100%;
   overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  &.dark {
+    color: white;
+    background-color: black;
+  }
 `;
 
 const XIcon = styled(FontAwesomeIcon)`
@@ -105,7 +114,9 @@ const Addbtn = styled.button`
   }
 `;
 
-const CartModal = ({ setCartQty, cartQty, setCart, setCartModal, cart }) => {
+const CartModal = ({ theme, setCartQty, cartQty, setCart, setCartModal, cart }) => {
+  console.log(theme)
+  const dark = (theme === 'dark') ? 'dark' : 'none'
   const removeItem = (index, qty) => {
     const copy = [...cart];
     copy.splice(index, 1);
@@ -120,7 +131,6 @@ const CartModal = ({ setCartQty, cartQty, setCart, setCartModal, cart }) => {
     }
     Promise.all(promises).catch((err) => console.log(err))
   };
-  console.log("CARTTTT", cart);
   let cartItems = cart.map((item, i) => {
     return (
       <ItemCtn key={i}>
@@ -146,7 +156,7 @@ const CartModal = ({ setCartQty, cartQty, setCart, setCartModal, cart }) => {
   });
 
   return (
-    <Modal>
+    <Modal className={dark}>
       <Overlay onClick={() => setCartModal((prev) => !prev)}></Overlay>
       <ModalContent>
         <XIcon

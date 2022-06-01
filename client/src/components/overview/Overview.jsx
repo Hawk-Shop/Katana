@@ -25,7 +25,8 @@ const BtmCtn = styled.div`
   flex-direction: row;
   width: 100%;
   align-items: flex-start;
-  margin-top: 5%;
+  margin-top: 3%;
+  margin-bottom: 1%;
 `;
 
 const Overview = (props) => {
