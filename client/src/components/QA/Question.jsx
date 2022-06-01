@@ -8,6 +8,7 @@ import AnswerModal from './Modals/AnswerModal.jsx';
 import swal from 'sweetalert';
 
 const Questions = styled.div`
+  text-transform: uppercase;
   border: 1px solid;
   border-radius: 5px;
   width: auto;
@@ -24,10 +25,11 @@ const Questions = styled.div`
 `;
 
 const QStyle = styled.span`
-  font-size: 1.2em;
+  font-size: 1em;
   display: flex;
   cursor: ns-resize;
   margin-left: 10px;
+  margin-right: 20px;
 `;
 
 const Helpful = styled.div`
@@ -116,11 +118,11 @@ const AddAnswer = styled.button`
   }
 `
 
-const noAnswer = styled.p`
-
+const NoAnswers = styled.div`
+  margin-left: 20px;
 `
 
-const Question = ({question, id, qRerender, setQRerender}) => {
+const Question = ({question, id, productName, qRerender, setQRerender}) => {
   const {question_id, question_body, question_date, question_asker, question_helpfulness} = question;
   let [answers, setAnswers] = useState([]);
   let [answerCount, setAnswerCount] = useState(2);
@@ -130,7 +132,6 @@ const Question = ({question, id, qRerender, setQRerender}) => {
   let [qHelpful, setQHelpful] = useState(false);
   let [aRerender, setARerender] = useState(0);
   let [qReported, setQReported] = useState(false);
-
 
   useEffect(() => {
     axios
@@ -143,8 +144,6 @@ const Question = ({question, id, qRerender, setQRerender}) => {
         console.error('Unable to get answers. Sorry...', err);
       })
   }, [show, qHelpful, aRerender])
-
-
 
   const handleShowingAnswers = () => {
     setQuestionClicked(!questionClicked);
@@ -209,7 +208,7 @@ const Question = ({question, id, qRerender, setQRerender}) => {
   )
 
   return (
-    <Questions>
+    <Questions >
       <Container>
         <QStyle onClick={handleShowingAnswers}>
           <ContainText><b>Q: {question_body}</b></ContainText>
@@ -241,6 +240,7 @@ const Question = ({question, id, qRerender, setQRerender}) => {
         </Helpful>
         <AnswerModal
           id={id}
+          productName={productName}
           question_id={question_id}
           question_body={question_body}
           onClose={() => setShow(false)}
@@ -249,18 +249,18 @@ const Question = ({question, id, qRerender, setQRerender}) => {
       </Container>
       {questionClicked && (
         answers.length === 0 ?
-          <noAnswer><b>No answers yet. Be the first to add an answer to this question!</b></noAnswer> :
+          <NoAnswers>
+            <b>No answers yet. Be the first to add an answer to this question!</b>
+          </NoAnswers> :
           <AStyle><b>A:</b></AStyle>
       )}
-      <Answers>
-        <div>{question_asker}</div>
+      <Answers >
         {questionClicked && (
           answers.slice(0, answerCount).map((answer, index) => {
             // console.log(answer);
             return  <AnswersList
                       key={index}
                       answer={answer}
-                      id={id}
                       handleHelpful={handleHelpful}
                       handleReported={handleReported}
                       question_id={question_id}
