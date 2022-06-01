@@ -38,7 +38,7 @@ let ReviewsOverview = (props) => {
 
   useEffect(() => {
       getSorted(selectValue);
-    }, [filters, page, selectValue]);
+    }, [filters, page, selectValue, id]);
 
 
   return (

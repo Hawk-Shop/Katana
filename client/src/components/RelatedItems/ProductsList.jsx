@@ -23,7 +23,7 @@ const ScrollButton = styled.button`
   margin: 5px;
 `;
 
-const ProductsList = ({list, show, setShow, setRef, setId}) => {
+const ProductsList = ({list, show, setShow, setRef}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const id = useContext(Context).id;
   const length = list.length;
@@ -49,7 +49,7 @@ const ProductsList = ({list, show, setShow, setRef, setId}) => {
            show={show}
            setShow={setShow}
            setRef={setRef}
-           setId={setId}
+          //  setId={setId}
            key={card.id}
            />
         )): null}

@@ -53,7 +53,7 @@ const QuestionsList = (props) => {
       .catch(() => {
         swal('Uh oh...', 'On error occurred on our side. Unable to get the questions related to this product right now. Please refresh and try again in a little bit.', 'error');
       })
-  }, [showQModel, qRerender])
+  }, [showQModel, qRerender, id])
 
   const showMoreQuestions = (
     <Button onClick={() => setQuestionCount(questions.length)}>

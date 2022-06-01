@@ -13,7 +13,6 @@ const RelatedProducts = (props) => {
   const [reference, setRef] = useState('');
   const [list, setList] = useState('');
   const [mainProduct, setMain] = useState({});
-
   const [outfit, setOutfit] = useLocalStorage('outfit', [{id: 1, name: "ADD TO YOUR OUTFIT"}])
   const [deleteID, setDelete] = useState(0);
 
@@ -62,7 +61,7 @@ const RelatedProducts = (props) => {
         setList(products);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   // console.log("WHATS IN MOFO LIST", list)
   // console.log("WHATS IN MAINMOFOPRODUCT", mainProduct.name);
@@ -101,7 +100,7 @@ const RelatedProducts = (props) => {
         show={show}
         setShow={setShow}
         setRef={setRef}
-        setId={props.setId}
+        // setId={setId}
       />
       <h3>Your Outfit</h3>
       <OutfitList
@@ -110,7 +109,7 @@ const RelatedProducts = (props) => {
         setOutfit={setOutfit}
         handleAddClick={handleAddClick}
         setDelete={setDelete}
-        setId={props.setId}
+        // setId={setId}
       />
       <Modal
         onClose={() => setShow(false)}

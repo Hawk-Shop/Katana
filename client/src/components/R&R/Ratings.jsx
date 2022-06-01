@@ -39,7 +39,7 @@ const Ratings = (props) => {
       setPercRec(percentRec(meta.recommended));
       setRatings(meta.ratings);
     })
-  }, [])
+  }, [id])
 
   return (
     <Container>

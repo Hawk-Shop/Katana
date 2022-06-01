@@ -75,7 +75,6 @@ const Review = styled.div`
 `
 
 const ProductCard = (props) => {
-  const id = useContext(Context).id;
   const ratings = props.card.ratings;
   let averageNums = avgRating(ratings);
   let thumbURL = props.card.results[0].photos[0].thumbnail_url;
@@ -92,9 +91,14 @@ const ProductCard = (props) => {
     product_id: props.card.id,
     features: props.card.features
   }
+  const setId= useContext(Context).setId
+
+
+
 
   return (
-    <CarouselItem style={props.width} onClick={() => {props.setId(props.card.id)}}>
+    <CarouselItem style={props.width} onClick={() => {
+    setId(props.card.id)}}>
       <ImageContainer>
         <CardThumbnail src={thumbPath}></CardThumbnail>
         <ActionButton onClick={(e) => {
