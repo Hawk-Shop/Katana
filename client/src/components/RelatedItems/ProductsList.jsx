@@ -6,6 +6,7 @@ import ProductCard from './ProductCard.jsx';
 
 const Carousel = styled.div`
   overflow: hidden;
+  max-width: 1000px;
 `;
 
 const Inner = styled.div`
@@ -13,7 +14,7 @@ const Inner = styled.div`
   transition: transform 0.3s;
 `;
 
-const Scroll= styled.div`
+const Scroll = styled.div`
   display: flex;
   justify-content: center;
 `;
@@ -22,7 +23,7 @@ const ScrollButton = styled.button`
   margin: 5px;
 `;
 
-const ProductsList = ({list, show, setShow, setRef}) => {
+const ProductsList = ({list, show, setShow, setRef, setId}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const id = useContext(Context).id;
   const length = list.length;
@@ -48,6 +49,7 @@ const ProductsList = ({list, show, setShow, setRef}) => {
            show={show}
            setShow={setShow}
            setRef={setRef}
+           setId={setId}
            key={card.id}
            />
         )): null}

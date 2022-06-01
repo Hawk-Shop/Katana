@@ -12,23 +12,30 @@ const CarouselItem = styled.div`
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 275px;
+  justify-content: end;
+  min-height: 269px;
+  max-width: 205px;
   background-color: transparent;
-  color: gray;
   font-family: Arial Regular;
+  padding: 0;
+  margin: 10px 25px;
 `;
 
 const CardThumbnail = styled.img`
-  object-fit: contain;
-  max-width: 96%;
+  object-fit: cover;
+  max-width: 100%;
   max-height: 200px;
+  border: 1px solid gray;
 `;
+
+const ImageContainer = styled.div`
+  position: relative;
+`
 
 const ActionButton = styled.button`
   position: absolute;
   top: 0%;
-  right: 5%;
+  right: 0%;
   background-color: transparent;
   color: white;
   padding: 0;
@@ -43,34 +50,35 @@ const Star = styled(FontAwesomeIcon)`
   background-color: transparent;
 `;
 
-const ImageContainer = styled.div`
-  position: relative;
-`
 const Reviews = styled(Stars)`
   display: inline;
 `;
 
 const ProductName = styled.div`
   font-weight: bold;
-  color: black;
   font-size: medium;
 `;
 
 const Category = styled.div`
   font-size: small;
+  color: gray;
 `;
 
 const Price = styled.div`
   font-size: small;
+  color: gray;
 `
 const Review = styled.div`
-  font-size: medium;
+  font-size: small;
+  color: gray;
+
 `
 
 const ProductCard = (props) => {
+  const id = useContext(Context).id;
   const ratings = props.card.ratings;
   let averageNums = avgRating(ratings);
-  let thumbURL = props.card.results[0].photos[0].url;
+  let thumbURL = props.card.results[0].photos[0].thumbnail_url;
 
   let thumbPath;
   if (thumbURL != null) {
@@ -86,7 +94,7 @@ const ProductCard = (props) => {
   }
 
   return (
-    <CarouselItem style={props.width}>
+    <CarouselItem style={props.width} onClick={() => {props.setId(props.card.id)}}>
       <ImageContainer>
         <CardThumbnail src={thumbPath}></CardThumbnail>
         <ActionButton onClick={(e) => {

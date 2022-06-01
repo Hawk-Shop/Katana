@@ -65,13 +65,18 @@ const RelatedProducts = (props) => {
   }, []);
 
   // console.log("WHATS IN MOFO LIST", list)
-  // console.log("WHATS IN MAINMOFOPRODUCT", mainProduct);
+  // console.log("WHATS IN MAINMOFOPRODUCT", mainProduct.name);
   // console.log("THIS IS PRODUCT ID IN CLICK", deleteID)
+  console.log("THIS IS MAIN ID", id)
 
   const handleAddClick = (e) => {
+    let mainId = mainProduct.id;
+    const isExist = outfit.some(({id}) => id === mainId);
+    if (!isExist) {
       setOutfit((prevState) => ([
         ...prevState, mainProduct
       ]))
+    }
   };
 
   useEffect(() => {
@@ -82,8 +87,11 @@ const RelatedProducts = (props) => {
         ...outfit.slice(0, index),
         ...outfit.slice(index + 1)
       ]);
+      setDelete(0);
     }
   }, [deleteID])
+
+  // console.log('THIS IS OUTFIT', outfit)
 
   return(
     <div>
@@ -93,6 +101,7 @@ const RelatedProducts = (props) => {
         show={show}
         setShow={setShow}
         setRef={setRef}
+        setId={props.setId}
       />
       <h3>Your Outfit</h3>
       <OutfitList
@@ -101,6 +110,7 @@ const RelatedProducts = (props) => {
         setOutfit={setOutfit}
         handleAddClick={handleAddClick}
         setDelete={setDelete}
+        setId={props.setId}
       />
       <Modal
         onClose={() => setShow(false)}

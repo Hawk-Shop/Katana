@@ -101,7 +101,7 @@ const App = (props) => {
               </div>
               <div>
                 <Context.Provider value={{id: id}}>
-                  <RelatedProducts></RelatedProducts>
+                  <RelatedProducts setId={setId}></RelatedProducts>
                 </Context.Provider>
               </div>
               <div>
