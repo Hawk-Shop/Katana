@@ -88,7 +88,7 @@ const ProductInfo = (props) => {
         <span>{"$" + props.currentStyle.original_price}</span>
       )}
       <Style product={props.product} styles={props.styles.results} currentStyle={props.currentStyle} setStyle={props.setStyle}/>
-      <Cart currentStyle={props.currentStyle}/>
+      <Cart name={props.product.name} currentStyle={props.currentStyle}/>
       <Socials>
         <a href="https://www.facebook.com"><FontAwesomeIcon icon={faFacebook} size="xl"/></a>
         <a href="https://www.twitter.com"><FontAwesomeIcon icon={faTwitter} size="xl"/></a>

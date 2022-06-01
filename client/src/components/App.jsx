@@ -3,23 +3,25 @@ import styled from "styled-components";
 import { Context } from "./util/context.js";
 import Overview from "./overview/Overview.jsx";
 import QuestionsList from "./QA/QuestionsList.jsx";
-import ReviewsOverview from './R&R/Overview.jsx';
-import RelatedProducts from './RelatedItems/Main.jsx';
-import axios from 'axios';
+import ReviewsOverview from "./R&R/Overview.jsx";
+import RelatedProducts from "./RelatedItems/Main.jsx";
+import axios from "axios";
 
-import {ThemeProvider} from "styled-components";
-import {useDarkMode} from "./DarkMode/UseDarkMode.jsx"
+import { ThemeProvider } from "styled-components";
+import { useDarkMode } from "./DarkMode/UseDarkMode.jsx";
 import { GlobalStyles } from "./DarkMode/GlobalStyles.jsx";
 import { lightTheme, darkTheme } from "./DarkMode/Themes.jsx";
 import Toggle from "./DarkMode/Toggler.jsx";
 
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartShopping,
+  faUser,
+  faShirt,
+} from "@fortawesome/free-solid-svg-icons";
 import HomePage from "./HomePage.jsx";
+import CartModal from "./CartModal.jsx";
 import Product from "./Product.jsx";
-
 
 window.React = React;
 Window.sessionStorage = { cart: [], qty: 0 };
@@ -66,15 +68,14 @@ const App = (props) => {
   // const [id, setId] = useState(40344);
   // const [productName, setProductName] = useState('');
   const [theme, themeToggler] = useDarkMode();
-  const themeMode = theme === 'light' ? lightTheme : darkTheme;
+  const themeMode = theme === "light" ? lightTheme : darkTheme;
 
   const [view, setView] = useState({ name: "Product", viewProps: {} });
   const [cartQty, setCartQty] = useState(0);
   const [cart, setCart] = useState([]);
+  const [cartModal, setCartModal] = useState(false);
 
   const reviewsRef = useRef();
-
-
 
   const changeView = (name, someProps = {}) => {
     return (moreProps = {}) => {
@@ -86,6 +87,7 @@ const App = (props) => {
   const renderView = () => {
     switch (view.name) {
       case "Product":
+<<<<<<< HEAD
         return <Product
         themeMode={themeMode}
         theme={theme}
@@ -98,10 +100,25 @@ const App = (props) => {
         />;
         case "Home":
           return <HomePage />;
+=======
+        return (
+          <Product
+            themeMode={themeMode}
+            theme={theme}
+            themeToggler={themeToggler}
+            cart={cart}
+            setCart={setCart}
+            cartQty={cartQty}
+            setCartQty={setCartQty}
+            reviewsRef={reviewsRef}
+          />
+        );
+      case "Home":
+        return <HomePage />;
+>>>>>>> ca3dbc1b7b9f3f03460ac415077916e88a731b72
 
       case "Cart":
         return <Cart />;
-
     }
   };
 
@@ -115,15 +132,32 @@ const App = (props) => {
           <List>
             <ListItem>
               {" "}
+              <FontIcon
+                onClick={changeView("Product")}
+                icon={faShirt}
+                size="lg"
+              />{" "}
+            </ListItem>
+            <ListItem>
+              {" "}
               <FontIcon icon={faUser} size="lg" />{" "}
             </ListItem>
 
-            <ListItem>
+            <ListItem onClick={() => setCartModal(!cartModal)}>
               {" "}
               <FontIcon icon={faCartShopping} size="lg" />
               <CartNum>{cartQty}</CartNum>
             </ListItem>
           </List>
+          {cartModal && (
+            <CartModal
+              setCart={setCart}
+              cart={cart}
+              setCartModal={setCartModal}
+              cartQty={cartQty}
+              setCartQty={setCartQty}
+            />
+          )}
         </NavBar>
       </HeaderStyle>
       <main>
