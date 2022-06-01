@@ -74,7 +74,7 @@ const AddCart = ({ skus, size, qty, currentStyle, name }) => {
   return (
     <>
       <Addbtn cursor={cursor} bColor={color} onClick={() => handleAdd()}>
-        ADD TO BAG <Plus>+</Plus>
+        ADD TO CART <Plus>+</Plus>
       </Addbtn>
     </>
   );

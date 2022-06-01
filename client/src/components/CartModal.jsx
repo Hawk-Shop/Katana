@@ -113,7 +113,13 @@ const CartModal = ({ setCartQty, cartQty, setCart, setCartModal, cart }) => {
     setCartQty(cartQty - Number(qty));
   };
 
-  const handlePurchase = () => {};
+  const handlePurchase = () => {
+    let promises = [];
+    for (let item of cart) {
+      promises.push(...item.axiosPromises)
+    }
+    Promise.all(promises).catch((err) => console.log(err))
+  };
   console.log("CARTTTT", cart);
   let cartItems = cart.map((item, i) => {
     return (
