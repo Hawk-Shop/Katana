@@ -6,6 +6,7 @@ import OutfitCard from './OutfitCard.jsx';
 
 const Carousel = styled.div`
   overflow: hidden;
+  max-width: 1000px;
 `;
 
 const Inner = styled.div`

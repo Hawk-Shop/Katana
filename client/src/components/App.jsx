@@ -18,6 +18,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import HomePage from "./HomePage.jsx";
+import Product from "./Product.jsx";
+
 
 window.React = React;
 Window.sessionStorage = { cart: [], qty: 0 };
@@ -61,8 +63,8 @@ const CartNum = styled.span`
 const FontIcon = styled(FontAwesomeIcon)``;
 
 const App = (props) => {
-  const [id, setId] = useState(40344);
-  const [productName, setProductName] = useState('');
+  // const [id, setId] = useState(40344);
+  // const [productName, setProductName] = useState('');
   const [theme, themeToggler] = useDarkMode();
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
 
@@ -72,11 +74,7 @@ const App = (props) => {
 
   const reviewsRef = useRef();
 
-  axios
-    .get(`/products/${id}`)
-    .then((res) => setProductName(res.data.name))
-    .catch((err) => console.log(err));
-  console.log("CART", cart);
+
 
   const changeView = (name, someProps = {}) => {
     return (moreProps = {}) => {
@@ -88,6 +86,20 @@ const App = (props) => {
   const renderView = () => {
     switch (view.name) {
       case "Product":
+<<<<<<< HEAD
+        return <Product
+        themeMode={themeMode}
+        theme={theme}
+        themeToggler={themeToggler}
+        cart={cart}
+        setCart={setCart}
+        cartQty={cartQty}
+        setCartQty={setCartQty}
+        reviewsRef={reviewsRef}
+        />;
+        case "Home":
+          return <HomePage />;
+=======
         return (
           <StyledApp>
             <div>
@@ -116,6 +128,7 @@ const App = (props) => {
         );
       case "Home":
         return <HomePage />;
+>>>>>>> master
 
       case "Cart":
         return <Cart />;

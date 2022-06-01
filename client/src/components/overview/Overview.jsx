@@ -47,7 +47,7 @@ const Overview = (props) => {
       setReviews(results[2].data);
       setCurrentStyle(results[1].data.results[0]);
     }) .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   return (
     <Container>
