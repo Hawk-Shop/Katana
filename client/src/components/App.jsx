@@ -18,6 +18,7 @@ import {
   faCartShopping,
   faUser,
   faShirt,
+  faHouse
 } from "@fortawesome/free-solid-svg-icons";
 import HomePage from "./HomePage.jsx";
 import CartModal from "./CartModal.jsx";
@@ -120,7 +121,8 @@ const App = (props) => {
       <HeaderStyle>
         <NavBar>
           <h1 onClick={() => changeView("Home")()} style={{ cursor: "pointer" }}>
-            Hawk Shop{" "}
+            <FontIcon icon={faHouse}/>
+            &nbsp; Hawk Shop{" "}
           </h1>
           <List>
             <ListItem>
