@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import styled from 'styled-components';
 import ProductCard from './ProductCard.jsx';
-import Modal from './Comparison.jsx';
 
 
 const Carousel = styled.div`
@@ -14,18 +13,29 @@ const Inner = styled.div`
   transition: transform 0.3s;
 `;
 
-const Indicators = styled.div`
+const Scroll= styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const IndicatorButton = styled.button`
+const ScrollButton = styled.button`
   margin: 5px;
 `;
 
-const ProductsList = ({list, show, activeIndex, setShow, setRef, updateIndex}) => {
+const ProductsList = ({list, show, setShow, setRef}) => {
+  const [activeIndex, setActiveIndex] = useState(0);
   const id = useContext(Context).id;
   const length = list.length;
+
+
+  const updateIndex = (newIndex) => {
+    if (newIndex < 0) {
+      newIndex = 0;
+    } else if (newIndex >= (length/4)) {
+      newIndex = (length/4) -1;
+    }
+    setActiveIndex(newIndex);
+  };
 
   return (
     <Carousel>
@@ -42,18 +52,18 @@ const ProductsList = ({list, show, activeIndex, setShow, setRef, updateIndex}) =
            />
         )): null}
       </Inner>
-      <Indicators>
+      <Scroll>
         {length > 4 ?
           <>
-          <IndicatorButton onClick={() => {updateIndex(activeIndex - 1);}}>
+          <ScrollButton onClick={() => {updateIndex(activeIndex - 1);}}>
             Prev
-          </IndicatorButton>
-          <IndicatorButton onClick={() => {updateIndex(activeIndex + 1);}}>
+          </ScrollButton>
+          <ScrollButton onClick={() => {updateIndex(activeIndex + 1);}}>
             Next
-          </IndicatorButton>
+          </ScrollButton>
           </>
         : null}
-      </Indicators>
+      </Scroll>
     </Carousel>
   )
 }

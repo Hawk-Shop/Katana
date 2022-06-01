@@ -92,7 +92,6 @@ const ReviewTile = ({review}) => {
       console.log(review.review_id)
       axios.put(`/reviews/${review.review_id}/helpful`, null)
       .then((result) => {
-        console.log('it worked');
         setYesCount(yesCount+1);
         setDisabled(true);
       })
@@ -144,8 +143,9 @@ const ReviewTile = ({review}) => {
       </Body>
       {review.photos.length !== 0 &&
         <Photos>
-          {review.photos.map((photo) => (
+          {review.photos.map((photo, index) => (
             <Photo
+              key={index}
               src={photo.url}
               onClick = {toggleModal}
               alt="product review image">

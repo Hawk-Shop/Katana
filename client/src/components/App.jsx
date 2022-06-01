@@ -3,13 +3,22 @@ import styled from "styled-components";
 import { Context } from "./util/context.js";
 import Overview from "./overview/Overview.jsx";
 import QuestionsList from "./QA/QuestionsList.jsx";
-import ReviewsOverview from "./R&R/Overview.jsx";
-import RelatedProducts from "./RelatedItems/Main.jsx";
-import axios from "axios";
+import ReviewsOverview from './R&R/Overview.jsx';
+import RelatedProducts from './RelatedItems/Main.jsx';
+import axios from 'axios';
+
+import {ThemeProvider} from "styled-components";
+import {useDarkMode} from "./DarkMode/UseDarkMode.jsx"
+import { GlobalStyles } from "./DarkMode/GlobalStyles.jsx";
+import { lightTheme, darkTheme } from "./DarkMode/Themes.jsx";
+import Toggle from "./DarkMode/Toggler.jsx";
+
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import HomePage from "./HomePage.jsx";
+
 window.React = React;
 Window.sessionStorage = { cart: [], qty: 0 };
 
@@ -53,7 +62,10 @@ const FontIcon = styled(FontAwesomeIcon)``;
 
 const App = (props) => {
   const [id, setId] = useState(40344);
-  const [productName, setProductName] = useState("");
+  const [productName, setProductName] = useState('');
+  const [theme, themeToggler] = useDarkMode();
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
+
   const [view, setView] = useState({ name: "Product", viewProps: {} });
   const [cartQty, setCartQty] = useState(0);
   const [cart, setCart] = useState([]);
@@ -77,6 +89,7 @@ const App = (props) => {
     switch (view.name) {
       case "Product":
         return (
+<<<<<<< HEAD
           <StyledApp>
             <div>
               <Context.Provider
@@ -101,6 +114,35 @@ const App = (props) => {
               </Context.Provider>
             </div>
           </StyledApp>
+=======
+          <ThemeProvider theme={themeMode}>
+            <GlobalStyles/>
+            <StyledApp>
+              <Toggle theme={theme} toggleTheme={themeToggler} />
+              <div>
+                <Context.Provider value={{ id: id, cart, setCart, cartQty, setCartQty }}>
+                  <h1>Overview</h1>
+                  <Overview reviewsRef={reviewsRef}></Overview>
+                </Context.Provider>
+              </div>
+              <div>
+                <Context.Provider value={{id: id}}>
+                  <RelatedProducts></RelatedProducts>
+                </Context.Provider>
+              </div>
+              <div>
+                <Context.Provider value={{id: id}}>
+                  <QuestionsList></QuestionsList>
+                </Context.Provider>
+              </div>
+              <div>
+                <Context.Provider value={{id: id, productName: productName}}>
+                  <ReviewsOverview reviewsRef={reviewsRef}></ReviewsOverview>
+                </Context.Provider>
+              </div>
+            </StyledApp>
+          </ThemeProvider>
+>>>>>>> master
         );
       case "Home":
         return <HomePage />;
