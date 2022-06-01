@@ -15,12 +15,21 @@ const Image = styled.img`
 `
 
 const Answer = styled.div`
+  text-transform: none;
+  background-color: #EFE1CE;
+  border: 1px solid;
+  border-radius: 5px;
   margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: 150px;
+  min-width: 45vw;
+  max-width: 55vw;
 `
 
-const Helpful = styled.span`
+const Helpful = styled.div`
 font-size: 14px;
-margin-left: 40px;
+margin-right: 10px;
+margin-top: 10px;
 `
 
 const Yes = styled.button`
@@ -57,11 +66,11 @@ margin-left: 15px;
 margin-bottom: 10px;
 `
 
-const Border = styled.div`
-border-bottom: 1px solid black;
+const Size = styled.span`
+  text-size: 12px;
 `
 
-const AnswersList = ({answer, handleHelpful, handleReported, question_id, aRerender, setARerender}) => {
+const AnswersList = ({answer, id, productName, handleHelpful, handleReported, question_id, aRerender, setARerender}) => {
   let {answer_id, body, date, answerer_name, helpfulness, photos} = answer;
   let [modal, setModal] = useState(false);
   let [url, setUrl] = useState('');
@@ -85,10 +94,27 @@ const AnswersList = ({answer, handleHelpful, handleReported, question_id, aReren
       <span>{body}</span>
       <User>
         {answerer_name.toLowerCase() === "seller" ?
-          <span>by <b>Seller</b>, </span> :
-          <span>by {answerer_name}, </span>
+          <Size>by <b>Seller</b>, </Size> :
+          <Size>by {answerer_name}, </Size>
         }
         <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
+
+        <div>
+          {photos.map((photo, index) => {
+            return  <Image
+                      src={photo.url}
+                      key={index}
+                      onClick={toggleModal}
+                      alt="unable to display">
+                    </Image>
+          })}
+          {modal && (
+            <ImageModal
+              url={url}
+              toggleModal={toggleModal}
+              modal={modal}
+            />)}
+        </div>
         <Helpful> Helpful?
           <Yes onClick={() =>
             handleHelpful(
@@ -110,19 +136,7 @@ const AnswersList = ({answer, handleHelpful, handleReported, question_id, aReren
               setAReported
             )}> {aReported ? 'Reported' : 'Report'} </Report>
         </Helpful>
-        <div>
-          {photos.map((photo, index) => {
-            return  <Image
-                      src={photo.url}
-                      key={index}
-                      onClick={toggleModal}
-                      alt="unable to display">
-                    </Image>
-          })}
-          {modal && (<ImageModal url={url} toggleModal={toggleModal} modal={modal}/>)}
-        </div>
       </User>
-      <Border></Border>
     </Answer>
   )
 }

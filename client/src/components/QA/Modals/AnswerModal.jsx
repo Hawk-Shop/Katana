@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import "./QAModal.css";
 import axios from 'axios';
 
-export default function AnswerModal ({id, question_id, question_body, show, onClose}) {
+export default function AnswerModal ({id, productName, question_id, question_body, show, onClose}) {
   if (!show) {
     return null
   }
@@ -10,7 +10,7 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [body, setBody] = useState("");
-  let [file, setFile] = useState(null);
+  let [files, setFiles] = useState(null);
 
   const closeOnEscapeKeyDown = (e) => {
     if ((e.charCode || e.keyCode) === 27) {
@@ -27,25 +27,20 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username === "" || email === "" || body === "") {
-      alert("In order to add an answer, you must complete all fields.")
-    } else {
-      console.log(question_id, username, email, body);
-      axios
-        .post(`/qa/questions/${question_id}/answers`, {
-          body: body,
-          name: username,
-          email: email,
-          photos: []
-        })
-        .then(response => {
-          console.log("adding an answer response: ", response);
-          onClose();
-        })
-        .catch(err => {
-          console.error('error adding answer: ', err);
-        })
-    }
+    axios
+      .post(`/qa/questions/${question_id}/answers`, {
+        body: body,
+        name: username,
+        email: email,
+        photos: []
+      })
+      .then(response => {
+        console.log("adding an answer response: ", response);
+        onClose();
+      })
+      .catch(err => {
+        console.error('error adding answer: ', err);
+      })
   }
 
   const Username = (
@@ -54,12 +49,14 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
       <input
         type="text"
         name="username"
-        placeholder="Example: jackson11!"
         maxLength={60}
+        size={36}
+        placeholder="Example: jackson11!"
         value={username}
         onChange={e => setUsername(e.target.value)}
         required
       />
+      <p className="static">For privacy reasons, do not use your full name or email address.</p>
     </label>
   )
 
@@ -69,11 +66,14 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
       <input
         type="email"
         name="email"
+        maxLength={60}
+        size={40}
         placeholder="Example: jack@email.com"
         value={email}
         onChange={e => setEmail(e.target.value)}
         required
       />
+      <p className="static">For authentication reasons, you will not be emailed.</p>
     </label>
   )
 
@@ -86,6 +86,7 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
         rows="10"
         cols="70"
         maxLength={1000}
+        placeholder="Enter your answers here..."
         value={body}
         onChange={e => setBody(e.target.value)}
         required
@@ -93,27 +94,57 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
     </label>
   )
 
+  // let fileObj = [];
+  // let fileArray = [];
+
+  // const handleUpload = (e) => {
+  //   e.preventDefault();
+  //   fileArray = [...files, ...e.target.files];
+
+  //   setFiles(fileArray.map(file => {
+  //     return URL.createObjectURL(file);
+  //   }))
+  // }
+
+  // const uploadMultipleFiles = (e) => {
+  //   console.log([...e.target.files].map(file => URL.createObjectURL(file)));
+  //   fileObj.push(e.target.files);
+  //   for (let i = 0; i < fileObj[0].length; i++) {
+  //       fileArray.push(URL.createObjectURL(fileObj[0][i]))
+  //   }
+  //   setFiles([...fileArray])
+  // }
+
+  // const uploadFiles = (e) => {
+  //   e.preventDefault();
+  //   console.log(files);
+  // }
+
   return (
     <div className="modal">
       <div className="modal-content">
         <div className="modal-header">
           <div className="modal-header">
-            <h4 className="modal-title">Submit Your Answer</h4>
+            <h3 className="modal-title">Submit Your Answer</h3>
+            <h4 className="modal-subtitle">{productName}: {question_body}</h4>
           </div>
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
               {Username}
               {Email}
-              <br/>
-              Product ID: {id}
-              <br/>
-              Question_id: {question_id} --> delete before deployment
-              <br/>
-              Question to answer: {question_body}
-              <br/>
               {Answer}
-              {/* <input type="file" value={file} accept="image/png, image/jpeg" onChange={e => setFile(e.target.files[0])}/> */}
-              <input className="submit-button" type="submit" value="Submit" />
+              {/* <input
+                type="file"
+                accept="image/png, image/jpeg, image/heic, video/*"
+                multiple
+                onChange={e => uploadMultipleFiles(e)}
+              /> */}
+              {/* <div className="form-group multi-preview">
+                {(fileArray || []).map(url => (
+                    <img src={url} alt="..." />
+                ))} */}
+              {/* </div> */}
+              <input className="submit-button" type="submit" value="Submit"/>
             </form>
           </div>
           <div className="modal-footer">

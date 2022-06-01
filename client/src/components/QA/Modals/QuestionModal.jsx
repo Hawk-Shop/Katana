@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import "./QAModal.css";
 import axios from 'axios';
 
-export default function AnswerModal ({id, showQModel, onClose}) {
+export default function AnswerModal ({id, productName, showQModel, onClose}) {
   if (!showQModel) {
     return null
   }
@@ -60,7 +60,7 @@ export default function AnswerModal ({id, showQModel, onClose}) {
         onChange={e => setUsername(e.target.value)}
         required
       />
-      <p>For privacy reasons, do not use your full name or email address.</p>
+      <p className="static">For privacy reasons, do not use your full name or email address.</p>
     </label>
   )
 
@@ -77,7 +77,7 @@ export default function AnswerModal ({id, showQModel, onClose}) {
         onChange={e => setEmail(e.target.value)}
         required
       />
-      <p>For authentication reasons, you will not be emailed.</p>
+      <p className="static">For authentication reasons, you will not be emailed.</p>
     </label>
   )
 
@@ -103,15 +103,13 @@ export default function AnswerModal ({id, showQModel, onClose}) {
       <div className="modal-content">
         <div className="modal-header">
           <div className="modal-header">
-            <h4 className="modal-title">Submit Your Question</h4>
+            <h3 className="modal-title">Ask Your Question</h3>
+            <h4 className="modal-subtitle">about the {productName}</h4>
           </div>
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
               {Username}
               {Email}
-              <br/>
-              Product ID: {id}
-              <br/>
               {Question}
               <input className="submit-button" type="submit" value="Submit" />
             </form>

@@ -58,7 +58,10 @@ const Ratings = (props) => {
           getRelevant={props.getRelevant}
           setCount={props.setCount}
           filters={props.filters}
-          setFilters={props.setFilters}></Bars>
+          setFilters={props.setFilters}
+
+          setPage={props.setPage}
+          setDisplayCount={props.setDisplayCount}></Bars>
       </div>
       <div>
         <ProductBreakdown
