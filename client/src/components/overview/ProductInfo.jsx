@@ -23,7 +23,8 @@ const Socials = styled.div`
   display: flex;
   flex-direction: row;
   width: 35%;
-  justify-content: space-around
+  justify-content: space-around;
+  flex-wrap: wrap;
 `;
 
 const PriceFit = styled.div`

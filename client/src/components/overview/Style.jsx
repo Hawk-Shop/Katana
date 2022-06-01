@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const Styler = styled.div`
-  width: auto;
+  width: 100%;
 `;
 
 const StyleName = styled.div`
@@ -59,6 +59,9 @@ const Checkmark = styled(FontAwesomeIcon)`
 const ThmCtn = styled.span`
   margin-bottom: 2%;
   width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+
 `;
 
 const Style = ({ product, styles, currentStyle, setStyle }) => {
@@ -73,7 +76,7 @@ const Style = ({ product, styles, currentStyle, setStyle }) => {
           return (
             <ThmCtn key={index}>
               {styleArray.map((style, i) => (
-                <span key={i}>
+                <div style={{marginRight: '3%'}}key={i}>
                   {style.id === currentStyle.style_id ? (
                     <IconCtn key={i}>
                       <ImgStyle
@@ -96,7 +99,7 @@ const Style = ({ product, styles, currentStyle, setStyle }) => {
                       ></ImgStyle>
                     </IconCtn>
                   )}
-                </span>
+                </div>
               ))}
             </ThmCtn>
           );

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 const SelectDrop = styled.select`
   margin:5% 5% 0 0;
-  border: 1px solid var(--select-border);
+  border: 1px solid black;
   border-radius: 0.25em;
   padding: 0.25em 0.5em;
   cursor: pointer;
