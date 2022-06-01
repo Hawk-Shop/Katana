@@ -1,15 +1,7 @@
 import React, { useState, useEffect, useRef, Suspense } from "react";
 import styled from "styled-components";
-import { Context } from "./util/context.js";
-import Overview from "./overview/Overview.jsx";
-import QuestionsList from "./QA/QuestionsList.jsx";
-import ReviewsOverview from "./R&R/Overview.jsx";
-import RelatedProducts from "./RelatedItems/Main.jsx";
-import axios from "axios";
 
-import { ThemeProvider } from "styled-components";
 import { useDarkMode } from "./DarkMode/UseDarkMode.jsx";
-import { GlobalStyles } from "./DarkMode/GlobalStyles.jsx";
 import { lightTheme, darkTheme } from "./DarkMode/Themes.jsx";
 import Toggle from "./DarkMode/Toggler.jsx";
 
@@ -27,11 +19,6 @@ import Product from "./Product.jsx";
 window.React = React;
 Window.sessionStorage = { cart: [], qty: 0 };
 
-const StyledApp = styled.div`
-  max-width: 80%;
-  margin: 0 auto;
-  min-height: 100vh;
-`;
 
 const HeaderStyle = styled.header`
   max-width: 80%;
@@ -66,8 +53,7 @@ const CartNum = styled.span`
 const FontIcon = styled(FontAwesomeIcon)``;
 
 const App = (props) => {
-  // const [id, setId] = useState(40344);
-  // const [productName, setProductName] = useState('');
+
   const [theme, themeToggler] = useDarkMode();
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
