@@ -15,14 +15,15 @@ const Image = styled.img`
 `
 
 const Answer = styled.div`
+  text-transform: none;
   background-color: #EFE1CE;
   border: 1px solid;
   border-radius: 5px;
   margin-bottom: 0.5em;
   margin-left: auto;
-  margin-righ: auto;
-  min-width: 40vw;
-  max-width: 50vw;
+  margin-right: 150px;
+  min-width: 45vw;
+  max-width: 55vw;
 `
 
 const Helpful = styled.div`

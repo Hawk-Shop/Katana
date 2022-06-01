@@ -8,6 +8,7 @@ import AnswerModal from './Modals/AnswerModal.jsx';
 import swal from 'sweetalert';
 
 const Questions = styled.div`
+  text-transform: uppercase;
   border: 1px solid;
   border-radius: 5px;
   width: auto;
@@ -24,10 +25,11 @@ const Questions = styled.div`
 `;
 
 const QStyle = styled.span`
-  font-size: 1.2em;
+  font-size: 1em;
   display: flex;
   cursor: ns-resize;
   margin-left: 10px;
+  margin-right: 20px;
 `;
 
 const Helpful = styled.div`
@@ -116,8 +118,8 @@ const AddAnswer = styled.button`
   }
 `
 
-const NoAnswer = styled.div`
-  margin-left: 50px;
+const NoAnswers = styled.div`
+  margin-left: 20px;
 `
 
 const Question = ({question, id, productName, qRerender, setQRerender}) => {
@@ -131,7 +133,6 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
   let [aRerender, setARerender] = useState(0);
   let [qReported, setQReported] = useState(false);
 
-
   useEffect(() => {
     axios
       .get(`/qa/questions/${question_id}/answers/?count=1000`)
@@ -143,8 +144,6 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
         console.error('Unable to get answers. Sorry...', err);
       })
   }, [show, qHelpful, aRerender])
-
-
 
   const handleShowingAnswers = () => {
     setQuestionClicked(!questionClicked);
@@ -209,7 +208,7 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
   )
 
   return (
-    <Questions>
+    <Questions >
       <Container>
         <QStyle onClick={handleShowingAnswers}>
           <ContainText><b>Q: {question_body}</b></ContainText>
@@ -250,11 +249,12 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
       </Container>
       {questionClicked && (
         answers.length === 0 ?
-          <NoAnswer><b>No answers yet. Be the first to add an answer to this question!</b></NoAnswer> :
+          <NoAnswers>
+            <b>No answers yet. Be the first to add an answer to this question!</b>
+          </NoAnswers> :
           <AStyle><b>A:</b></AStyle>
       )}
-      <Answers>
-        {/* <div>{question_asker}</div> */}
+      <Answers >
         {questionClicked && (
           answers.slice(0, answerCount).map((answer, index) => {
             // console.log(answer);
