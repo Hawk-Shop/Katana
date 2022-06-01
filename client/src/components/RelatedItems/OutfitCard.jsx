@@ -1,8 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { AiFillPlusCircle} from 'react-icons/ai';
 import { TiDelete } from 'react-icons/ti';
 import avgRating from "../util/getAvgRating.js";
@@ -14,17 +12,24 @@ const CarouselItem = styled.div`
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 275px;
+  justify-content: end;
+  min-height: 269px;
+  max-width: 210px;
   background-color: transparent;
-  color: gray;
   font-family: Arial Regular;
+  padding: 0;
+  margin: 10px 25px;
 `;
+
+const ImageContainer = styled.div`
+  position: relative;
+`
 
 const CardThumbnail = styled.img`
   object-fit: contain;
-  max-width: 96%;
+  max-width: 100%;
   max-height: 200px;
+  border: 1px solid gray;
 `;
 
 const AddButton = styled.button`
@@ -42,17 +47,17 @@ const AddButton = styled.button`
 `;
 
 const DeleteButton = styled.button`
-  position: absolute;
-  top: 0;
-  right: 5%;
-  background-color: transparent;
-  color: white;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  border-radius: 50%;
-  height: 25px;
-  width: 25px;
+position: absolute;
+top: 0%;
+right: 0%;
+background-color: transparent;
+color: white;
+padding: 0;
+border-radius: 50%;
+border: none;
+cursor: pointer;
+height: 25px;
+width: 25px;
 `;
 
 const Delete = styled(TiDelete)`
@@ -63,30 +68,32 @@ const Circle = styled(AiFillPlusCircle)`
   color: gray;
 `;
 
-const ImageContainer = styled.div`
-  position: relative;
-`
+
 const Reviews = styled(Stars)`
   display: inline;
 `;
 
 const ProductName = styled.div`
   font-weight: bold;
-  color: black;
   font-size: medium;
 `;
 
 const Category = styled.div`
   font-size: small;
+  color: gray;
 `;
 
 const Price = styled.div`
   font-size: small;
+  color: gray;
 `;
 
+const Review = styled.div`
+  font-size: small;
+  color: gray;
+`
 
 const OutfitCard = (props) => {
-
   const ratings = props.card.ratings;
   let averageNums = avgRating(ratings);
 
@@ -101,38 +108,34 @@ const OutfitCard = (props) => {
 
   let priceSign = `$${props.card.default_price}`;
 
-  props.setDelete(props.card.id);
-
   return (
     <CarouselItem style={props.width}>
       <ImageContainer>
         <CardThumbnail src={thumbPath}></CardThumbnail>
           {props.card.name === 'ADD TO YOUR OUTFIT' ?
-            <AddButton onClick={props.handleAddClick }>
-              <Circle size="3x"/>
+            <AddButton onClick={props.handleAddClick}>
+              <Circle size={50}/>
             </AddButton>:
-            <DeleteButton onClick={props.handleDeleteClick}>
-              <Delete size="lg"/>
+            <DeleteButton onClick={() => {props.setDelete(props.card.id)}}>
+              <Delete size={25}/>
             </DeleteButton>}
       </ImageContainer>
       <Category>
-        {props.card.category ? props.card.category : null}
+        {props.card.category ? props.card.category : "Your Outfit List "}
       </Category>
       <ProductName>
         {props.card.name}
       </ProductName>
       <Price>
-        {props.card.default_price ? priceSign : null}
+        {props.card.default_price ? priceSign : "New Clothes, New Passion."}
       </Price>
-      <div>
+      <Review>
         {ratings ? (
         <Reviews rating={averageNums.averageRating} />
-        ):null}
-      </div>
+        ):"Discover the new you"}
+      </Review>
     </CarouselItem>
   )
-
-
 }
 
 export default OutfitCard;

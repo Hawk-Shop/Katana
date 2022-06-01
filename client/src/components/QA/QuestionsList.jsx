@@ -6,6 +6,9 @@ import Question from './Question.jsx';
 import QuestionModal from './Modals/QuestionModal.jsx';
 import { results } from './Data.js';
 import swal from 'sweetalert';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { BsBinoculars } from "react-icons/bs";
 
 
 const Button = styled.button`
@@ -34,9 +37,36 @@ const Sort = styled.div`
   margin-right: auto;
 `;
 
-const QuestionsList = (props) => {
+const Search = styled.div`
+  display: inline-block;
+  line-height: 24px;
+  margin-right: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  vertical-align: middle;
+`
+
+const Input = styled.input`
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 18px;
+  text-align: middle;
+  border: 0;
+  background: none;
+  &:focus {
+    outline: none;
+  }
+`
+
+const Icon = styled.i`
+  display: inline-block;
+  margin-top: 5px;
+  vertical-align: middle;
+`
+
+const QuestionsList = ({id, productName}) => {
   // const id = 40355;
-  const id = useContext(Context).id || 40355;
+  // const id = useContext(Context).id;
   let [questions, setQuestions] = useState([]);
   let [questionCount, setQuestionCount] = useState(4);
   let [showQModel, setShowQModel] = useState(false);
@@ -53,7 +83,7 @@ const QuestionsList = (props) => {
       .catch(() => {
         swal('Uh oh...', 'On error occurred on our side. Unable to get the questions related to this product right now. Please refresh and try again in a little bit.', 'error');
       })
-  }, [showQModel, qRerender])
+  }, [showQModel, qRerender, id])
 
   const showMoreQuestions = (
     <Button onClick={() => setQuestionCount(questions.length)}>
@@ -69,7 +99,7 @@ const QuestionsList = (props) => {
 
   const addQuestion = (
     <Button onClick={() => setShowQModel(true)}>
-      Add a Question +
+      Add a Question <FontAwesomeIcon icon={faPlus}/>
     </Button>
   )
 
@@ -77,16 +107,18 @@ const QuestionsList = (props) => {
     <>
       <h2>Questions &#38; Answers</h2>
       <Sort>
-        SEARCH:
-        <input
-          type="text"
-          placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
-          size={80}
-          value={searchInput}
-          onChange={(e) => {
-            setSearchInput(e.target.value);
-          }}
-        />
+        <Search>
+          <Icon><BsBinoculars icon={BsBinoculars} size={28}/></Icon>
+          <Input
+            type="text"
+            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+            size={50}
+            value={searchInput}
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+            }}
+          ></Input>
+        </Search>
         <br/>
         {questions.length > 0 ?
           <p>Click on a question to view it's respective answers.</p> :
@@ -107,6 +139,7 @@ const QuestionsList = (props) => {
                       key={index}
                       question={question}
                       id={id}
+                      productName={productName}
                       qRerender={qRerender}
                       setQRerender={setQRerender}
                     />
@@ -122,7 +155,12 @@ const QuestionsList = (props) => {
         {questions.length > 0 && (
           addQuestion
         )}
-        <QuestionModal id={id} onClose={() => setShowQModel(false)} showQModel={showQModel}/>
+        <QuestionModal
+          id={id}
+          productName={productName}
+          onClose={() => setShowQModel(false)}
+          showQModel={showQModel}
+        />
       </Sort>
     </>
   )

@@ -29,10 +29,6 @@ axios.defaults.headers.common['Authorization'] = process.env.AUTH
 // })
 
 app.get("/*", (req, res) => {
-    // console.log("headers: ", req.headers);
-    // console.log("method: ", req.method);
-    // console.log("req.url: ", req.url);
-    // console.log("req.body: ", req.body);
     axios
       .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${req.url}`, {
         headers: {

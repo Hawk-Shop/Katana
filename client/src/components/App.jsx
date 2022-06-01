@@ -18,6 +18,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import HomePage from "./HomePage.jsx";
+import Product from "./Product.jsx";
+
 
 window.React = React;
 Window.sessionStorage = { cart: [], qty: 0 };
@@ -61,8 +63,8 @@ const CartNum = styled.span`
 const FontIcon = styled(FontAwesomeIcon)``;
 
 const App = (props) => {
-  const [id, setId] = useState(40344);
-  const [productName, setProductName] = useState('');
+  // const [id, setId] = useState(40344);
+  // const [productName, setProductName] = useState('');
   const [theme, themeToggler] = useDarkMode();
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
 
@@ -72,10 +74,6 @@ const App = (props) => {
 
   const reviewsRef = useRef();
 
-  axios
-    .get(`/products/${id}`)
-    .then((res) => setProductName(res.data.name))
-    .catch((err) => console.log(err));
 
   const changeView = (name, someProps = {}) => {
     console.log('name', name);
@@ -92,37 +90,18 @@ const App = (props) => {
   const renderView = () => {
     switch (view.name) {
       case "Product":
-        return (
-          <ThemeProvider theme={themeMode}>
-            <GlobalStyles/>
-            <StyledApp>
-              <Toggle theme={theme} toggleTheme={themeToggler} />
-              <div>
-                <Context.Provider value={{ id: id }}>
-                  <h1>Overview</h1>
-                  <Overview reviewsRef={reviewsRef}></Overview>
-                </Context.Provider>
-              </div>
-              <div>
-                <Context.Provider value={{id: id}}>
-                  <RelatedProducts></RelatedProducts>
-                </Context.Provider>
-              </div>
-              <div>
-                <Context.Provider value={{id: id}}>
-                  <QuestionsList></QuestionsList>
-                </Context.Provider>
-              </div>
-              <div>
-                <Context.Provider value={{id: id, productName: productName}}>
-                  <ReviewsOverview reviewsRef={reviewsRef}></ReviewsOverview>
-                </Context.Provider>
-              </div>
-            </StyledApp>
-          </ThemeProvider>
-        );
-      case "Home":
-        return <HomePage setId={setId} changeView={changeView}/>;
+        return <Product
+        themeMode={themeMode}
+        theme={theme}
+        themeToggler={themeToggler}
+        cart={cart}
+        setCart={setCart}
+        cartQty={cartQty}
+        setCartQty={setCartQty}
+        reviewsRef={reviewsRef}
+        />;
+        case "Home":
+          return <HomePage />;
 
       case "Cart":
         return <Cart />;

@@ -40,7 +40,7 @@ const Ratings = (props) => {
       setRatings(meta.ratings);
     })
     .catch((err) => console.log('err', err))
-  }, [])
+  }, [id])
 
   return (
     <Container>

@@ -13,7 +13,6 @@ const RelatedProducts = (props) => {
   const [reference, setRef] = useState('');
   const [list, setList] = useState('');
   const [mainProduct, setMain] = useState({});
-  const [activeIndex, setActiveIndex] = useState(0);
   const [outfit, setOutfit] = useLocalStorage('outfit', [{id: 1, name: "ADD TO YOUR OUTFIT"}])
   const [deleteID, setDelete] = useState(0);
 
@@ -62,19 +61,24 @@ const RelatedProducts = (props) => {
         setList(products);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   // console.log("WHATS IN MOFO LIST", list)
-  // console.log("WHATS IN MAINMOFOPRODUCT", mainProduct);
+  // console.log("WHATS IN MAINMOFOPRODUCT", mainProduct.name);
   // console.log("THIS IS PRODUCT ID IN CLICK", deleteID)
+  console.log("THIS IS MAIN ID", id)
 
   const handleAddClick = (e) => {
+    let mainId = mainProduct.id;
+    const isExist = outfit.some(({id}) => id === mainId);
+    if (!isExist) {
       setOutfit((prevState) => ([
         ...prevState, mainProduct
       ]))
-  }
+    }
+  };
 
-  const handleDeleteClick = (e) => {
+  useEffect(() => {
     let thisID = deleteID;
     const index = outfit.findIndex(({id}) => id === thisID);
     if (index !== -1) {
@@ -82,17 +86,11 @@ const RelatedProducts = (props) => {
         ...outfit.slice(0, index),
         ...outfit.slice(index + 1)
       ]);
+      setDelete(0);
     }
-  }
+  }, [deleteID])
 
-  const updateIndex = (newIndex) => {
-    if (newIndex < 0) {
-      newIndex = 0;
-    } else if (newIndex >= (length/4)) {
-      newIndex = (length/4) -1;
-    }
-    setActiveIndex(newIndex);
-  };
+  // console.log('THIS IS OUTFIT', outfit)
 
   return(
     <div>
@@ -100,23 +98,18 @@ const RelatedProducts = (props) => {
       <ProductsList
         list={list}
         show={show}
-        activeIndex={activeIndex}
         setShow={setShow}
         setRef={setRef}
-        setActiveIndex={setActiveIndex}
-        updateIndex={updateIndex}
+        // setId={setId}
       />
       <h3>Your Outfit</h3>
       <OutfitList
         outfit={outfit}
-        activeIndex={activeIndex}
         mainProduct={mainProduct}
         setOutfit={setOutfit}
-        setActiveIndex={setActiveIndex}
-        updateIndex={updateIndex}
         handleAddClick={handleAddClick}
-        handleDeleteClick={handleDeleteClick}
         setDelete={setDelete}
+        // setId={setId}
       />
       <Modal
         onClose={() => setShow(false)}
