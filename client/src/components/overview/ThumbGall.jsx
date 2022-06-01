@@ -46,13 +46,13 @@ const ThumbGall = ({ currImg, setCurrImg, photos }) => {
 
     if (currImg === index) {
       mappedElement = (
-        <ImgContain onClick={() => setCurrImg(index)}>
+        <ImgContain key={index} onClick={() => setCurrImg(index)}>
           <ThumbnailPrime src={currentPhoto.thumbnail_url} />
         </ImgContain>
       );
     } else {
       mappedElement = (
-        <ImgContain onClick={() => setCurrImg(index)}>
+        <ImgContain key={index} onClick={() => setCurrImg(index)}>
           <Thumbnail src={currentPhoto.thumbnail_url} />
         </ImgContain>
       );
