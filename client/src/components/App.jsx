@@ -89,33 +89,30 @@ const App = (props) => {
     switch (view.name) {
       case "Product":
         return (
-          <ThemeProvider theme={themeMode}>
-            <GlobalStyles/>
-            <StyledApp>
-              <Toggle theme={theme} toggleTheme={themeToggler} />
-              <div>
-                <Context.Provider value={{ id: id, cart, setCart, cartQty, setCartQty }}>
-                  <h1>Overview</h1>
-                  <Overview reviewsRef={reviewsRef}></Overview>
-                </Context.Provider>
-              </div>
-              <div>
-                <Context.Provider value={{id: id}}>
-                  <RelatedProducts></RelatedProducts>
-                </Context.Provider>
-              </div>
-              <div>
-                <Context.Provider value={{id: id}}>
-                  <QuestionsList></QuestionsList>
-                </Context.Provider>
-              </div>
-              <div>
-                <Context.Provider value={{id: id, productName: productName}}>
-                  <ReviewsOverview reviewsRef={reviewsRef}></ReviewsOverview>
-                </Context.Provider>
-              </div>
-            </StyledApp>
-          </ThemeProvider>
+          <StyledApp>
+            <div>
+              <Context.Provider
+                value={{ id: id, setCartQty, cartQty, cart, setCart }}
+              >
+                <Overview reviewsRef={reviewsRef}></Overview>
+              </Context.Provider>
+            </div>
+            <div>
+              <Context.Provider value={{ id: id, productName: productName }}>
+                <RelatedProducts></RelatedProducts>
+              </Context.Provider>
+            </div>
+            <div>
+              <Context.Provider value={{ id: id }}>
+                <QuestionsList id={id}></QuestionsList>
+              </Context.Provider>
+            </div>
+            <div>
+              <Context.Provider value={{ id: id, productName: productName }}>
+                <ReviewsOverview reviewsRef={reviewsRef}></ReviewsOverview>
+              </Context.Provider>
+            </div>
+          </StyledApp>
         );
       case "Home":
         return <HomePage />;

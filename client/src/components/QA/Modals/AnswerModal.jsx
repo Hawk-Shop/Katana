@@ -10,7 +10,7 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [body, setBody] = useState("");
-  let [file, setFile] = useState(null);
+  let [files, setFiles] = useState(null);
 
   const closeOnEscapeKeyDown = (e) => {
     if ((e.charCode || e.keyCode) === 27) {
@@ -27,25 +27,20 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username === "" || email === "" || body === "") {
-      alert("In order to add an answer, you must complete all fields.")
-    } else {
-      console.log(question_id, username, email, body);
-      axios
-        .post(`/qa/questions/${question_id}/answers`, {
-          body: body,
-          name: username,
-          email: email,
-          photos: []
-        })
-        .then(response => {
-          console.log("adding an answer response: ", response);
-          onClose();
-        })
-        .catch(err => {
-          console.error('error adding answer: ', err);
-        })
-    }
+    axios
+      .post(`/qa/questions/${question_id}/answers`, {
+        body: body,
+        name: username,
+        email: email,
+        photos: []
+      })
+      .then(response => {
+        console.log("adding an answer response: ", response);
+        onClose();
+      })
+      .catch(err => {
+        console.error('error adding answer: ', err);
+      })
   }
 
   const Username = (
@@ -93,6 +88,32 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
     </label>
   )
 
+  let fileObj = [];
+  let fileArray = [];
+
+  // const handleUpload = (e) => {
+  //   e.preventDefault();
+  //   fileArray = [...files, ...e.target.files];
+
+  //   setFiles(fileArray.map(file => {
+  //     return URL.createObjectURL(file);
+  //   }))
+  // }
+
+  // const uploadMultipleFiles = (e) => {
+  //   console.log([...e.target.files].map(file => URL.createObjectURL(file)));
+  //   fileObj.push(e.target.files);
+  //   for (let i = 0; i < fileObj[0].length; i++) {
+  //       fileArray.push(URL.createObjectURL(fileObj[0][i]))
+  //   }
+  //   setFiles([...fileArray])
+  // }
+
+  // const uploadFiles = (e) => {
+  //   e.preventDefault();
+  //   console.log(files);
+  // }
+
   return (
     <div className="modal">
       <div className="modal-content">
@@ -112,8 +133,18 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
               Question to answer: {question_body}
               <br/>
               {Answer}
-              {/* <input type="file" value={file} accept="image/png, image/jpeg" onChange={e => setFile(e.target.files[0])}/> */}
-              <input className="submit-button" type="submit" value="Submit" />
+              {/* <input
+                type="file"
+                accept="image/png, image/jpeg, image/heic, video/*"
+                multiple
+                onChange={e => uploadMultipleFiles(e)}
+              /> */}
+              {/* <div className="form-group multi-preview">
+                {(fileArray || []).map(url => (
+                    <img src={url} alt="..." />
+                ))} */}
+              {/* </div> */}
+              <input className="submit-button" type="submit" value="Submit"/>
             </form>
           </div>
           <div className="modal-footer">
