@@ -31,15 +31,20 @@ cursor: pointer;
 `;
 
 const HomePage = ({setId, changeView}) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(["40344","40355", "40346", "40347", "40348", "40349", "40350", "40351", "40352", "40353"]);
 
   useEffect(() => {
-    axios.get('/products/?page=1&count=10')
-    .then((res) => {
+    // axios.get('/products/?page=2&count=10')
+    // .then((res) => {
+    //   let productPromises = [];
+    //   res.data.forEach(product => {
+    //     productPromises.push(axios.get(`/products/${product.id}/styles`));
+    //   });
+
       let productPromises = [];
-      res.data.forEach(product => {
-        productPromises.push(axios.get(`/products/${product.id}/styles`));
-      });
+      products.forEach((productId) => {
+        productPromises.push(axios.get(`/products/${productId}/styles`))
+      })
 
       Promise.all(productPromises)
       .then((res) => {
@@ -50,9 +55,8 @@ const HomePage = ({setId, changeView}) => {
         }));
         setProducts(finalProducts);
       })
-    .catch(err => console.log('err', err));
-    });
-  }, [])
+      .catch(err => console.log('err', err));
+    }, []);
 
   return (
     <Container>
@@ -61,7 +65,8 @@ const HomePage = ({setId, changeView}) => {
           {/* <div>Id: {product.id}</div> */}
           <Image src={product.photo} onClick={() => {
             setId(product.id);
-            changeView("Product");
+            changeView("Product")();
+            console.log('how many times does this happen')
           }}/>
         </Product>
       })}

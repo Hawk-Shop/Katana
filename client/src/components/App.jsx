@@ -78,11 +78,16 @@ const App = (props) => {
     .catch((err) => console.log(err));
 
   const changeView = (name, someProps = {}) => {
+    console.log('name', name);
     return (moreProps = {}) => {
       console.log("Changing view to: " + name);
       setView({ name, viewProps: { ...someProps, ...moreProps } });
     };
   };
+
+  useEffect(() => {
+    renderView();
+  }, [view]);
 
   const renderView = () => {
     switch (view.name) {
@@ -129,7 +134,7 @@ const App = (props) => {
     <>
       <HeaderStyle>
         <NavBar>
-          <h1 onClick={changeView("Home")} style={{ cursor: "pointer" }}>
+          <h1 onClick={() => changeView("Home")()} style={{ cursor: "pointer" }}>
             Hawk Shop{" "}
           </h1>
           <List>
