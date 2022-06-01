@@ -80,9 +80,7 @@ const App = (props) => {
   const reviewsRef = useRef();
 
   const changeView = (name, someProps = {}) => {
-    console.log('name', name);
     return (moreProps = {}) => {
-      console.log("Changing view to: " + name);
       setView({ name, viewProps: { ...someProps, ...moreProps } });
     };
   };
@@ -95,10 +93,6 @@ const App = (props) => {
   const renderView = () => {
     switch (view.name) {
       case "Product":
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a900dd0a98892adccac40078769f0f629d1ef133
         return <Product
         themeMode={themeMode}
         theme={theme}
@@ -111,29 +105,10 @@ const App = (props) => {
         id={id}
         setId={setId}
         />;
+
         case "Home":
-<<<<<<< HEAD
-          return <HomePage />;
-=======
-        return (
-          <Product
-            themeMode={themeMode}
-            theme={theme}
-            themeToggler={themeToggler}
-            cart={cart}
-            setCart={setCart}
-            cartQty={cartQty}
-            setCartQty={setCartQty}
-            reviewsRef={reviewsRef}
-          />
-        );
-      case "Home":
-        return <HomePage />;
->>>>>>> ca3dbc1b7b9f3f03460ac415077916e88a731b72
-=======
           return <HomePage changeView={changeView} setId={setId}/>;
 
->>>>>>> a900dd0a98892adccac40078769f0f629d1ef133
 
       case "Cart":
         return <Cart />;

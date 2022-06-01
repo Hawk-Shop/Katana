@@ -15,10 +15,6 @@ padding: 3em 2em;
 const Product = styled.div`
 width: 15em;
 height: 20em;
-&:hover {
-  width: 16em;
-  height: 21em;
-}
 `;
 
 const Image = styled.img`
