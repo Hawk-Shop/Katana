@@ -10,6 +10,8 @@ justify-content: space-evenly;
 align-items: stretch;
 gap: 25px 25px;
 padding: 3em 2em;
+flex-grow: 4;
+
 `;
 
 const Product = styled.div`
@@ -27,7 +29,7 @@ cursor: pointer;
 `;
 
 const HomePage = ({setId, changeView}) => {
-  const [products, setProducts] = useState(["40344","40355", "40346", "40347", "40348", "40349", "40350", "40351", "40352", "40353"]);
+  const [products, setProducts] = useState(["40344","40355", "40346", "40347", "40348", "40349", "40350", "40351", "40352", "40353", "40355", "40356", "40357"]);
 
   useEffect(() => {
     // axios.get('/products/?page=2&count=10')
