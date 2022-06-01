@@ -64,9 +64,9 @@ const Icon = styled.i`
   vertical-align: middle;
 `
 
-const QuestionsList = ({id, productName}) => {
+const QuestionsList = ({productName}) => {
   // const id = 40355;
-  // const id = useContext(Context).id;
+  const id = useContext(Context).id;
   let [questions, setQuestions] = useState([]);
   let [questionCount, setQuestionCount] = useState(4);
   let [showQModel, setShowQModel] = useState(false);
@@ -83,7 +83,7 @@ const QuestionsList = ({id, productName}) => {
       .catch(() => {
         swal('Uh oh...', 'On error occurred on our side. Unable to get the questions related to this product right now. Please refresh and try again in a little bit.', 'error');
       })
-  }, [showQModel, qRerender])
+  }, [showQModel, qRerender, id])
 
   const showMoreQuestions = (
     <Button onClick={() => setQuestionCount(questions.length)}>

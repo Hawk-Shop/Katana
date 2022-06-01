@@ -21,6 +21,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import HomePage from "./HomePage.jsx";
 import CartModal from "./CartModal.jsx";
+import Product from "./Product.jsx";
 
 window.React = React;
 Window.sessionStorage = { cart: [], qty: 0 };
@@ -64,8 +65,8 @@ const CartNum = styled.span`
 const FontIcon = styled(FontAwesomeIcon)``;
 
 const App = (props) => {
-  const [id, setId] = useState(40344);
-  const [productName, setProductName] = useState("");
+  // const [id, setId] = useState(40344);
+  // const [productName, setProductName] = useState('');
   const [theme, themeToggler] = useDarkMode();
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
@@ -75,11 +76,6 @@ const App = (props) => {
   const [cartModal, setCartModal] = useState(false);
 
   const reviewsRef = useRef();
-
-  axios
-    .get(`/products/${id}`)
-    .then((res) => setProductName(res.data.name))
-    .catch((err) => console.log(err));
 
   const changeView = (name, someProps = {}) => {
     return (moreProps = {}) => {
@@ -92,30 +88,16 @@ const App = (props) => {
     switch (view.name) {
       case "Product":
         return (
-          <StyledApp>
-            <div>
-              <Context.Provider
-                value={{ id: id, setCartQty, cartQty, cart, setCart }}
-              >
-                <Overview reviewsRef={reviewsRef}></Overview>
-              </Context.Provider>
-            </div>
-            <div>
-              <Context.Provider value={{ id: id, productName: productName }}>
-                <RelatedProducts></RelatedProducts>
-              </Context.Provider>
-            </div>
-            <div>
-              <Context.Provider value={{ id: id }}>
-                <QuestionsList id={id} productName={productName}></QuestionsList>
-              </Context.Provider>
-            </div>
-            <div>
-              <Context.Provider value={{ id: id, productName: productName }}>
-                <ReviewsOverview reviewsRef={reviewsRef}></ReviewsOverview>
-              </Context.Provider>
-            </div>
-          </StyledApp>
+          <Product
+            themeMode={themeMode}
+            theme={theme}
+            themeToggler={themeToggler}
+            cart={cart}
+            setCart={setCart}
+            cartQty={cartQty}
+            setCartQty={setCartQty}
+            reviewsRef={reviewsRef}
+          />
         );
       case "Home":
         return <HomePage />;

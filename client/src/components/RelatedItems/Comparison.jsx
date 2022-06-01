@@ -14,6 +14,7 @@ const ModalContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: black;
 `;
 
 const ModalContent = styled.div`
@@ -114,18 +115,6 @@ const Modal = (props) => {
   if (!props.show) {
     return null;
   }
-
-  // useEffect(() => {
-  //   axios.get(`/products/${id}`)
-  //     .then((res) => {
-  //       props.setMain(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // },[])
-
-  // console.log("THIS IS MODAL PROPS", props)
 
   return (
     <ModalContainer onClick={props.onClose}>
