@@ -39,6 +39,7 @@ const Ratings = (props) => {
       setPercRec(percentRec(meta.recommended));
       setRatings(meta.ratings);
     })
+    .catch((err) => console.log('err', err))
   }, [id])
 
   return (

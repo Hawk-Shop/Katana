@@ -58,9 +58,8 @@ const FontIcon = styled(FontAwesomeIcon)``;
 
 
 
-const Product= ({themeMode, themeToggler, theme , cart, setCart, cartQty, setCartQty, reviewsRef}) => {
+const Product= ({id, setId, themeMode, themeToggler, theme , cart, setCart, cartQty, setCartQty, reviewsRef}) => {
 
-  const [id, setId] = useState(40344);
   const [productName, setProductName] = useState('');
 
 

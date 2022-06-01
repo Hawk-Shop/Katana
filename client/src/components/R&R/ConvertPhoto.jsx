@@ -36,7 +36,7 @@
         let urls = result.map((each) => each.data.data.display_url);
         setPhotos(urls);
       })
-    })
+    }).catch(err => console.log('err', err));
   }
 
   export default photoUrlsToArray;

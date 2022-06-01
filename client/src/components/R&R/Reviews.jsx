@@ -97,8 +97,8 @@ const Reviews = ({filters, displayCount, setDisplayCount, loading, setSelectValu
           {reviews.slice(0, displayCount).map((review, index) => (
             <ReviewTile review={review} key={index}></ReviewTile>
           ))}
-          {(displayCount >= 5 || Object.keys(filters).length !== 0) && <div ref={finalDivRef}>this is what im looking for &nbsp;&nbsp;&nbsp;<br></br></div>}
-          {/* <div ref={finalDivRef}>this is the div to check</div> */}
+          {(displayCount >= 5 || Object.keys(filters).length !== 0) && <div ref={finalDivRef}>&nbsp;&nbsp;&nbsp;<br></br></div>}
+          {loading && <div>Loading...</div>}
         </Section>
         {displayCount === 2 && <Button onClick={() => {
           setDisplayCount(5)

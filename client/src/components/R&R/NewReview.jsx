@@ -57,32 +57,6 @@ const Question = styled.div`
 padding: 1em;
 `;
 
-// const Option = styled.span`
-// display: flex;
-// flex-direction: row-reverse;
-// align-items: flex-end;
-// align-text: left;
-// border: dotted red;
-// font-size: 1em;
-// `;
-
-// const OptionCol = styled.div`
-// display: flex;
-// flex-direction: column;
-// width: 100%;
-// border: dotted green;
-// margin: 0;
-// flex-grow: 1;
-// `;
-
-// const OptionContainer = styled.div`
-// display: flex;
-// flex-direction: row;
-// border: dotted blue;
-// margin: 0;
-// height: 0em;
-// `;
-
 const Option = styled.span`
 width: 20%;
 text-align: -webkit-center;
@@ -172,6 +146,7 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
       setCharacteristics(charNames);
       setIdLegend(idLeg);
     })
+    .catch(err => console.log('err', err))
   }, [])
 
   return (
@@ -240,7 +215,7 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
               </Question>
               {photos.length < 5 && <Question>
                 <label htmlFor="photos">Upload your photos</label> <br></br>
-                <input type="file" name="photos" accept="image/png, image/jpeg" multiple="true" onChange={(e) => {
+                <input type="file" name="photos" accept="image/png, image/jpeg" multiple={true} onChange={(e) => {
                   let files = e.target.files;
                   photoUrlsToArray(files, setPhotos);
                 }}></input>
