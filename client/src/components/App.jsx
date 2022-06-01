@@ -66,9 +66,7 @@ const App = (props) => {
   const reviewsRef = useRef();
 
   const changeView = (name, someProps = {}) => {
-    console.log('name', name);
     return (moreProps = {}) => {
-      console.log("Changing view to: " + name);
       setView({ name, viewProps: { ...someProps, ...moreProps } });
     };
   };
@@ -93,6 +91,7 @@ const App = (props) => {
         id={id}
         setId={setId}
         />;
+
         case "Home":
           return <HomePage changeView={changeView} setId={setId}/>;
 
