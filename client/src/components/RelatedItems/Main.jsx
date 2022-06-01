@@ -66,7 +66,7 @@ const RelatedProducts = (props) => {
   // console.log("WHATS IN MOFO LIST", list)
   // console.log("WHATS IN MAINMOFOPRODUCT", mainProduct.name);
   // console.log("THIS IS PRODUCT ID IN CLICK", deleteID)
-  console.log("THIS IS MAIN ID", id)
+  // console.log("THIS IS MAIN ID", id)
 
   const handleAddClick = (e) => {
     let mainId = mainProduct.id;
