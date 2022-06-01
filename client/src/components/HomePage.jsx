@@ -66,7 +66,6 @@ const HomePage = ({setId, changeView}) => {
           <Image src={product.photo} onClick={() => {
             setId(product.id);
             changeView("Product")();
-            console.log('how many times does this happen')
           }}/>
         </Product>
       })}

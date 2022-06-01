@@ -72,6 +72,8 @@ const App = (props) => {
   const [cartQty, setCartQty] = useState(0);
   const [cart, setCart] = useState([]);
 
+  const [id, setId] = useState(40344);
+
   const reviewsRef = useRef();
 
 
@@ -87,6 +89,7 @@ const App = (props) => {
     renderView();
   }, [view]);
 
+
   const renderView = () => {
     switch (view.name) {
       case "Product":
@@ -99,9 +102,11 @@ const App = (props) => {
         cartQty={cartQty}
         setCartQty={setCartQty}
         reviewsRef={reviewsRef}
+        id={id}
+        setId={setId}
         />;
         case "Home":
-          return <HomePage />;
+          return <HomePage changeView={changeView} setId={setId}/>;
 
       case "Cart":
         return <Cart />;
