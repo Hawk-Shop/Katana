@@ -64,9 +64,9 @@ const Icon = styled.i`
   vertical-align: middle;
 `
 
-const QuestionsList = ({id, productName}) => {
+const QuestionsList = ({productName}) => {
   // const id = 40355;
-  // const id = useContext(Context).id;
+  const id = useContext(Context).id;
   let [questions, setQuestions] = useState([]);
   let [questionCount, setQuestionCount] = useState(4);
   let [showQModel, setShowQModel] = useState(false);

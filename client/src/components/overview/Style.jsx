@@ -69,13 +69,13 @@ const Style = ({ product, styles, currentStyle, setStyle }) => {
         STYLE {">"} <SelectedStyle>{currentStyle.name}</SelectedStyle>
       </StyleName>
       <StylesCtn>
-        {sortedStyles.map((styleArray) => {
+        {sortedStyles.map((styleArray, index) => {
           return (
-            <ThmCtn>
-              {styleArray.map((style) => (
-                <>
+            <ThmCtn key={index}>
+              {styleArray.map((style, i) => (
+                <span key={i}>
                   {style.id === currentStyle.style_id ? (
-                    <IconCtn>
+                    <IconCtn key={i}>
                       <ImgStyle
                         src={style.photo}
                         onClick={() => {
@@ -87,7 +87,7 @@ const Style = ({ product, styles, currentStyle, setStyle }) => {
                       </CheckmarkCtn>
                     </IconCtn>
                   ) : (
-                    <IconCtn>
+                    <IconCtn key={i}>
                       <ImgStyle
                         src={style.photo}
                         onClick={() => {
@@ -96,7 +96,7 @@ const Style = ({ product, styles, currentStyle, setStyle }) => {
                       ></ImgStyle>
                     </IconCtn>
                   )}
-                </>
+                </span>
               ))}
             </ThmCtn>
           );
