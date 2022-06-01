@@ -76,7 +76,6 @@ const App = (props) => {
     .get(`/products/${id}`)
     .then((res) => setProductName(res.data.name))
     .catch((err) => console.log(err));
-  console.log("CART", cart);
 
   const changeView = (name, someProps = {}) => {
     return (moreProps = {}) => {
@@ -118,7 +117,7 @@ const App = (props) => {
           </ThemeProvider>
         );
       case "Home":
-        return <HomePage />;
+        return <HomePage setId={setId} changeView={changeView}/>;
 
       case "Cart":
         return <Cart />;
