@@ -104,7 +104,7 @@ const App = (props) => {
             </div>
             <div>
               <Context.Provider value={{ id: id }}>
-                <QuestionsList id={id}></QuestionsList>
+                <QuestionsList id={id} productName={productName}></QuestionsList>
               </Context.Provider>
             </div>
             <div>

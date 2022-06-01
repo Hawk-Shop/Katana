@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import "./QAModal.css";
 import axios from 'axios';
 
-export default function AnswerModal ({id, question_id, question_body, show, onClose}) {
+export default function AnswerModal ({id, productName, question_id, question_body, show, onClose}) {
   if (!show) {
     return null
   }
@@ -49,12 +49,14 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
       <input
         type="text"
         name="username"
-        placeholder="Example: jackson11!"
         maxLength={60}
+        size={36}
+        placeholder="Example: jackson11!"
         value={username}
         onChange={e => setUsername(e.target.value)}
         required
       />
+      <p className="static">For privacy reasons, do not use your full name or email address.</p>
     </label>
   )
 
@@ -64,11 +66,14 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
       <input
         type="email"
         name="email"
+        maxLength={60}
+        size={40}
         placeholder="Example: jack@email.com"
         value={email}
         onChange={e => setEmail(e.target.value)}
         required
       />
+      <p className="static">For authentication reasons, you will not be emailed.</p>
     </label>
   )
 
@@ -81,6 +86,7 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
         rows="10"
         cols="70"
         maxLength={1000}
+        placeholder="Enter your answers here..."
         value={body}
         onChange={e => setBody(e.target.value)}
         required
@@ -88,8 +94,8 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
     </label>
   )
 
-  let fileObj = [];
-  let fileArray = [];
+  // let fileObj = [];
+  // let fileArray = [];
 
   // const handleUpload = (e) => {
   //   e.preventDefault();
@@ -119,19 +125,13 @@ export default function AnswerModal ({id, question_id, question_body, show, onCl
       <div className="modal-content">
         <div className="modal-header">
           <div className="modal-header">
-            <h4 className="modal-title">Submit Your Answer</h4>
+            <h3 className="modal-title">Submit Your Answer</h3>
+            <h4 className="modal-subtitle">{productName}: {question_body}</h4>
           </div>
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
               {Username}
               {Email}
-              <br/>
-              Product ID: {id}
-              <br/>
-              Question_id: {question_id} --> delete before deployment
-              <br/>
-              Question to answer: {question_body}
-              <br/>
               {Answer}
               {/* <input
                 type="file"
