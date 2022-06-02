@@ -94,7 +94,15 @@ const App = (props) => {
         );
 
       case "Home":
-        return <HomePage changeView={changeView} setId={setId} />;
+        return (
+          <HomePage
+            changeView={changeView}
+            setId={setId}
+            themeMode={themeMode}
+            theme={theme}
+            themeToggler={themeToggler}
+          />
+        );
 
       case "Cart":
         return <Cart />;

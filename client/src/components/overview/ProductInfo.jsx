@@ -15,7 +15,6 @@ const Onsale = styled.span`
   font-size: 0.9rem;
 `;
 const RegularPrice = styled.span`
-  color: black;
 `;
 
 const Socials = styled.div`

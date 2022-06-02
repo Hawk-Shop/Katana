@@ -13,10 +13,7 @@ const Modal = styled.div`
   bottom: 0;
   position: fixed;
   z-index: 10;
-  // &.dark {
-  //   color: white;
-  //   background-color: black;
-  // }
+
 `;
 const Overlay = styled.div`
   width: 100vw;
@@ -62,7 +59,8 @@ const List = styled.div`
   margin-top: 15%;
   margin-left: 5%;
   max-height: 80vh;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 const ImageDiv = styled.div`
   width: 15%;

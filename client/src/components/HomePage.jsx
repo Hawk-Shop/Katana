@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from 'axios';
+import {ThemeProvider} from "styled-components";
+import { GlobalStyles } from "./DarkMode/GlobalStyles.jsx";
+import Toggle from "./DarkMode/Toggler.jsx";
 
 const Container = styled.div`
 display: flex;
@@ -11,7 +14,7 @@ align-items: stretch;
 gap: 25px 25px;
 padding: 3em 2em;
 flex-grow: 4;
-
+clear: both;
 `;
 
 const Product = styled.div`
@@ -31,7 +34,11 @@ cursor: pointer;
 }
 `;
 
-const HomePage = ({setId, changeView}) => {
+const ToggleCtn = styled.div`
+  max-width: 90%;
+`;
+
+const HomePage = ({setId, changeView, themeMode, theme, themeToggler}) => {
   const [products, setProducts] = useState(["40344","40355", "40346", "40347", "40348", "40349", "40350", "40351", "40352", "40353", "40355", "40356", "40357"]);
 
   useEffect(() => {
@@ -60,6 +67,11 @@ const HomePage = ({setId, changeView}) => {
     }, []);
 
   return (
+    <ThemeProvider theme={themeMode}>
+      <GlobalStyles/>
+      <ToggleCtn>
+        <Toggle theme={theme} toggleTheme={themeToggler} />
+      </ToggleCtn>
     <Container>
       {products.map((product, index) => {
         return <Product key={index}>
@@ -71,6 +83,7 @@ const HomePage = ({setId, changeView}) => {
         </Product>
       })}
     </Container>
+    </ThemeProvider>
   );
 };
 
