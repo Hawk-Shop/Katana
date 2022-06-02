@@ -139,7 +139,7 @@ const QuestionsList = ({productName}) => {
             }
           }).slice(0, questionCount).map((question) => {
             return  <Question
-                      key={question.questin_id}
+                      key={question.question_id}
                       question={question}
                       id={id}
                       productName={productName}
@@ -148,7 +148,11 @@ const QuestionsList = ({productName}) => {
                     />
           })}
         </Questions>
-        {questionCount < questions.length ? <p>Viewing {questionCount} of {questions.length} questions</p> : <p>Viewing {questions.length} of {questions.length} questions</p>}
+        {searchInput.length < 3 && (
+          questionCount < questions.length ?
+            <p>Viewing {questionCount} of {questions.length} questions</p> : <p>Viewing {questions.length} of {questions.length} questions</p>
+        )}
+
         {questionCount < questions.length && [
           showMoreQuestions
         ]}
@@ -160,6 +164,7 @@ const QuestionsList = ({productName}) => {
         )}
         <QuestionModal
           id={id}
+          key="qModal"
           productName={productName}
           onClose={() => setShowQModel(false)}
           showQModel={showQModel}
