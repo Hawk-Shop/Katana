@@ -7,7 +7,7 @@ import axios from 'axios';
 import Modal from './Comparison.jsx';
 import useLocalStorage from './useLocalStorage.js';
 
-const RelatedProducts = (props) => {
+const RelatedProducts = ({scrollRef}) => {
   const id = useContext(Context).id;
   const [show, setShow] = useState(false);
   const [reference, setRef] = useState('');
@@ -61,9 +61,10 @@ const RelatedProducts = (props) => {
         setList(products);
       })
       .catch((err) => console.log(err));
+
   }, [id]);
 
-  // console.log("WHATS IN MOFO LIST", list)
+  console.log("WHATS IN MOFO LIST", list)
   // console.log("WHATS IN MAINMOFOPRODUCT", mainProduct.name);
   // console.log("THIS IS PRODUCT ID IN CLICK", deleteID)
   // console.log("THIS IS MAIN ID", id)
@@ -100,7 +101,7 @@ const RelatedProducts = (props) => {
         show={show}
         setShow={setShow}
         setRef={setRef}
-        // setId={setId}
+        scrollRef={scrollRef}
       />
       <h3>Your Outfit</h3>
       <OutfitList
@@ -109,7 +110,7 @@ const RelatedProducts = (props) => {
         setOutfit={setOutfit}
         handleAddClick={handleAddClick}
         setDelete={setDelete}
-        // setId={setId}
+        scrollRef={scrollRef}
       />
       <Modal
         onClose={() => setShow(false)}

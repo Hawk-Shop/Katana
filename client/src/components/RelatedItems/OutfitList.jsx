@@ -6,7 +6,7 @@ import OutfitCard from './OutfitCard.jsx';
 
 const Carousel = styled.div`
   overflow: hidden;
-  max-width: 1000px;
+  max-width: 1036px;
 `;
 
 const Inner = styled.div`
@@ -23,7 +23,7 @@ const IndicatorButton = styled.button`
   margin: 5px;
 `;
 
-const OutfitList = ({outfit, handleAddClick, setDelete}) => {
+const OutfitList = ({outfit, handleAddClick, setDelete, scrollRef}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const length = outfit.length;
 
@@ -48,6 +48,7 @@ const OutfitList = ({outfit, handleAddClick, setDelete}) => {
             handleAddClick={handleAddClick}
             key={card.id}
             setDelete={setDelete}
+            scrollRef={scrollRef}
             />
           ))
         :null}
