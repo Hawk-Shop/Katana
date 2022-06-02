@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import axios from 'axios';
 import { format, parseISO } from 'date-fns';
@@ -27,10 +27,10 @@ const Questions = styled.div`
 
 const QStyle = styled.div`
   font-size: 1em;
-  display: inline-block;
   cursor: ns-resize;
   margin-left: 10px;
-  margin-right: 20px;
+  display: flex;
+  align-items: center;
 `;
 
 const AnswersBlock = styled.div`
@@ -51,8 +51,8 @@ const ContainText = styled.p`
 
 const Container = styled.div`
   display: flex;
-  align-items: baseline;
-  margin-bottom: 20px;
+  align-items: stretch;
+  margin-bottom: 10px;
 `
 
 const Button = styled.button`
@@ -72,7 +72,8 @@ display: block;
 const Helpful = styled.div`
   text-align: center;
   font-size: 14px;
-  margin-right: 15px;
+  margin-right: 5px;
+  margin-top: 5px;
 `
 
 const Yes = styled.button`
