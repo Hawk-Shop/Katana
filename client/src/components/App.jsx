@@ -56,11 +56,6 @@ const CartNum = styled.span`
   font-weight: bold;
 `;
 
-const TopDiv = styled.div`
-height: 5em;
-width: 100%;
-`;
-
 const FontIcon = styled(FontAwesomeIcon)``;
 
 const App = (props) => {

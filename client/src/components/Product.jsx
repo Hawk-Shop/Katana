@@ -35,7 +35,7 @@ const Product= ({id, setId, themeMode, themeToggler, theme , cart, setCart, cart
 return (
   <ThemeProvider theme={themeMode}>
     <GlobalStyles/>
-    <TopDiv></TopDiv>
+    <TopDiv ref={scrollRef}></TopDiv>
     <StyledApp>
       <Toggle theme={theme} toggleTheme={themeToggler} />
       <div>

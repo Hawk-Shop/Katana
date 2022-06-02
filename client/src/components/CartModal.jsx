@@ -117,7 +117,6 @@ const Addbtn = styled.button`
 
 const CartModal = ({ theme, setCartQty, cartQty, setCart, setCartModal, cart }) => {
   const dark = (theme === 'dark') ? 'dark' : 'none'
-  console.log(dark)
   const removeItem = (index, qty) => {
     const copy = [...cart];
     copy.splice(index, 1);
