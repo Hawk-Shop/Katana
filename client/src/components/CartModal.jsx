@@ -13,10 +13,10 @@ const Modal = styled.div`
   bottom: 0;
   position: fixed;
   z-index: 10;
-  &.dark {
-    color: white;
-    background-color: black;
-  }
+  // &.dark {
+  //   color: white;
+  //   background-color: black;
+  // }
 `;
 const Overlay = styled.div`
   width: 100vw;
@@ -32,7 +32,7 @@ const Overlay = styled.div`
 const ModalContent = styled.div`
   position: absolute;
   line-height: 1.4;
-  // background: #f1f1f1;
+  background: #f1f1f1;
   min-height: 100vh;
   width: 100%;
   overflow: auto;
@@ -40,8 +40,8 @@ const ModalContent = styled.div`
   flex-direction: column;
   align-items: flex-start;
   &.dark {
-    color: white;
-    background-color: black;
+    color: #FAFAFA;
+    background: #999;
   }
 `;
 
@@ -112,11 +112,14 @@ const Addbtn = styled.button`
     background-color: white;
     color: #212a2f;
   }
+  &.dark {
+    background-color: light-blue;
+  }
 `;
 
 const CartModal = ({ theme, setCartQty, cartQty, setCart, setCartModal, cart }) => {
-  console.log(theme)
   const dark = (theme === 'dark') ? 'dark' : 'none'
+  console.log(dark)
   const removeItem = (index, qty) => {
     const copy = [...cart];
     copy.splice(index, 1);
@@ -158,7 +161,7 @@ const CartModal = ({ theme, setCartQty, cartQty, setCart, setCartModal, cart }) 
   return (
     <Modal className={dark}>
       <Overlay onClick={() => setCartModal((prev) => !prev)}></Overlay>
-      <ModalContent>
+      <ModalContent className={dark}>
         <XIcon
           onClick={() => setCartModal((prev) => !prev)}
           icon={faX}
@@ -167,7 +170,7 @@ const CartModal = ({ theme, setCartQty, cartQty, setCart, setCartModal, cart }) 
         {cart.length ? (
           <>
             <List>{cartItems}</List>
-            <Addbtn onClick={() => handlePurchase()}>PURCHASE</Addbtn>
+            <Addbtn className={dark} onClick={() => handlePurchase()}>PURCHASE</Addbtn>
           </>
         ) : (
           <Text>Your Cart is Empty</Text>
