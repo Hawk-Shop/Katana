@@ -27,9 +27,9 @@ const Questions = styled.div`
 
 const QStyle = styled.div`
   font-size: 1em;
-  display: inline-block;
   cursor: ns-resize;
   margin-left: 10px;
+  display: flex;
   align-items: center;
 `;
 
@@ -56,17 +56,17 @@ const Container = styled.div`
 `
 
 const Button = styled.button`
-background: transparent;
-border-radius: 3px;
-border: 2px solid grey;
-margin: 0 0 1em 1em;
-padding: 0.5em 1em;
-display: block;
-&:hover {
-  background: lightgrey;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px;
-  transform: scale(1.05);
-}
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid grey;
+  margin: 0 0 1em 1em;
+  padding: 0.5em 1em;
+  display: block;
+  &:hover {
+    background: lightgrey;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px;
+    transform: scale(1.05);
+  }
 `;
 
 const Helpful = styled.div`

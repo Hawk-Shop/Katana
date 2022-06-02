@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from "react";
+import {useState, useEffect} from "react";
 import "./QAModal.css";
 import axios from 'axios';
 
@@ -87,7 +87,7 @@ export default function AnswerModal ({id, productName, showQModel, onClose}) {
     <label>
       <div className="inputs">Question:</div>
       <textarea
-        className="user-input"
+        className="text-area"
         type="text"
         name="body"
         rows="10"

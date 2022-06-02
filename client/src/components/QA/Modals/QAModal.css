@@ -12,7 +12,7 @@
 
 .modal-content {
   text-transform: none;
-  width: 800px;
+  width: auto;
   background-color: #fff;
   border-radius: 5px;
 }
@@ -78,8 +78,13 @@
 .user-input {
   margin: 0 5px;
   outline: none;
+  border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .text-area {
+  display: block;
   outline: none;
+  border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
 }
