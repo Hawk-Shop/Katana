@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const Styler = styled.div`
-  width: auto;
+  width: 100%;
+  margin-top: 1%;
 `;
 
 const StyleName = styled.div`
@@ -15,7 +16,7 @@ const StyleName = styled.div`
   font-weight: bold;
 `;
 const SelectedStyle = styled.span`
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: normal;
 `;
 
@@ -33,10 +34,24 @@ const IconCtn = styled.div`
 const ImgStyle = styled.img`
   object-fit: cover;
   border-radius: 50%;
-  border: 0.5px solid black;
   height: 3rem;
   width: 3rem;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.1)
+  }
+`;
+
+const PrimeImg = styled.img`
+  object-fit: cover;
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.1)
+  }
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 `;
 const CheckmarkCtn = styled.div`
   position: absolute;
@@ -59,6 +74,9 @@ const Checkmark = styled(FontAwesomeIcon)`
 const ThmCtn = styled.span`
   margin-bottom: 2%;
   width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+
 `;
 
 const Style = ({ product, styles, currentStyle, setStyle }) => {
@@ -73,18 +91,15 @@ const Style = ({ product, styles, currentStyle, setStyle }) => {
           return (
             <ThmCtn key={index}>
               {styleArray.map((style, i) => (
-                <span key={i}>
+                <div style={{marginRight: '3%'}}key={i}>
                   {style.id === currentStyle.style_id ? (
                     <IconCtn key={i}>
-                      <ImgStyle
+                      <PrimeImg
                         src={style.photo}
                         onClick={() => {
                           setStyle(styles[style.index]);
                         }}
-                      ></ImgStyle>
-                      <CheckmarkCtn>
-                        <Checkmark icon={faCheck}/>
-                      </CheckmarkCtn>
+                      ></PrimeImg>
                     </IconCtn>
                   ) : (
                     <IconCtn key={i}>
@@ -96,7 +111,7 @@ const Style = ({ product, styles, currentStyle, setStyle }) => {
                       ></ImgStyle>
                     </IconCtn>
                   )}
-                </span>
+                </div>
               ))}
             </ThmCtn>
           );

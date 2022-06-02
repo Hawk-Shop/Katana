@@ -15,15 +15,15 @@ const Onsale = styled.span`
   font-size: 0.9rem;
 `;
 const RegularPrice = styled.span`
-  color: black;
 `;
 
 const Socials = styled.div`
-  margin-top: 5%;
+  margin-top: 15%;
   display: flex;
   flex-direction: row;
   width: 35%;
-  justify-content: space-around
+  justify-content: space-around;
+  flex-wrap: wrap;
 `;
 
 const PriceFit = styled.div`
@@ -34,7 +34,7 @@ const PriceFit = styled.div`
 const FlexFit = styled.div`
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 25%;
 `;
 const ProductC = styled.div`
   display: flex;
@@ -54,6 +54,9 @@ const ProductRev = styled.span`
   margin-left: 5%;
   text-decoration: underline;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.02)
+  }
 `;
 
 const StarLink = styled(Stars)`

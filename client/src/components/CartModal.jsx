@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
+import {ThemeProvider} from "styled-components";
 
 const Modal = styled.div`
   width: 25%;
-  height: 85vh;
+  height: 100vh;
   top: 0;
   left: 75%;
   right: 0;
   bottom: 0;
   position: fixed;
   z-index: 10;
+
 `;
 const Overlay = styled.div`
   width: 100vw;
@@ -34,6 +36,10 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  &.dark {
+    color: #FAFAFA;
+    background: #999;
+  }
 `;
 
 const XIcon = styled(FontAwesomeIcon)`
@@ -53,7 +59,8 @@ const List = styled.div`
   margin-top: 15%;
   margin-left: 5%;
   max-height: 80vh;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 const ImageDiv = styled.div`
   width: 15%;
@@ -103,9 +110,14 @@ const Addbtn = styled.button`
     background-color: white;
     color: #212a2f;
   }
+  &.dark {
+    background-color: light-blue;
+  }
 `;
 
-const CartModal = ({ setCartQty, cartQty, setCart, setCartModal, cart }) => {
+const CartModal = ({ theme, setCartQty, cartQty, setCart, setCartModal, cart }) => {
+  const dark = (theme === 'dark') ? 'dark' : 'none'
+  console.log(dark)
   const removeItem = (index, qty) => {
     const copy = [...cart];
     copy.splice(index, 1);
@@ -120,7 +132,6 @@ const CartModal = ({ setCartQty, cartQty, setCart, setCartModal, cart }) => {
     }
     Promise.all(promises).catch((err) => console.log(err))
   };
-  console.log("CARTTTT", cart);
   let cartItems = cart.map((item, i) => {
     return (
       <ItemCtn key={i}>
@@ -146,9 +157,9 @@ const CartModal = ({ setCartQty, cartQty, setCart, setCartModal, cart }) => {
   });
 
   return (
-    <Modal>
+    <Modal className={dark}>
       <Overlay onClick={() => setCartModal((prev) => !prev)}></Overlay>
-      <ModalContent>
+      <ModalContent className={dark}>
         <XIcon
           onClick={() => setCartModal((prev) => !prev)}
           icon={faX}
@@ -157,7 +168,7 @@ const CartModal = ({ setCartQty, cartQty, setCart, setCartModal, cart }) => {
         {cart.length ? (
           <>
             <List>{cartItems}</List>
-            <Addbtn onClick={() => handlePurchase()}>PURCHASE</Addbtn>
+            <Addbtn className={dark} onClick={() => handlePurchase()}>PURCHASE</Addbtn>
           </>
         ) : (
           <Text>Your Cart is Empty</Text>
