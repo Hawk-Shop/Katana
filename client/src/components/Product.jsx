@@ -18,10 +18,9 @@ const StyledApp = styled.div`
   min-height: 100vh;
 `;
 
-const Product= ({id, setId, themeMode, themeToggler, theme , cart, setCart, cartQty, setCartQty, reviewsRef}) => {
+const Product= ({id, setId, themeMode, themeToggler, theme , cart, setCart, cartQty, setCartQty, reviewsRef, scrollRef}) => {
 
   const [productName, setProductName] = useState('');
-
 
   axios
   .get(`/products/${id}`)
@@ -35,12 +34,12 @@ return (
       <Toggle theme={theme} toggleTheme={themeToggler} />
       <div>
         <Context.Provider value={{ id: id, cart, setCart, cartQty, setCartQty }}>
-          <Overview reviewsRef={reviewsRef}></Overview>
+          <Overview reviewsRef={reviewsRef} scrollRef={scrollRef}></Overview>
         </Context.Provider>
       </div>
       <div>
         <Context.Provider value={{id: id, setId}}>
-          <RelatedProducts ></RelatedProducts>
+          <RelatedProducts scrollRef={scrollRef} ></RelatedProducts>
         </Context.Provider>
       </div>
       <div>

@@ -19,6 +19,11 @@ const CarouselItem = styled.div`
   font-family: Arial Regular;
   padding: 0;
   margin: 10px 25px;
+  transform: scale(1.05);
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.10) 0px 5px 10px;
+    transform: scale(1.05);
+  }
 `;
 
 const CardThumbnail = styled.img`
@@ -75,6 +80,7 @@ const Review = styled.div`
 `
 
 const ProductCard = (props) => {
+  const setId= useContext(Context).setId
   const ratings = props.card.ratings;
   let averageNums = avgRating(ratings);
   let thumbURL = props.card.results[0].photos[0].thumbnail_url;
@@ -91,14 +97,12 @@ const ProductCard = (props) => {
     product_id: props.card.id,
     features: props.card.features
   }
-  const setId= useContext(Context).setId
-
-
-
 
   return (
     <CarouselItem style={props.width} onClick={() => {
-    setId(props.card.id)}}>
+      setId(props.card.id);
+      props.scrollRef.current.scrollIntoView({ behavior: 'smooth' })
+    }}>
       <ImageContainer>
         <CardThumbnail src={thumbPath}></CardThumbnail>
         <ActionButton onClick={(e) => {
