@@ -90,6 +90,7 @@ const App = (props) => {
             reviewsRef={reviewsRef}
             id={id}
             setId={setId}
+            scrollRef={scrollRef}
           />
         );
 
