@@ -51,8 +51,8 @@ const Overview = (props) => {
   }, [id]);
 
   return (
-    <Container>
-      <TopCtn>
+    <Container >
+      <TopCtn ref={props.scrollRef}>
         {currentStyle && (
           <Gallery
             product={product}

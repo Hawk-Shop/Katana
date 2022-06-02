@@ -60,9 +60,10 @@ const App = (props) => {
   const [cart, setCart] = useState([]);
   const [cartModal, setCartModal] = useState(false);
 
-  const [id, setId] = useState(40344);
-
   const reviewsRef = useRef();
+  const scrollRef = useRef();
+
+  const [id, setId] = useState(40344);
 
   const changeView = (name, someProps = {}) => {
     return (moreProps = {}) => {
