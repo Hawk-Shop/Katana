@@ -18,6 +18,7 @@ background-color: lightgrey;
 width: 32%;
 font-size: .8em;
 line-height: 1;
+height: .6em;
 `;
 
 const Spectrum = styled.div`
