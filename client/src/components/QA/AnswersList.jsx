@@ -21,33 +21,32 @@ const Answer = styled.div`
   border-radius: 5px;
   margin-bottom: 0.5em;
   margin-left: auto;
-  margin-right: 150px;
+  margin-right: auto;
   min-width: 45vw;
-  max-width: 55vw;
+  max-width: 45vw;
 `
 
 const AnswerBody = styled.div`
-  margin-top: 5px;
-  margin-left: 15px;
+  margin: 5px 15px 0 15px;
 `
 
 const Helpful = styled.div`
-  font-size: 14px;
-  margin-right: 10px;
-  margin-top: 10px;
+  text-align: right;
+  font-size: 12px;
+  margin-right: 15px;
 `
 
 const Yes = styled.button`
   background: none;
   color: inherit;
   border: none;
-  padding: 0;
   font: inherit;
   cursor: pointer;
   outline: inherit;
   text-decoration: underline;
   &:hover {
     color: darkgreen;
+    transform: scale(1.05);
   }
 `
 
@@ -55,13 +54,13 @@ const Report = styled.button`
   background: none;
   color: inherit;
   border: none;
-  padding: 0;
   font: inherit;
   cursor: pointer;
   outline: inherit;
   text-decoration: underline;
   &:hover {
     color: crimson;
+    transform: scale(1.05);
   }
 `
 
@@ -81,7 +80,6 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
   let [url, setUrl] = useState('');
   let [aHelpful, setAHelpful] = useState(false);
   let [aReported, setAReported] = useState(false);
-  let [yesCount, setYesCount] = useState(0);
 
   const toggleModal = (e) => {
     // console.log(e.target.currentSrc);
@@ -101,10 +99,10 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
       <span>{body}</span>
       <User>
         <div>
-          {photos.map((photo, index) => {
+          {photos.map((photo) => {
             return  <Image
+                      key={photo.url}
                       src={photo.url}
-                      key={index}
                       onClick={toggleModal}
                       alt="unable to display">
                     </Image>
@@ -124,7 +122,8 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
             <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
           </div>
         </div>
-        <Helpful> Helpful?
+        <Helpful>
+          Helpful?
           <Yes onClick={() =>
             handleHelpful(
               aHelpful,
