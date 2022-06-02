@@ -12,7 +12,7 @@ flex-direction: row;
 justify-content: space-evenly;
 align-items: stretch;
 gap: 25px 25px;
-padding: 3em 2em;
+padding: 1.5em 2em;
 flex-grow: 4;
 clear: both;
 `;
@@ -31,11 +31,17 @@ border-radius: 15px;
 cursor: pointer;
 &:hover {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  transform: scale(1.05);
 }
 `;
 
 const ToggleCtn = styled.div`
   max-width: 90%;
+`;
+
+const TopDiv = styled.div`
+height: 5em;
+width: 100%;
 `;
 
 const HomePage = ({setId, changeView, themeMode, theme, themeToggler}) => {
@@ -69,6 +75,7 @@ const HomePage = ({setId, changeView, themeMode, theme, themeToggler}) => {
   return (
     <ThemeProvider theme={themeMode}>
       <GlobalStyles/>
+      <TopDiv></TopDiv>
       <ToggleCtn>
         <Toggle theme={theme} toggleTheme={themeToggler} />
       </ToggleCtn>

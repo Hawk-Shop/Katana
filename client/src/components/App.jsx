@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import { useDarkMode } from "./DarkMode/UseDarkMode.jsx";
 import { lightTheme, darkTheme } from "./DarkMode/Themes.jsx";
-import Toggle from "./DarkMode/Toggler.jsx";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,14 +19,22 @@ window.React = React;
 Window.sessionStorage = { cart: [], qty: 0 };
 
 const HeaderStyle = styled.header`
-  max-width: 80%;
-  margin: 0 auto;
+  max-width: 100%;
 `;
 
 const NavBar = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  width: 98%;
+	float: left;
+  top: 0;
+  left: 0;
+  padding: 0 1em;
+	border-bottom: 1px solid #ccc;
+  z-index: 1;
+  position: fixed;
+  height: 4em;
 `;
 
 const List = styled.ul`
@@ -47,6 +54,11 @@ const CartNum = styled.span`
   position: relative;
   bottom: 15px;
   font-weight: bold;
+`;
+
+const TopDiv = styled.div`
+height: 5em;
+width: 100%;
 `;
 
 const FontIcon = styled(FontAwesomeIcon)``;
@@ -113,7 +125,7 @@ const App = (props) => {
   return (
     <>
       <HeaderStyle>
-        <NavBar>
+        <NavBar style={{backgroundColor: `${theme === 'light' ? "#edf1f7" : "#3c3d40"}`}}>
           <h1
             onClick={() => changeView("Home")()}
             style={{ cursor: "pointer" }}

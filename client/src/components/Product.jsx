@@ -18,6 +18,11 @@ const StyledApp = styled.div`
   min-height: 100vh;
 `;
 
+const TopDiv = styled.div`
+height: 4em;
+width: 100%;
+`;
+
 const Product= ({id, setId, themeMode, themeToggler, theme , cart, setCart, cartQty, setCartQty, reviewsRef, scrollRef}) => {
 
   const [productName, setProductName] = useState('');
@@ -30,6 +35,7 @@ const Product= ({id, setId, themeMode, themeToggler, theme , cart, setCart, cart
 return (
   <ThemeProvider theme={themeMode}>
     <GlobalStyles/>
+    <TopDiv></TopDiv>
     <StyledApp>
       <Toggle theme={theme} toggleTheme={themeToggler} />
       <div>

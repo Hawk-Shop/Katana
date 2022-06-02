@@ -66,8 +66,14 @@ const StarLink = styled(Stars)`
 const AHref = styled.a`
   color: black;
   &:hover {
-
     color: #0071BC;
+  }
+`;
+
+const AHrefRed = styled.a`
+  color: black;
+  &:hover {
+    color: #fc1303;
   }
 `;
 
@@ -103,7 +109,7 @@ const ProductInfo = (props) => {
       <Socials>
         <AHref href="https://www.facebook.com"><FontAwesomeIcon icon={faFacebook} size="xl"/></AHref>
         <AHref href="https://www.twitter.com"><FontAwesomeIcon icon={faTwitter} size="xl"/></AHref>
-        <AHref href="https://www.pinterest.com"><FontAwesomeIcon icon={faPinterest} size="xl" /></AHref>
+        <AHrefRed href="https://www.pinterest.com"><FontAwesomeIcon icon={faPinterest} size="xl" /></AHrefRed>
       </Socials>
     </FlexFit>
   );

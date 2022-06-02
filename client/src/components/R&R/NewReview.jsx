@@ -116,7 +116,7 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
   const submitReview = (e) => {
     e.preventDefault();
     let axiosBody = {
-      product_id: id,
+      product_id: Number(id),
       rating: rate,
       summary: summary,
       body: body,

@@ -3,7 +3,8 @@ import styled from 'styled-components';
 const Breakdown = styled.div`
   cursor: pointer;
   &:hover{
-    background-color: grey;
+    background-color: #EEEEEE;
+    transform: scale(1.02);
   }
   `;
 

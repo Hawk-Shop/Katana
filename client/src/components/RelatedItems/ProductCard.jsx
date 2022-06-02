@@ -31,6 +31,7 @@ const CardThumbnail = styled.img`
   max-width: 100%;
   max-height: 200px;
   border: 1px solid gray;
+  cursor: pointer;
 `;
 
 const ImageContainer = styled.div`
