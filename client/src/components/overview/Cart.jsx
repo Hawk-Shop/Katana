@@ -8,7 +8,8 @@ const Selectors = styled.div`
   flex-direction: row;
 `;
 
-const ContainCart = styled.div``;
+const ContainCart = styled.div`
+`;
 
 const Cart = (props) => {
   let options = props.currentStyle.skus;

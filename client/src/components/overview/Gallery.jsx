@@ -109,7 +109,7 @@ const GallFlex = styled.div`
     width: 100%;
   }
   &.regular {
-    width: 70%;
+    width: 75%;
   }
   &.zoomed {
     overflow: hidden;

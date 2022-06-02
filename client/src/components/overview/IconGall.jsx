@@ -14,6 +14,9 @@ const Contain = styled.div`
 
 const ImgContain = styled.div`
   cursor: pointer;
+  &:hover {
+    transform: scale(1.1)
+  }
 `;
 
 const Thumbnail = styled.div`

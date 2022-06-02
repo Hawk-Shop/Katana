@@ -19,7 +19,6 @@ import Product from "./Product.jsx";
 window.React = React;
 Window.sessionStorage = { cart: [], qty: 0 };
 
-
 const HeaderStyle = styled.header`
   max-width: 80%;
   margin: 0 auto;
@@ -53,11 +52,10 @@ const CartNum = styled.span`
 const FontIcon = styled(FontAwesomeIcon)``;
 
 const App = (props) => {
-
   const [theme, themeToggler] = useDarkMode();
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
-  const [view, setView] = useState({ name: "Product", viewProps: {} });
+  const [view, setView] = useState({ name: "Home", viewProps: {} });
   const [cartQty, setCartQty] = useState(0);
   const [cart, setCart] = useState([]);
   const [cartModal, setCartModal] = useState(false);
@@ -77,27 +75,35 @@ const App = (props) => {
     renderView();
   }, [view]);
 
-
   const renderView = () => {
     switch (view.name) {
       case "Product":
-        return <Product
-        themeMode={themeMode}
-        theme={theme}
-        themeToggler={themeToggler}
-        cart={cart}
-        setCart={setCart}
-        cartQty={cartQty}
-        setCartQty={setCartQty}
-        reviewsRef={reviewsRef}
-        scrollRef={scrollRef}
-        id={id}
-        setId={setId}
-        />;
+        return (
+          <Product
+            themeMode={themeMode}
+            theme={theme}
+            themeToggler={themeToggler}
+            cart={cart}
+            setCart={setCart}
+            cartQty={cartQty}
+            setCartQty={setCartQty}
+            reviewsRef={reviewsRef}
+            id={id}
+            setId={setId}
+            scrollRef={scrollRef}
+          />
+        );
 
-        case "Home":
-          return <HomePage changeView={changeView} setId={setId}/>;
-
+      case "Home":
+        return (
+          <HomePage
+            changeView={changeView}
+            setId={setId}
+            themeMode={themeMode}
+            theme={theme}
+            themeToggler={themeToggler}
+          />
+        );
 
       case "Cart":
         return <Cart />;
@@ -108,7 +114,11 @@ const App = (props) => {
     <>
       <HeaderStyle>
         <NavBar>
-          <h1 onClick={() => changeView("Home")()} style={{ cursor: "pointer" }}><FontIcon icon={faHouse}/>
+          <h1
+            onClick={() => changeView("Home")()}
+            style={{ cursor: "pointer" }}
+          >
+            <FontIcon icon={faHouse} />
             &nbsp; Hawk Shop{" "}
           </h1>
           <List>
@@ -138,6 +148,7 @@ const App = (props) => {
               setCartModal={setCartModal}
               cartQty={cartQty}
               setCartQty={setCartQty}
+              theme={theme}
             />
           )}
         </NavBar>

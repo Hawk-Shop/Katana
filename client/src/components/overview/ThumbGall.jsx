@@ -16,6 +16,9 @@ const Contain = styled.div`
 
 const ImgContain = styled.div`
   max-height: 5vh;
+  &:hover {
+    transform: scale(1.02)
+  }
 `;
 
 const Thumbnail = styled.img`
