@@ -8,9 +8,7 @@ const Selectors = styled.div`
   flex-direction: row;
 `;
 
-const ContainCart = styled.div`
-`;
-
+const ContainCart = styled.div``;
 
 const Cart = (props) => {
   let options = props.currentStyle.skus;
@@ -20,13 +18,13 @@ const Cart = (props) => {
   const [sku, setSku] = useState(0);
 
   useEffect(() => {
-    setSize("SELECT SIZE")
-    setQty('-')
-  }, [props.currentStyle])
+    setSize("SELECT SIZE");
+    setQty("-");
+  }, [props.currentStyle]);
 
   useEffect(() => {
-    setQty('1')
-  }, [size])
+    setQty("1");
+  }, [size]);
 
   const handleSize = (event) => {
     // console.log(event.target.value)
@@ -86,8 +84,13 @@ const Cart = (props) => {
         )}
       </Selectors>
 
-      <AddCart skus={options} size={size} qty={qty} currentStyle={props.currentStyle}/>
-
+      <AddCart
+        skus={options}
+        size={size}
+        qty={qty}
+        currentStyle={props.currentStyle}
+        name={props.name}
+      />
     </ContainCart>
   );
 };

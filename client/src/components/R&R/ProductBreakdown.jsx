@@ -73,6 +73,7 @@ const ProductBreakdown = ({id}) => {
       let charObject = results.data.characteristics;
       setChars(charObject);
     })
+    .catch((err) => console.log('err', err))
   }, [])
 
   return(

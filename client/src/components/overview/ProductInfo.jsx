@@ -60,6 +60,14 @@ const StarLink = styled(Stars)`
   display: inline;
 `;
 
+const AHref = styled.a`
+  color: black;
+  &:hover {
+
+    color: #0071BC;
+  }
+`;
+
 const ProductInfo = (props) => {
   const ratings = props.reviews.ratings;
   let averageNums = avgRating(ratings)
@@ -88,11 +96,11 @@ const ProductInfo = (props) => {
         <span>{"$" + props.currentStyle.original_price}</span>
       )}
       <Style product={props.product} styles={props.styles.results} currentStyle={props.currentStyle} setStyle={props.setStyle}/>
-      <Cart currentStyle={props.currentStyle}/>
+      <Cart name={props.product.name} currentStyle={props.currentStyle}/>
       <Socials>
-        <a href="https://www.facebook.com"><FontAwesomeIcon icon={faFacebook} size="xl"/></a>
-        <a href="https://www.twitter.com"><FontAwesomeIcon icon={faTwitter} size="xl"/></a>
-        <a href="https://www.pinterest.com"><FontAwesomeIcon icon={faPinterest} size="xl" /></a>
+        <AHref href="https://www.facebook.com"><FontAwesomeIcon icon={faFacebook} size="xl"/></AHref>
+        <AHref href="https://www.twitter.com"><FontAwesomeIcon icon={faTwitter} size="xl"/></AHref>
+        <AHref href="https://www.pinterest.com"><FontAwesomeIcon icon={faPinterest} size="xl" /></AHref>
       </Socials>
     </FlexFit>
   );
