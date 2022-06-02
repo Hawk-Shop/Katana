@@ -6,7 +6,7 @@ import ProductCard from './ProductCard.jsx';
 
 const Carousel = styled.div`
   overflow: hidden;
-  max-width: 1000px;
+  max-width: 1036px;
 `;
 
 const Inner = styled.div`
@@ -23,7 +23,7 @@ const ScrollButton = styled.button`
   margin: 5px;
 `;
 
-const ProductsList = ({list, show, setShow, setRef}) => {
+const ProductsList = ({list, show, setShow, setRef, scrollRef}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const id = useContext(Context).id;
   const length = list.length;
@@ -49,7 +49,7 @@ const ProductsList = ({list, show, setShow, setRef}) => {
            show={show}
            setShow={setShow}
            setRef={setRef}
-          //  setId={setId}
+           scrollRef={scrollRef}
            key={card.id}
            />
         )): null}

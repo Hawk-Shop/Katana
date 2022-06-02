@@ -58,7 +58,7 @@ const FontIcon = styled(FontAwesomeIcon)``;
 
 
 
-const Product= ({themeMode, themeToggler, theme , cart, setCart, cartQty, setCartQty, reviewsRef}) => {
+const Product= ({themeMode, themeToggler, theme , cart, setCart, cartQty, setCartQty, reviewsRef, scrollRef}) => {
 
   const [id, setId] = useState(40344);
   const [productName, setProductName] = useState('');
@@ -68,7 +68,7 @@ const Product= ({themeMode, themeToggler, theme , cart, setCart, cartQty, setCar
   .get(`/products/${id}`)
   .then((res) => setProductName(res.data.name))
   .catch((err) => console.log(err));
-console.log("CART", cart);
+
 
 return (
   <ThemeProvider theme={themeMode}>
@@ -78,12 +78,12 @@ return (
       <div>
         <Context.Provider value={{ id: id, cart, setCart, cartQty, setCartQty }}>
           <h1>Overview</h1>
-          <Overview reviewsRef={reviewsRef}></Overview>
+          <Overview reviewsRef={reviewsRef} scrollRef={scrollRef}></Overview>
         </Context.Provider>
       </div>
       <div>
         <Context.Provider value={{id: id, setId}}>
-          <RelatedProducts ></RelatedProducts>
+          <RelatedProducts scrollRef={scrollRef} ></RelatedProducts>
         </Context.Provider>
       </div>
       <div>

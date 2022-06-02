@@ -14,11 +14,16 @@ const CarouselItem = styled.div`
   align-items: center;
   justify-content: end;
   min-height: 269px;
-  max-width: 210px;
+  max-width: 205px;
   background-color: transparent;
   font-family: Arial Regular;
   padding: 0;
   margin: 10px 25px;
+  transform: scale(1.05);
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.10) 0px 5px 10px;
+    transform: scale(1.05);
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -94,6 +99,7 @@ const Review = styled.div`
 `
 
 const OutfitCard = (props) => {
+  const setId= useContext(Context).setId
   const ratings = props.card.ratings;
   let averageNums = avgRating(ratings);
 
@@ -109,14 +115,20 @@ const OutfitCard = (props) => {
   let priceSign = `$${props.card.default_price}`;
 
   return (
-    <CarouselItem style={props.width}>
+    <CarouselItem style={props.width} onClick={() => {
+      props.card.name !== 'ADD TO YOUR OUTFIT' ?
+      props.scrollRef.current.scrollIntoView({ behavior: 'smooth' })
+      : null;
+    }}>
       <ImageContainer>
         <CardThumbnail src={thumbPath}></CardThumbnail>
           {props.card.name === 'ADD TO YOUR OUTFIT' ?
             <AddButton onClick={props.handleAddClick}>
               <Circle size={50}/>
             </AddButton>:
-            <DeleteButton onClick={() => {props.setDelete(props.card.id)}}>
+            <DeleteButton onClick={(e) => {
+              e.stopPropagation();
+              props.setDelete(props.card.id)}}>
               <Delete size={25}/>
             </DeleteButton>}
       </ImageContainer>
