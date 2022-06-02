@@ -32,23 +32,23 @@ const AnswerBody = styled.div`
 `
 
 const Helpful = styled.div`
-font-size: 14px;
-margin-right: 10px;
-margin-top: 10px;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-top: 10px;
 `
 
 const Yes = styled.button`
-background: none;
-color: inherit;
-border: none;
-padding: 0;
-font: inherit;
-cursor: pointer;
-outline: inherit;
-text-decoration: underline;
-&:hover {
-  color: darkgreen;
-}
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  text-decoration: underline;
+  &:hover {
+    color: darkgreen;
+  }
 `
 
 const Report = styled.button`
@@ -66,9 +66,9 @@ const Report = styled.button`
 `
 
 const User = styled.div`
-margin-top: 10px;
-margin-left: 25px;
-margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 25px;
+  margin-bottom: 10px;
 `
 
 const Size = styled.span`
@@ -81,6 +81,7 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
   let [url, setUrl] = useState('');
   let [aHelpful, setAHelpful] = useState(false);
   let [aReported, setAReported] = useState(false);
+  let [yesCount, setYesCount] = useState(0);
 
   const toggleModal = (e) => {
     // console.log(e.target.currentSrc);
@@ -99,9 +100,6 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
       <AnswerBody>
       <span>{body}</span>
       <User>
-
-
-
         <div>
           {photos.map((photo, index) => {
             return  <Image
@@ -116,12 +114,15 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
               url={url}
               toggleModal={toggleModal}
               modal={modal}
-            />)}
-          {answerer_name.toLowerCase() === "seller" ?
-            <Size>by <b>Seller</b>, </Size> :
-            <Size>by {answerer_name}, </Size>
+            />)
           }
-          <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
+          <div>
+            {answerer_name.toLowerCase() === "seller" ?
+              <Size>by <b>Seller</b>, </Size> :
+              <Size>by {answerer_name}, </Size>
+            }
+            <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
+          </div>
         </div>
         <Helpful> Helpful?
           <Yes onClick={() =>

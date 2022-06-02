@@ -21,7 +21,7 @@ const Questions = styled.div`
   cursor: ns-resize;
   &:hover {
     background-color: rgba(255, 0, 0, .2);
-    transform: scale(1.03);
+    // transform: scale(1.03);
   }
 `;
 
@@ -32,13 +32,6 @@ const QStyle = styled.span`
   margin-left: 10px;
   margin-right: 20px;
 `;
-
-const Helpful = styled.div`
-  text-align: center;
-  font-size: 14px;
-  margin-right: 15px;
-  display: block;
-`
 
 const AStyle = styled.div`
   font-size: 1.2em;
@@ -55,7 +48,7 @@ const ContainText = styled.p`
 
 const Answers = styled.span`
   margin-left: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 10px;
   height: auto;
   width: auto;
@@ -78,9 +71,16 @@ display: block;
 &:hover {
   background: lightgrey;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px;
-  transform: scale(1.05);
+  // transform: scale(1.05);
 }
 `;
+
+const Helpful = styled.div`
+  text-align: center;
+  font-size: 14px;
+  margin-right: 15px;
+  display: block;
+`
 
 const Yes = styled.button`
   background: none;
@@ -147,6 +147,11 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
   let [aRerender, setARerender] = useState(0);
   let [qReported, setQReported] = useState(false);
   let [loading, setLoading] = useState(false);
+  let [yesCount, setYesCount] = useState(question_helpfulness);
+
+  useEffect(() => {
+    getAnswers();
+  },[yesCount])
 
   const getAnswers = () => {
     setLoading(true);
@@ -171,10 +176,10 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
     if (stateVariable) {
       swal("Helpful?", "We only allow one click of 'Yes'. Thank you for your feedback. It helps others in their decision making.", "error");
     } else {
-
       axios
         .put(`/qa/${qOrA}/${id}/${helpful}`)
         .then(() => {
+          setYesCount(yesCount + 1);
           setStateVariable(true);
           swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback.`, "success");
         })
