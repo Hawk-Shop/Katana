@@ -6,7 +6,9 @@
   "scripts": {
     "server-dev": "npx nodemon --watch server ./server.js",
     "client-dev": "npx webpack --watch",
-    "test": "jest"
+    "test": "jest",
+    "build": "webpack",
+    "start": "node ./server.js"
   },
   "repository": {
     "type": "git",

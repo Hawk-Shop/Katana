@@ -10,6 +10,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.get('*.js', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
 // other configuration...
 app.use((req, res, next) => {
   req.headers.Authorization = process.env.AUTH;
