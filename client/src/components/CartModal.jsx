@@ -131,6 +131,9 @@ const CartModal = ({ theme, setCartQty, cartQty, setCart, setCartModal, cart }) 
       promises.push(...item.axiosPromises)
     }
     Promise.all(promises).catch((err) => console.log(err))
+    setCartModal(false)
+    setCart([])
+    setCartQty(0)
   };
   let cartItems = cart.map((item, i) => {
     return (
