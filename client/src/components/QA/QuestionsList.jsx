@@ -19,6 +19,8 @@ const Button = styled.button`
   padding: 0.5em 1em;
   &:hover {
     background: lightgrey;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px;
+    transform: scale(1.05);
   }
 `;
 
@@ -80,8 +82,9 @@ const QuestionsList = ({productName}) => {
         // console.log('response.data: ', response.data.results);
         setQuestions(response.data.results);
       })
-      .catch(() => {
-        swal('Uh oh...', 'On error occurred on our side. Unable to get the questions related to this product right now. Please refresh and try again in a little bit.', 'error');
+      .catch(err => {
+        console.error(err);
+        // swal('Uh oh...', 'On error occurred on our side. Unable to get the questions related to this product right now. Please refresh and try again in a little bit.', 'error');
       })
   }, [showQModel, qRerender, id])
 

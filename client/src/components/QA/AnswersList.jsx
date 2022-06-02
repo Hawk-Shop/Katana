@@ -26,24 +26,29 @@ const Answer = styled.div`
   max-width: 55vw;
 `
 
+const AnswerBody = styled.div`
+  margin-top: 5px;
+  margin-left: 15px;
+`
+
 const Helpful = styled.div`
-font-size: 14px;
-margin-right: 10px;
-margin-top: 10px;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-top: 10px;
 `
 
 const Yes = styled.button`
-background: none;
-color: inherit;
-border: none;
-padding: 0;
-font: inherit;
-cursor: pointer;
-outline: inherit;
-text-decoration: underline;
-&:hover {
-  color: darkgreen;
-}
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  text-decoration: underline;
+  &:hover {
+    color: darkgreen;
+  }
 `
 
 const Report = styled.button`
@@ -61,13 +66,13 @@ const Report = styled.button`
 `
 
 const User = styled.div`
-margin-top: 2px;
-margin-left: 15px;
-margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 25px;
+  margin-bottom: 10px;
 `
 
 const Size = styled.span`
-  text-size: 12px;
+  text-size: 8px;
 `
 
 const AnswersList = ({answer, id, productName, handleHelpful, handleReported, question_id, aRerender, setARerender}) => {
@@ -76,6 +81,7 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
   let [url, setUrl] = useState('');
   let [aHelpful, setAHelpful] = useState(false);
   let [aReported, setAReported] = useState(false);
+  let [yesCount, setYesCount] = useState(0);
 
   const toggleModal = (e) => {
     // console.log(e.target.currentSrc);
@@ -91,14 +97,9 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
 
   return (
     <Answer>
+      <AnswerBody>
       <span>{body}</span>
       <User>
-        {answerer_name.toLowerCase() === "seller" ?
-          <Size>by <b>Seller</b>, </Size> :
-          <Size>by {answerer_name}, </Size>
-        }
-        <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
-
         <div>
           {photos.map((photo, index) => {
             return  <Image
@@ -113,7 +114,15 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
               url={url}
               toggleModal={toggleModal}
               modal={modal}
-            />)}
+            />)
+          }
+          <div>
+            {answerer_name.toLowerCase() === "seller" ?
+              <Size>by <b>Seller</b>, </Size> :
+              <Size>by {answerer_name}, </Size>
+            }
+            <span> {format(parseISO(date), 'MMMM, dd, yyyy')} </span>
+          </div>
         </div>
         <Helpful> Helpful?
           <Yes onClick={() =>
@@ -137,6 +146,7 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
             )}> {aReported ? 'Reported' : 'Report'} </Report>
         </Helpful>
       </User>
+      </AnswerBody>
     </Answer>
   )
 }
