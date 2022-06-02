@@ -45,8 +45,9 @@ export default function AnswerModal ({id, productName, question_id, question_bod
 
   const Username = (
     <label>
-      Username:
+      <span className="inputs">Username:</span>
       <input
+        className="user-input"
         type="text"
         name="username"
         maxLength={60}
@@ -62,12 +63,13 @@ export default function AnswerModal ({id, productName, question_id, question_bod
 
   const Email = (
     <label>
-      Email:
+      <span className="inputs">Email:</span>
       <input
+        className="user-input"
         type="email"
         name="email"
         maxLength={60}
-        size={40}
+        size={41}
         placeholder="Example: jack@email.com"
         value={email}
         onChange={e => setEmail(e.target.value)}
@@ -79,12 +81,13 @@ export default function AnswerModal ({id, productName, question_id, question_bod
 
   const Answer = (
     <label>
-      Answer:
+      <div className="inputs">Answer:</div>
       <textarea
+        className="text-area"
         type="text"
         name="body"
         rows="10"
-        cols="70"
+        cols="65"
         maxLength={1000}
         placeholder="Enter your answers here..."
         value={body}
@@ -144,6 +147,7 @@ export default function AnswerModal ({id, productName, question_id, question_bod
                     <img src={url} alt="..." />
                 ))} */}
               {/* </div> */}
+              <br/>
               <input className="submit-button" type="submit" value="Submit"/>
             </form>
           </div>

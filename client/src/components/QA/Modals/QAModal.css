@@ -14,11 +14,12 @@
   text-transform: none;
   width: 800px;
   background-color: #fff;
+  border-radius: 5px;
 }
 
 .modal-header,
 .modal-footer {
-  padding: 10px;
+  padding: 5px 5px 0 5px;
 }
 
 .modal-title {
@@ -47,8 +48,38 @@
 }
 
 .static {
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 0;
   margin-bottom: 15px;
   margin-left: 10px;
+}
+
+.inputs {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.submit-button,
+.close-button {
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid grey;
+  padding: 0.5em 1em;
+  display: block;
+}
+
+.submit-button:hover,
+.close-button:hover {
+  background: lightgrey;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px;
+  transform: scale(1.05);
+}
+
+.user-input {
+  margin: 0 5px;
+  outline: none;
+}
+
+.text-area {
+  outline: none;
 }

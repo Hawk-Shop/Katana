@@ -27,9 +27,9 @@ const Questions = styled.div`
 
 const QStyle = styled.div`
   font-size: 1em;
+  display: inline-block;
   cursor: ns-resize;
   margin-left: 10px;
-  display: flex;
   align-items: center;
 `;
 
