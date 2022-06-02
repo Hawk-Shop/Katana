@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import styled from 'styled-components';
 import ProductCard from './ProductCard.jsx';
+import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
 
 
 const Carousel = styled.div`

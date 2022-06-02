@@ -64,7 +64,7 @@ const RelatedProducts = ({scrollRef}) => {
 
   }, [id]);
 
-  console.log("WHATS IN MOFO LIST", list)
+  // console.log("WHATS IN MOFO LIST", list)
   // console.log("WHATS IN MAINMOFOPRODUCT", mainProduct.name);
   // console.log("THIS IS PRODUCT ID IN CLICK", deleteID)
   // console.log("THIS IS MAIN ID", id)

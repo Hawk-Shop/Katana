@@ -137,7 +137,6 @@ const Gallery = (props) => {
   const handleMouse = (e) => {
     setX(e.clientX - e.target.offsetLeft);
     setY(e.clientY - e.target.offsetTop);
-    console.log(window.innerWidth, e.clientX);
   };
   return (
     <GallFlex className={[expanded, zoomOverflow].join(" ")}>
