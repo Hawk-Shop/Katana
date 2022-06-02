@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const FeatureList = styled.ul`
   list-style-type: none;
-  width: 40%;
+  width: 25%;
   margin: 0;
 `;
 

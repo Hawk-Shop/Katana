@@ -18,6 +18,7 @@ background-color: lightgrey;
 width: 32%;
 font-size: .8em;
 line-height: 1;
+height: .6em;
 `;
 
 const Spectrum = styled.div`
@@ -41,6 +42,10 @@ font-size: .8em;
 
 const Block = styled.div`
 padding: .5em 0;
+`;
+
+const Container = styled.div`
+padding: 2em 0;
 `;
 
 // const Triangle = styled.div`
@@ -74,27 +79,27 @@ const ProductBreakdown = ({id}) => {
       setChars(charObject);
     })
     .catch((err) => console.log('err', err))
-  }, [])
+  }, []);
 
-  return(
-    <>
-    {Object.keys(chars).map((objectKey, index) => {
-      let percent = (Math.round(100 -((chars[objectKey].value / 5) * 100))).toString() + '%';
-      return (<Block key={index}>
-        {objectKey}
-        <BreakdownBars>
-          <SingleBar>placeholder</SingleBar>
-          <SingleBar>placeholder</SingleBar>
-          <SingleBar>placeholder</SingleBar>
-        </BreakdownBars>
-        <Spectrum>
-          <Triangle style={{right: `${percent}`}}><FontAwesomeIcon icon={faCaretDown}/></Triangle>
-          <Low>{charLegend[objectKey][1]}</Low>
-          <High>{charLegend[objectKey][5]}</High>
-        </Spectrum>
-      </Block>)
-    })}
-    </>
+  return (
+    <Container>
+      {Object.keys(chars).map((objectKey, index) => {
+        let percent = (Math.round(100 -((chars[objectKey].value / 5) * 100))).toString() + '%';
+        return (<Block key={index}>
+          {objectKey}
+          <BreakdownBars>
+            <SingleBar>placeholder</SingleBar>
+            <SingleBar>placeholder</SingleBar>
+            <SingleBar>placeholder</SingleBar>
+          </BreakdownBars>
+          <Spectrum>
+            <Triangle style={{right: `${percent}`}}><FontAwesomeIcon icon={faCaretDown}/></Triangle>
+            <Low>{charLegend[objectKey][1]}</Low>
+            <High>{charLegend[objectKey][5]}</High>
+          </Spectrum>
+        </Block>)
+      })}
+    </Container>
   )
 }
 

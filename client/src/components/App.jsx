@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import { useDarkMode } from "./DarkMode/UseDarkMode.jsx";
 import { lightTheme, darkTheme } from "./DarkMode/Themes.jsx";
-import Toggle from "./DarkMode/Toggler.jsx";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,16 +18,23 @@ import Product from "./Product.jsx";
 window.React = React;
 Window.sessionStorage = { cart: [], qty: 0 };
 
-
 const HeaderStyle = styled.header`
-  max-width: 80%;
-  margin: 0 auto;
+  max-width: 100%;
 `;
 
 const NavBar = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  width: 98%;
+	float: left;
+  top: 0;
+  left: 0;
+  padding: 0 1em;
+	border-bottom: 1px solid #ccc;
+  z-index: 1;
+  position: fixed;
+  height: 4em;
 `;
 
 const List = styled.ul`
@@ -50,14 +56,18 @@ const CartNum = styled.span`
   font-weight: bold;
 `;
 
+const TopDiv = styled.div`
+height: 5em;
+width: 100%;
+`;
+
 const FontIcon = styled(FontAwesomeIcon)``;
 
 const App = (props) => {
-
   const [theme, themeToggler] = useDarkMode();
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
-  const [view, setView] = useState({ name: "Product", viewProps: {} });
+  const [view, setView] = useState({ name: "Home", viewProps: {} });
   const [cartQty, setCartQty] = useState(0);
   const [cart, setCart] = useState([]);
   const [cartModal, setCartModal] = useState(false);
@@ -77,27 +87,35 @@ const App = (props) => {
     renderView();
   }, [view]);
 
-
   const renderView = () => {
     switch (view.name) {
       case "Product":
-        return <Product
-        themeMode={themeMode}
-        theme={theme}
-        themeToggler={themeToggler}
-        cart={cart}
-        setCart={setCart}
-        cartQty={cartQty}
-        setCartQty={setCartQty}
-        reviewsRef={reviewsRef}
-        scrollRef={scrollRef}
-        id={id}
-        setId={setId}
-        />;
+        return (
+          <Product
+            themeMode={themeMode}
+            theme={theme}
+            themeToggler={themeToggler}
+            cart={cart}
+            setCart={setCart}
+            cartQty={cartQty}
+            setCartQty={setCartQty}
+            reviewsRef={reviewsRef}
+            id={id}
+            setId={setId}
+            scrollRef={scrollRef}
+          />
+        );
 
-        case "Home":
-          return <HomePage changeView={changeView} setId={setId}/>;
-
+      case "Home":
+        return (
+          <HomePage
+            changeView={changeView}
+            setId={setId}
+            themeMode={themeMode}
+            theme={theme}
+            themeToggler={themeToggler}
+          />
+        );
 
       case "Cart":
         return <Cart />;
@@ -107,8 +125,12 @@ const App = (props) => {
   return (
     <>
       <HeaderStyle>
-        <NavBar>
-          <h1 onClick={() => changeView("Home")()} style={{ cursor: "pointer" }}><FontIcon icon={faHouse}/>
+        <NavBar style={{backgroundColor: `${theme === 'light' ? "#edf1f7" : "#3c3d40"}`}}>
+          <h1
+            onClick={() => changeView("Home")()}
+            style={{ cursor: "pointer" }}
+          >
+            <FontIcon icon={faHouse} />
             &nbsp; Hawk Shop{" "}
           </h1>
           <List>
@@ -138,6 +160,7 @@ const App = (props) => {
               setCartModal={setCartModal}
               cartQty={cartQty}
               setCartQty={setCartQty}
+              theme={theme}
             />
           )}
         </NavBar>
