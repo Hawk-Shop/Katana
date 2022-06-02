@@ -152,7 +152,9 @@ const QuestionsList = ({productName}) => {
           questionCount < questions.length ?
             <p>Viewing {questionCount} of {questions.length} questions</p> : <p>Viewing {questions.length} of {questions.length} questions</p>
         )}
-
+        {searchInput.length > 2 && (
+          <br/>
+        )}
         {questionCount < questions.length && [
           showMoreQuestions
         ]}
