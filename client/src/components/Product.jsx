@@ -50,7 +50,7 @@ return (
       </div>
       <div>
         <Context.Provider value={{id: id}}>
-          <QuestionsList></QuestionsList>
+          <QuestionsList productName={productName}></QuestionsList>
         </Context.Provider>
       </div>
       <div>
