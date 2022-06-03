@@ -161,7 +161,7 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
   }
 
   const handleHelpful = (stateVariable, qOrA, id, helpful, setStateVariable, rerender, setRerender) => {
-    console.log(`/qa/${qOrA}/${id}/${helpful}`);
+    // console.log(`/qa/${qOrA}/${id}/${helpful}`);
     if (stateVariable) {
       swal("Helpful?", "We only allow one click of 'Yes'. Thank you for your feedback. It helps others in their decision making.", "error");
     } else {
@@ -184,7 +184,7 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
   }
 
   const handleReported = (stateVariable, qOrA, id, report, setStateVariable) => {
-    console.log(`/qa/${qOrA}/${id}/${report}`);
+    // console.log(`/qa/${qOrA}/${id}/${report}`);
     if (stateVariable) {
       swal("Helpful?", "We only allow fone click of 'Reported'. We will review this as soon as possible.", "error");
     } else {
@@ -197,8 +197,8 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
           swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback. ${report === 'report' ?customerSupport : ''}`, "success");
         })
         .catch(err => {
-          console.error(err);
           swal('An error happened...', 'Unfortunately, there was an error on our side. Please try again in a little bit.', 'error');
+          // console.error(err);
         })
     }
   }
