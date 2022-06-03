@@ -60,8 +60,8 @@ const CartNum = styled.span`
 const FontIcon = styled(FontAwesomeIcon)``;
 
 const App = (props) => {
-  let localCart = JSON.parse(localStorage.getItem("Cart"))
-  let localQty = localCart.length
+  let localCart = JSON.parse(localStorage.getItem("Cart"));
+  let localQty = localCart.length || 0;
   const [theme, themeToggler] = useDarkMode();
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
