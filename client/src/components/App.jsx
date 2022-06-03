@@ -14,6 +14,7 @@ import {
 import HomePage from "./HomePage.jsx";
 import CartModal from "./CartModal.jsx";
 import Product from "./Product.jsx";
+import Checkout from "./Checkout.jsx";
 
 window.React = React;
 Window.sessionStorage = { cart: [], qty: 0 };
@@ -27,11 +28,11 @@ const NavBar = styled.nav`
   justify-content: space-between;
   align-items: flex-end;
   width: 98%;
-	float: left;
+  float: left;
   top: 0;
   left: 0;
   padding: 0 1em;
-	border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   z-index: 1;
   position: fixed;
   height: 4em;
@@ -59,18 +60,25 @@ const CartNum = styled.span`
 const FontIcon = styled(FontAwesomeIcon)``;
 
 const App = (props) => {
+  let localCart = JSON.parse(localStorage.getItem("Cart")) || [];
+  let localQty = localCart.length
   const [theme, themeToggler] = useDarkMode();
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
   const [view, setView] = useState({ name: "Home", viewProps: {} });
-  const [cartQty, setCartQty] = useState(0);
-  const [cart, setCart] = useState([]);
+  const [cartQty, setCartQty] = useState(localQty);
+  const [cart, setCart] = useState(localCart);
   const [cartModal, setCartModal] = useState(false);
-
   const reviewsRef = useRef();
   const scrollRef = useRef();
 
   const [id, setId] = useState(40344);
+  useEffect(() => {
+    localStorage.setItem("Cart", JSON.stringify(cart))
+    localCart = JSON.parse(localStorage.getItem("Cart"))
+    localQty = localCart.length
+    setCartQty(localQty)
+  }, [cart])
 
   const changeView = (name, someProps = {}) => {
     return (moreProps = {}) => {
@@ -112,15 +120,34 @@ const App = (props) => {
           />
         );
 
-      case "Cart":
-        return <Cart />;
+      case "Checkout":
+        return (
+          <Checkout
+            changeView={changeView}
+            setId={setId}
+            themeMode={themeMode}
+            theme={theme}
+            themeToggler={themeToggler}
+            cartItems={view.viewProps}
+            setCart={setCart}
+            cart={cart}
+            setCartModal={setCartModal}
+            cartQty={cartQty}
+            setCartQty={setCartQty}
+            changeView={changeView}
+          />
+        );
     }
   };
 
   return (
     <>
       <HeaderStyle>
-        <NavBar style={{backgroundColor: `${theme === 'light' ? "#edf1f7" : "#3c3d40"}`}}>
+        <NavBar
+          style={{
+            backgroundColor: `${theme === "light" ? "#edf1f7" : "#3c3d40"}`,
+          }}
+        >
           <h1
             onClick={() => changeView("Home")()}
             style={{ cursor: "pointer" }}
@@ -156,6 +183,7 @@ const App = (props) => {
               cartQty={cartQty}
               setCartQty={setCartQty}
               theme={theme}
+              changeView={changeView}
             />
           )}
         </NavBar>

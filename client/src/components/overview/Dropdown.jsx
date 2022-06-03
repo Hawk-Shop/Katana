@@ -20,46 +20,50 @@ const Dropdown = ({
 }) => {
   let mapper;
 
-  if (name === "sizer") {
-    mapper = Object.keys(options).map((key) => [key, options[key]]);
-  } else {
-    if (size && size !== "SELECT SIZE") {
-      for (let sku of Object.values(options)) {
-        if (sku.size === size) {
-          let qty = sku.quantity;
-          if (qty > 15) {
-            qty = 15;
-          }
-          mapper = [...Array(qty)].map((_, i) => i + 1);
-        }
-      }
+  if (options) {
+    if (name === "sizer") {
+      mapper = Object.keys(options).map((key) => [key, options[key]]);
     } else {
-      mapper = [];
-      disabled = true;
-    }
-  }
-  return (
-    <SelectDrop value={value} onChange={onChange} required disabled={disabled}>
-      <option value="" defaultValue hidden>
-        {placeholder}
-      </option>
-      {mapper.map((option, index) => {
-        if (name === "sizer") {
-          return <option key={index} value={option[1].size}>{option[1].size}</option>;
-        } else {
-          if (option === 1) {
-            return (
-              <option key={index} selected value={option}>
-                {option}
-              </option>
-            );
-          } else {
-            return <option key={index} value={option}>{option}</option>;
+      if (size && size !== "SELECT SIZE") {
+        for (let sku of Object.values(options)) {
+          if (sku.size === size) {
+            let qty = sku.quantity;
+            if (qty > 15) {
+              qty = 15;
+            }
+            mapper = [...Array(qty)].map((_, i) => i + 1);
           }
         }
-      })}
-    </SelectDrop>
-  );
+      } else {
+        mapper = [];
+        disabled = true;
+      }
+    }
+    return (
+      <SelectDrop value={value} onChange={onChange} required disabled={disabled}>
+        <option value="" defaultValue hidden>
+          {placeholder}
+        </option>
+        {mapper && mapper.map((option, index) => {
+          if (name === "sizer") {
+            return <option key={index} value={option[1].size}>{option[1].size}</option>;
+          } else {
+            if (option === 1) {
+              return (
+                <option key={index} selected value={option}>
+                  {option}
+                </option>
+              );
+            } else {
+              return <option key={index} value={option}>{option}</option>;
+            }
+          }
+        })}
+      </SelectDrop>
+    );
+
+
+  }
 };
 
 export default Dropdown;
