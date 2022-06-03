@@ -139,7 +139,7 @@ const QuestionsList = ({productName}) => {
             }
           }).slice(0, questionCount).map((question) => {
             return  <Question
-                      key={question.questin_id}
+                      key={question.question_id}
                       question={question}
                       id={id}
                       productName={productName}
