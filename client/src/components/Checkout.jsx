@@ -6,6 +6,8 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./DarkMode/GlobalStyles.jsx";
 import Toggle from "./DarkMode/Toggler.jsx";
+import Form from "./Form.jsx";
+
 
 const Container = styled.div`
   display: flex;
@@ -67,12 +69,11 @@ const XItem = styled(XIcon)`
 `;
 
 const LeftDiv = styled.div`
-width: 65%
+  width: 50%;
+  margin-left: 10%;
 `;
 
-const RightDiv = styled.div`
-
-`;
+const RightDiv = styled.div``;
 
 const Prices = styled.div`
   display: flex;
@@ -91,9 +92,8 @@ const Addbtn = styled.button`
   color: white;
   padding: 0.25em 0.5em;
   font-weight: bold;
-  line-height: 1.5;
-  align-self: center;
-  width: 50%;
+  line-height: 2;
+  width: 20%;
   margin-top: 10%;
   cursor: pointer;
   &:hover {
@@ -105,17 +105,19 @@ const Addbtn = styled.button`
   }
 `;
 
+const CheckoutCtn = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const Checkout = ({
   changeView,
   themeMode,
-  theme,
   setCartQty,
   cartQty,
   setCart,
-  setCartModal,
   cart,
 }) => {
-
   const handlePurchase = () => {
     let promises = [];
     for (let item of cart) {
@@ -127,8 +129,8 @@ const Checkout = ({
       promises.push(...axiosPromises);
     }
     Promise.all(promises).catch((err) => console.log(err));
-    setCart([])
-    setCartQty(0)
+    setCart([]);
+    setCartQty(0);
     changeView("Home")();
   };
 
@@ -171,15 +173,17 @@ const Checkout = ({
 
       <Container>
         <LeftDiv>
-          <Addbtn  onClick={() => handlePurchase()}>
-            CHECKOUT
-          </Addbtn>
+          <Form/>
+          <Addbtn onClick={() => handlePurchase()}>PURCHASE</Addbtn>
         </LeftDiv>
         <RightDiv>
           <List>{cartItems}</List>
           <PricesCtn>
             <Prices>
               <span>Subtotal</span> <span>${totalPrice.toFixed(2)}</span>
+            </Prices>
+            <Prices>
+              <span>Shipping</span> <span>$0.00</span>
             </Prices>
             <Prices
               style={{

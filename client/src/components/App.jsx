@@ -65,11 +65,10 @@ const App = (props) => {
   const [theme, themeToggler] = useDarkMode();
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
-  const [view, setView] = useState({ name: "Checkout", viewProps: {} });
+  const [view, setView] = useState({ name: "Home", viewProps: {} });
   const [cartQty, setCartQty] = useState(localQty);
   const [cart, setCart] = useState(localCart);
   const [cartModal, setCartModal] = useState(false);
-  console.log(cart)
   const reviewsRef = useRef();
   const scrollRef = useRef();
 

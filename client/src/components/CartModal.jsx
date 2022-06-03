@@ -52,6 +52,8 @@ const ItemCtn = styled.div`
   padding-bottom: 3%;
   padding-top: 3%;
   width: 100%;
+  justify-content: space-between;
+
 `;
 
 const List = styled.div`
@@ -72,15 +74,18 @@ const Details = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 3%;
+  width: 50%;
 `;
 const Right = styled.div`
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-end;
   justify-content: space-between;
-  margin-left: 30%;
+  margin-right: 5%;
+  width: 25%;
 `;
-const Price = styled.div``;
+const Price = styled.div`
+`;
 
 const Text = styled.span`
   align-self: center;
@@ -114,12 +119,12 @@ const Addbtn = styled.button`
 `;
 
 const SelectDrop = styled.select`
-  margin: 5% 5% 0 0;
+  margin: 5% 0 0 0;
   border: 1px solid black;
   border-radius: 0.25em;
   padding: 0.25em 0.5em;
   cursor: pointer;
-  width: 35%;
+  width: 25%;
   line-height: 1.1;
   background-color: #fff;
   background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
@@ -145,7 +150,7 @@ const CartModal = ({
   };
 
   const handlePurchase = () => {
-
+    setCartModal(false);
     changeView("Checkout", { cartItems })();
   };
 
