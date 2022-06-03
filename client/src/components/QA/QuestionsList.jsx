@@ -24,7 +24,7 @@ const Button = styled.button`
   }
 `;
 
-const Section = styled.section`
+const Questions = styled.section`
   overflow: auto;
   height:100%;
   max-height: 85vh;
@@ -130,16 +130,16 @@ const QuestionsList = ({productName}) => {
             addQuestion
           ]
         }
-        <Section>
+        <Questions>
           {questions.filter((question) => {
             if (searchInput.length < 3) {
               return question;
             } else if (question.question_body.toLowerCase().includes(searchInput.toLowerCase())) {
               return question;
             }
-          }).slice(0, questionCount).map((question, index) => {
+          }).slice(0, questionCount).map((question) => {
             return  <Question
-                      key={index}
+                      key={question.questin_id}
                       question={question}
                       id={id}
                       productName={productName}
@@ -147,7 +147,7 @@ const QuestionsList = ({productName}) => {
                       setQRerender={setQRerender}
                     />
           })}
-        </Section>
+        </Questions>
         {questionCount < questions.length ? <p>Viewing {questionCount} of {questions.length} questions</p> : <p>Viewing {questions.length} of {questions.length} questions</p>}
         {questionCount < questions.length && [
           showMoreQuestions

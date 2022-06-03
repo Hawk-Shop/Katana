@@ -11,8 +11,8 @@ const Questions = styled.div`
   text-transform: uppercase;
   border: 1px solid;
   border-radius: 5px;
-  width: auto;
   height: auto;
+  max-width: 65vw;
   margin: 5px auto;
   -webkit-transition: background-color .35s ease-out;
   -moz-transition: background-color .35s ease-out;
@@ -25,19 +25,22 @@ const Questions = styled.div`
   }
 `;
 
-const QStyle = styled.span`
+const QStyle = styled.div`
   font-size: 1em;
-  display: flex;
+  display: inline-block;
   cursor: ns-resize;
   margin-left: 10px;
   margin-right: 20px;
 `;
 
+const AnswersBlock = styled.div`
+
+`
+
 const AStyle = styled.div`
   font-size: 1.2em;
   margin-bottom: 0.5em;
-  margin-left: 100px;
-  margin-top: 20px;
+  margin-left: 55px;
   display: inline-block;
   vertical-align: top;
 `;
@@ -46,19 +49,10 @@ const ContainText = styled.p`
   width: 600px;
 `
 
-const Answers = styled.span`
-  margin-left: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  height: auto;
-  width: auto;
-  display: inline-block;
-  flex-direction: column;
-`
-
 const Container = styled.div`
   display: flex;
   align-items: baseline;
+  margin-bottom: 20px;
 `
 
 const Button = styled.button`
@@ -71,7 +65,7 @@ display: block;
 &:hover {
   background: lightgrey;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px;
-  // transform: scale(1.05);
+  transform: scale(1.05);
 }
 `;
 
@@ -79,7 +73,6 @@ const Helpful = styled.div`
   text-align: center;
   font-size: 14px;
   margin-right: 15px;
-  display: block;
 `
 
 const Yes = styled.button`
@@ -130,7 +123,7 @@ const NoAnswers = styled.div`
 `
 
 const AnswerList = styled.div`
-  margin: 20px 0 5px 10px;
+  margin: 0 0 5px 10px;
   display: inline-block;
 `
 
@@ -258,6 +251,7 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
               setQReported
             )}> {qReported ? 'Reported' : 'Report'}
           </Report>
+          <br/>
           <AddAnswer onClick={() => setShow(true)}>Add Answer</AddAnswer>
         </Helpful>
         <AnswerModal
@@ -279,31 +273,29 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
       {/* {loading && (
         <h4>Loading...</h4>
       )} */}
-      <Answers >
-        {questionClicked && answers && (
-          <>
-            {answers.length !== 0 && (
-              <AStyle><b>A:</b></AStyle>
-            )}
-            <AnswerList>
-              {answers.slice(0, answerCount).map((answer, index) => {
-                // console.log(answer);
-                return  (
-                  <AnswersList
-                    key={index}
-                    answer={answer}
-                    handleHelpful={handleHelpful}
-                    handleReported={handleReported}
-                    question_id={question_id}
-                    aRerender={aRerender}
-                    setARerender={setARerender}
-                  />
-                )
-              })}
-            </AnswerList>
-          </>
-        )}
-      </Answers>
+      {questionClicked && answers && (
+        <AnswersBlock>
+          {answers.length !== 0 && (
+            <AStyle><b>A:</b></AStyle>
+          )}
+          <AnswerList>
+            {answers.slice(0, answerCount).map((answer) => {
+              // console.log(answer);
+              return  (
+                <AnswersList
+                  key={answer.answer_id}
+                  answer={answer}
+                  handleHelpful={handleHelpful}
+                  handleReported={handleReported}
+                  question_id={question_id}
+                  aRerender={aRerender}
+                  setARerender={setARerender}
+                />
+              )
+            })}
+          </AnswerList>
+        </AnswersBlock>
+      )}
       {questionClicked && !loading && (
         answerCount < answers.length && (
           seeMoreAnswers
