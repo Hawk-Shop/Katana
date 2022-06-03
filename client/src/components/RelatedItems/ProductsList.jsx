@@ -28,6 +28,7 @@ const LeftButton = styled.button`
   height: 30px;
   width: 40px;
   color: #a9a9a9;
+  cursor: pointer;
   transform: scale(1.05);
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.20) 0px 5px 10px;
@@ -44,6 +45,7 @@ const RightButton = styled.button`
   height: 30px;
   width: 40px;
   color: #a9a9a9;
+  cursor: pointer;
   transform: scale(1.05);
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.20) 0px 5px 10px;
