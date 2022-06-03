@@ -1,6 +1,8 @@
 import {useState, useEffect} from "react";
 import "./QAModal.css";
 import axios from 'axios';
+import swal from 'sweetalert';
+
 
 export default function AnswerModal ({id, productName, showQModel, onClose}) {
   if (!showQModel) {
