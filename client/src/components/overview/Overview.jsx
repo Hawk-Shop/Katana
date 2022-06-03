@@ -12,6 +12,9 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
+  @media (max-width: 526px) {
+    width: 500px;
+  }
 `;
 
 const TopCtn = styled.div`
