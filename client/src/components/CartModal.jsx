@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
-import {ThemeProvider} from "styled-components";
+import { ThemeProvider } from "styled-components";
 
 const Modal = styled.div`
   width: 25%;
@@ -13,7 +13,6 @@ const Modal = styled.div`
   bottom: 0;
   position: fixed;
   z-index: 10;
-
 `;
 const Overlay = styled.div`
   width: 100vw;
@@ -37,7 +36,7 @@ const ModalContent = styled.div`
   flex-direction: column;
   align-items: flex-start;
   &.dark {
-    color: #FAFAFA;
+    color: #fafafa;
     background: #999;
   }
 `;
@@ -89,7 +88,6 @@ const Text = styled.span`
   font-size: 1.3rem;
 `;
 
-
 const XItem = styled(XIcon)`
   margin: 0;
 `;
@@ -115,26 +113,60 @@ const Addbtn = styled.button`
   }
 `;
 
-const CartModal = ({ theme, setCartQty, cartQty, setCart, setCartModal, cart }) => {
-  const dark = (theme === 'dark') ? 'dark' : 'none'
+const SelectDrop = styled.select`
+  margin: 5% 5% 0 0;
+  border: 1px solid black;
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  width: 35%;
+  line-height: 1.1;
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+`;
+
+const CartModal = ({
+  changeView,
+  theme,
+  setCartQty,
+  cartQty,
+  setCart,
+  setCartModal,
+  cart,
+}) => {
+
+
+  const dark = theme === "dark" ? "dark" : "none";
   const removeItem = (index, qty) => {
     const copy = [...cart];
     copy.splice(index, 1);
     setCart(copy);
-    setCartQty(cartQty - Number(qty));
+    setCartQty(cartQty-=1);
   };
 
   const handlePurchase = () => {
     let promises = [];
     for (let item of cart) {
-      promises.push(...item.axiosPromises)
+      promises.push(...item.axiosPromises);
     }
-    Promise.all(promises).catch((err) => console.log(err))
-    setCartModal(false)
-    setCart([])
-    setCartQty(0)
+    Promise.all(promises).catch((err) => console.log(err));
+    setCartModal(false);
+    // setCart([])
+    // setCartQty(0)
+    changeView("Checkout", { cartItems })();
   };
+
+  const handleChange = (e, i) => {
+    console.log(e.target.value, i)
+    const copy = [...cart];
+    setCartQty(cartQty + (e.target.value - copy[i].qty))
+
+    copy[i].qty = e.target.value
+    setCart(copy);
+  }
+
   let cartItems = cart.map((item, i) => {
+    let mapper = [...Array(item.max_qty)].map((_, i) => i + 1);
     return (
       <ItemCtn key={i}>
         <ImageDiv>
@@ -146,7 +178,26 @@ const CartModal = ({ theme, setCartQty, cartQty, setCart, setCartModal, cart }) 
           </span>
           <span>{item.currentStyle.name}</span>
           <span>Size: {item.size}</span>
-          <span>Qty: {item.qty}</span>
+          {/* <span>Qty: {item.qty}</span> */}
+          <SelectDrop onChange={(e) => handleChange(e, i)}>
+            <option value={item.qty} defaultValue hidden> {item.qty}
+            </option>
+            {mapper.map((option, index) => {
+              if (option === item.qty) {
+                return (
+                  <option key={index} selected value={option}>
+                    {option}
+                  </option>
+                );
+              } else {
+                return (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                );
+              }
+            })}
+          </SelectDrop>
         </Details>
         <Right>
           <Price>
@@ -170,7 +221,9 @@ const CartModal = ({ theme, setCartQty, cartQty, setCart, setCartModal, cart }) 
         {cart.length ? (
           <>
             <List>{cartItems}</List>
-            <Addbtn className={dark} onClick={() => handlePurchase()}>PURCHASE</Addbtn>
+            <Addbtn className={dark} onClick={() => handlePurchase()}>
+              CHECKOUT
+            </Addbtn>
           </>
         ) : (
           <Text>Your Cart is Empty</Text>

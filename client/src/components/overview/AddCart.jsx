@@ -33,17 +33,20 @@ const AddCart = ({ skus, size, qty, currentStyle, name }) => {
   const handleAdd = () => {
     if (size !== "SELECT SIZE") {
       let sku;
+      let max_qty;
       for (let key in skus) {
         if (skus[key].size === size) {
           sku = key;
+          max_qty = skus[key].quantity
         }
       }
+
+      if (max_qty > 15) max_qty = 15
 
       let isInCart = false;
       const newCart = [...context.cart]
       for (let item of newCart) {
         if (item.sku === sku) {
-          context.setCartQty(context.cartQty + Number(qty));
           item.qty = JSON.stringify(Number(item.qty) + Number(qty))
           context.setCart(newCart)
           isInCart = true;
@@ -68,6 +71,7 @@ const AddCart = ({ skus, size, qty, currentStyle, name }) => {
             axiosPromises,
             id: context.id,
             name,
+            max_qty
           },
         ]);
 
