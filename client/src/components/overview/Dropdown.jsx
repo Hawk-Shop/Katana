@@ -44,7 +44,7 @@ const Dropdown = ({
         <option value="" defaultValue hidden>
           {placeholder}
         </option>
-        {mapper.map((option, index) => {
+        {mapper && mapper.map((option, index) => {
           if (name === "sizer") {
             return <option key={index} value={option[1].size}>{option[1].size}</option>;
           } else {

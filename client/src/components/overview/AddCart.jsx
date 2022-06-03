@@ -60,6 +60,7 @@ const AddCart = ({ skus, size, qty, currentStyle, name }) => {
             .post("/cart", { sku_id: Number(sku) })
             .catch((err) => console.log(err));
         });
+        console.log(axiosPromises)
 
         context.setCart([
           ...context.cart,

@@ -145,14 +145,7 @@ const CartModal = ({
   };
 
   const handlePurchase = () => {
-    let promises = [];
-    for (let item of cart) {
-      promises.push(...item.axiosPromises);
-    }
-    Promise.all(promises).catch((err) => console.log(err));
-    setCartModal(false);
-    // setCart([])
-    // setCartQty(0)
+
     changeView("Checkout", { cartItems })();
   };
 
