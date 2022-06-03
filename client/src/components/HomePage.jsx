@@ -45,7 +45,7 @@ width: 100%;
 `;
 
 const HomePage = ({setId, changeView, themeMode, theme, themeToggler}) => {
-  const [products, setProducts] = useState(["40344","40355", "40346", "40347", "40348", "40349", "40350", "40351", "40352", "40353", "40355", "40356", "40357"]);
+  const [products, setProducts] = useState(["40344","40355", "40346", "40347", "40348", "40349", "40350", "40351", "40352", "40353", "40355", "40356", "40357", "40358"]);
 
   useEffect(() => {
     // axios.get('/products/?page=2&count=10')

@@ -14,6 +14,7 @@ const Modal = styled.div`
   right: 0;
   bottom: 0;
   position: fixed;
+  z-index: 1;
 `;
 
 const Overlay = styled.div`
@@ -38,7 +39,7 @@ const ModalContent = styled.div`
   border-radius: 10px;
   max-height: 80%;
   min-height: 300px;
-  max-width: 100%;
+  max-width: 60%;
   min-width: 300px;
   border-style: solid;
   border-width: 2px;
@@ -129,7 +130,6 @@ const NewReview = ({closeModal, showModal, setShowModal}) => {
     console.log(axiosBody);
     axios.post('/reviews', axiosBody)
     .then((res) => {
-      console.log('successfully added reviews');
       closeModal();
     })
     .catch((err) => console.log('error', err));

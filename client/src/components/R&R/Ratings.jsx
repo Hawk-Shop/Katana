@@ -12,6 +12,9 @@ const Container = styled.div`
   width: 24%;
   padding: 2%;
   float: left;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
   `;
 
   const NumRating = styled.span`
