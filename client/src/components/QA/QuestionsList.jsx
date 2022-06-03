@@ -172,7 +172,6 @@ const QuestionsList = ({productName}) => {
         )}
         <QuestionModal
           id={id}
-          key="qModal"
           productName={productName}
           onClose={() => setShowQModel(false)}
           showQModel={showQModel}

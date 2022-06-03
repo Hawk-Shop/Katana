@@ -52,7 +52,7 @@ export default function AnswerModal ({id, productName, question_id, question_bod
         name="username"
         maxLength={60}
         size={36}
-        placeholder="Example: jackson11!"
+        placeholder="Example: jack543!"
         value={username}
         onChange={e => setUsername(e.target.value)}
         required
