@@ -3,6 +3,7 @@ import { Context } from '../util/context.js';
 import styled from 'styled-components';
 import OutfitCard from './OutfitCard.jsx';
 import { ImArrowLeft, ImArrowRight } from 'react-icons/im';
+import {useMediaQuery} from 'react-responsive';
 
 const Carousel = styled.div`
   overflow: hidden;
@@ -13,6 +14,13 @@ const Inner = styled.div`
   white-space: nowrap;
   transition: transform 0.3s;
 `;
+
+const MobileInner = styled.div`
+  white-space: nowrap;
+  transition: transform 0.3s;
+  margin-left: 35px;
+  align-items: center;
+`
 
 const Scroll = styled.div`
   display: flex;
@@ -64,45 +72,90 @@ const OutfitList = ({outfit, handleAddClick, setDelete, scrollRef}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const length = outfit.length;
 
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 1224px)'
+  })
+  const isBigScreen = useMediaQuery({ query: '(min-width: 1824px)' })
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+  const isPortrait = useMediaQuery({ query: '(orientation: portrait)' })
+  const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' })
+
   const updateIndex = (newIndex) => {
     if (newIndex < 0) {
       newIndex = 0;
-    } else if (newIndex >= (length/4)) {
+    } else if (newIndex >= (length/4) && isDesktopOrLaptop) {
       newIndex = (length/4) -1;
+    } else if (newIndex >= (length) && isTabletOrMobile) {
+      newIndex = (length) -1;
     }
     setActiveIndex(newIndex);
   };
 
   return (
-    <Carousel>
-      <Inner
-        style={{ transform: `translateX(-${activeIndex * 100}%)`}}>
-        {outfit ?
-          outfit.map((card) => (
-            <OutfitCard
-            card={card}
-            width={{ width: "25%"}}
-            handleAddClick={handleAddClick}
-            key={card.id}
-            setDelete={setDelete}
-            scrollRef={scrollRef}
-            />
-          ))
-        :null}
-      </Inner>
-      <Scroll>
-        {length > 4 ?
-          <>
-          <LeftButton onClick={() => {updateIndex(activeIndex - 1);}}>
-            <LeftArrow size={20}/>
-          </LeftButton>
-          <RightButton onClick={() => {updateIndex(activeIndex + 1);}}>
-            <RightArrow size={20}/>
-          </RightButton>
-          </>
-        : null}
-      </Scroll>
-    </Carousel>
+    <>
+      {isTabletOrMobile &&
+        <Carousel>
+          <MobileInner
+            style={{ transform: `translateX(-${activeIndex * 100}%)`}}>
+            {outfit ?
+              outfit.map((card) => (
+                <OutfitCard
+                card={card}
+                width={{ width: "100%"}}
+                handleAddClick={handleAddClick}
+                key={card.id}
+                setDelete={setDelete}
+                scrollRef={scrollRef}
+                />
+              ))
+            :null}
+          </MobileInner>
+          <Scroll>
+            {length > 1 ?
+              <>
+              <LeftButton onClick={() => {updateIndex(activeIndex - 1);}}>
+                <LeftArrow size={20}/>
+              </LeftButton>
+              <RightButton onClick={() => {updateIndex(activeIndex + 1);}}>
+                <RightArrow size={20}/>
+              </RightButton>
+              </>
+            : null}
+          </Scroll>
+        </Carousel>
+      }
+      {isDesktopOrLaptop &&
+        <Carousel>
+          <Inner
+            style={{ transform: `translateX(-${activeIndex * 100}%)`}}>
+            {outfit ?
+              outfit.map((card) => (
+                <OutfitCard
+                card={card}
+                width={{ width: "25%"}}
+                handleAddClick={handleAddClick}
+                key={card.id}
+                setDelete={setDelete}
+                scrollRef={scrollRef}
+                />
+              ))
+            :null}
+          </Inner>
+          <Scroll>
+            {length > 4 ?
+              <>
+              <LeftButton onClick={() => {updateIndex(activeIndex - 1);}}>
+                <LeftArrow size={20}/>
+              </LeftButton>
+              <RightButton onClick={() => {updateIndex(activeIndex + 1);}}>
+                <RightArrow size={20}/>
+              </RightButton>
+              </>
+            : null}
+          </Scroll>
+        </Carousel>
+      }
+    </>
   )
 }
 
