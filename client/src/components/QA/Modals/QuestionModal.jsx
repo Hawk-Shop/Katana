@@ -1,8 +1,10 @@
 import {useState, useEffect} from "react";
 import "./QAModal.css";
 import axios from 'axios';
+import swal from 'sweetalert';
 
-export default function AnswerModal ({id, productName, showQModel, onClose}) {
+
+export default function QuestionModal ({id, productName, showQModel, onClose}) {
   if (!showQModel) {
     return null
   }
@@ -24,27 +26,30 @@ export default function AnswerModal ({id, productName, showQModel, onClose}) {
     }
   }, [])
 
+  if (showQModel) {
+    document.body.classList.add('active-modal');
+  } else {
+    document.body.classList.remove('active-modal');
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username === "" || email === "" || body === "") {
-      alert("In order to add an answer, you must complete all fields.")
-    } else {
-      console.log(id, username, email, body);
-      axios
-        .post(`/qa/questions/`, {
-          body: body,
-          name: username,
-          email: email,
-          product_id: id
-        })
-        .then(response => {
-          console.log('response data for adding a question: ', response);
-          onClose();
-        })
-        .catch(err => {
-          console.error('error adding a question: ', err);
-        })
-    }
+    axios
+      .post(`/qa/questions/`, {
+        body: body,
+        name: username,
+        email: email,
+        product_id: Number(id)
+      })
+      .then(response => {
+        // console.log('response data for adding a question: ', response);
+        swal("🎉 Success! 🎉", `Your answer has been added to this question. If there are more than 2 answers, you may need to click on "See More Answers" to view yours. Thanks for your contribution!`, "success");
+        onClose();
+      })
+      .catch(err => {
+        swal('Uh oh...', 'On error occurred on our side. Unable to add your answer at this time. Please refresh and try again in a little bit.', 'error');
+        // console.error('the error:', err);
+      })
   }
 
   const Username = (

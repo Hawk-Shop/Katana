@@ -2,6 +2,8 @@ import {useState, useEffect} from "react";
 import "./QAModal.css";
 import axios from 'axios';
 import photoUrlsToArray from '/client/src/components/R&R/ConvertPhoto.jsx';
+import swal from 'sweetalert';
+
 
 export default function AnswerModal ({id, productName, question_id, question_body, show, onClose}) {
   if (!show) {
@@ -36,11 +38,12 @@ export default function AnswerModal ({id, productName, question_id, question_bod
         photos: photos
       })
       .then(response => {
-        console.log("adding an answer response: ", response);
+        // console.log('response data for adding a question: ', response);
+        swal("🎊 Success! 🎊", `Your answer has been added to this question. If there are more than 2 answers, you may need to click on "See More Answers" to view yours. Thanks for your contribution!`, "success");
         onClose();
       })
-      .catch(err => {
-        console.error('error adding answer: ', err);
+      .catch(() => {
+        swal('Uh oh...', 'On error occurred on our side. Unable to add your answer at this time. Please refresh and try again in a little bit.', 'error');
       })
   }
 
