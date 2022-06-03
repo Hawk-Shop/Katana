@@ -130,8 +130,6 @@ const AnswerList = styled.div`
 
 const Question = ({question, id, productName, qRerender, setQRerender}) => {
   const {question_id, question_body, question_date, question_asker, question_helpfulness} = question;
-  // console.log(question_id);
-  // const id = useContext(Context).id;
   let [answers, setAnswers] = useState(null);
   let [answerCount, setAnswerCount] = useState(2);
   let [questionClicked, setQuestionClicked] = useState(false);
@@ -141,18 +139,15 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
   let [aRerender, setARerender] = useState(0);
   let [qReported, setQReported] = useState(false);
   let [loading, setLoading] = useState(false);
-  let [yesCount, setYesCount] = useState(question_helpfulness);
+  // let [yesCount, setYesCount] = useState(question_helpfulness);
 
-  useEffect(() => {
-    getAnswers();
-  },[yesCount])
 
   const getAnswers = () => {
     setLoading(true);
     axios
       .get(`/qa/questions/${question_id}/answers/?count=1000`)
       .then(response => {
-        // console.log('response.data: ', response.data.results);
+        // console.log('response: ', response);
         setAnswers(response.data.results);
         setLoading(false);
       })
@@ -166,15 +161,18 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
   }
 
   const handleHelpful = (stateVariable, qOrA, id, helpful, setStateVariable, rerender, setRerender) => {
-    console.log(`/qa/${qOrA}/${id}/${helpful}`);
+    // console.log(`/qa/${qOrA}/${id}/${helpful}`);
     if (stateVariable) {
       swal("Helpful?", "We only allow one click of 'Yes'. Thank you for your feedback. It helps others in their decision making.", "error");
     } else {
       axios
         .put(`/qa/${qOrA}/${id}/${helpful}`)
         .then(() => {
-          setYesCount(yesCount + 1);
+          // setYesCount(yesCount + 1);
           setStateVariable(true);
+          return getAnswers();
+        })
+        .then(response => {
           swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback.`, "success");
         })
         .catch(err => console.error(err))
@@ -186,9 +184,9 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
   }
 
   const handleReported = (stateVariable, qOrA, id, report, setStateVariable) => {
-    console.log(`/qa/${qOrA}/${id}/${report}`);
+    // console.log(`/qa/${qOrA}/${id}/${report}`);
     if (stateVariable) {
-      swal("Helpful?", "We only allow one click of 'Reported'. We will review this as soon as possible.", "error");
+      swal("Helpful?", "We only allow fone click of 'Reported'. We will review this as soon as possible.", "error");
     } else {
 
       axios
@@ -199,8 +197,8 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
           swal("Thank You", `Thank you for your feedback regarding this ${qOrA.slice(0, -1)}. People come to our site because of your feedback. ${report === 'report' ?customerSupport : ''}`, "success");
         })
         .catch(err => {
-          console.error(err);
           swal('An error happened...', 'Unfortunately, there was an error on our side. Please try again in a little bit.', 'error');
+          // console.error(err);
         })
     }
   }
@@ -216,6 +214,7 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
   const collapseAnswers = (
     <Button onClick={() => {
       handleShowingAnswers(false);
+      setLoading(false);
       setAnswerCount(2);
       setSeeMoreClicked(!seeMoreClicked);
     }}>
@@ -267,7 +266,10 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
           productName={productName}
           question_id={question_id}
           question_body={question_body}
-          onClose={() => setShow(false)}
+          onClose={() => {
+            setShow(false);
+            getAnswers();
+          }}
           show={show}
         />
       </Container>
