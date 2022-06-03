@@ -109,6 +109,7 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
           })}
           {modal && (
             <ImageModal
+              key={url}
               url={url}
               toggleModal={toggleModal}
               modal={modal}
