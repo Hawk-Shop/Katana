@@ -64,10 +64,7 @@ const CartNum = styled.span`
   position: relative;
   bottom: 15px;
   font-weight: bold;
-  @media (max-width: 442px) {
-    bottom: 32px;
-    left: 25px;
-  }
+
 `;
 
 const FontIcon = styled(FontAwesomeIcon)``;
