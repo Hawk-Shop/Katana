@@ -11,6 +11,10 @@ const Button = styled.button`
   font-size:0.8rem;
   padding: 0.6rem;
   float: right;
+  @media (max-width: 768px) {
+    float: left;
+    margin-bottom: 3%;
+  }
   }
 `;
 const Toggle = ({theme,  toggleTheme }) => {

@@ -36,8 +36,17 @@ const NavBar = styled.nav`
   z-index: 1;
   position: fixed;
   height: 4em;
-`;
-
+  @media (max-width: 520px) {
+    align-items: baseline;
+    justify-content: space-around;
+  }
+  @media (max-width: 268px) {
+    height: 5em;
+  }
+  @media (max-width: 183px) {
+    height: 6em;
+  }
+`
 const List = styled.ul`
   display: flex;
   list-style: none;
@@ -55,6 +64,7 @@ const CartNum = styled.span`
   position: relative;
   bottom: 15px;
   font-weight: bold;
+
 `;
 
 const FontIcon = styled(FontAwesomeIcon)``;

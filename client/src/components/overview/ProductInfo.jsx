@@ -24,6 +24,10 @@ const Socials = styled.div`
   width: 35%;
   justify-content: space-around;
   flex-wrap: wrap;
+  @media (max-width: 1024px) {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
 `;
 
 const PriceFit = styled.div`
