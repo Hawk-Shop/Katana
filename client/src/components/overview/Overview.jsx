@@ -12,8 +12,9 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
-  @media (max-width: 526px) {
-    width: 500px;
+  @media (max-width: 425px) {
+    width: 425px;
+    align-items: flex-start;
   }
 `;
 
@@ -22,6 +23,11 @@ const TopCtn = styled.div`
   flex-direction: row;
   width: 100%;
   height: 100%;
+  @media (max-width: 425px) {
+    flex-direction: column;
+    margin-bottom: 3%;
+
+  }
 `;
 const BtmCtn = styled.div`
   display: flex;
@@ -30,6 +36,9 @@ const BtmCtn = styled.div`
   align-items: flex-start;
   margin-top: 3%;
   margin-bottom: 1%;
+  @media (max-width: 425px) {
+    width: 50%;
+  }
 `;
 
 const Overview = (props) => {
