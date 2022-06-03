@@ -29,6 +29,9 @@ const Button = styled.button`
   flex-direction: column;
   min-width: 100%
   flex-wrap: wrap;
+  @media (max-width: 768px) {
+    max-height: 400px;
+  }
   `;
 
   const Sort = styled.div`
@@ -38,7 +41,10 @@ const Button = styled.button`
   const Container = styled.div`
   width: 70%;
   float: right;
-  height: 100%
+  height: 100%;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
   `;
 
   const Dropdown = styled.select`

@@ -8,6 +8,10 @@ import styled from 'styled-components';
 const Container = styled.div`
 display: inline-block;
 width: 100%;
+@media (max-width: 768px) {
+  flex-direction: column;
+  display: flex;
+}
 `;
 
 let ReviewsOverview = (props) => {

@@ -162,7 +162,7 @@ const ReviewTile = ({review}) => {
         {review.response}
       </Response>}
       <Helpful>
-        Helpful?
+        HELPFUL?
         <HelpButtons onClick={clickThumbsUp}>
           <FontAwesomeIcon icon={faThumbsUp} /> {` Yes (${yesCount})`}
           </HelpButtons>
