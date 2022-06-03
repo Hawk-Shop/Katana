@@ -3,7 +3,7 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express"); // npm installed
 const axios = require("axios");
-var shrinkRay = require('shrink-ray'); // module for text compression
+var shrinkRay = require('shrink-ray-current'); // module for text compression
 
 const app = express();
 
