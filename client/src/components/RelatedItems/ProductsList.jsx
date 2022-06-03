@@ -27,7 +27,7 @@ const LeftButton = styled.button`
   border: none;
   height: 30px;
   width: 40px;
-  color: #f4f0ec;
+  color: #a9a9a9;
   transform: scale(1.05);
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.20) 0px 5px 10px;
@@ -43,7 +43,7 @@ const RightButton = styled.button`
   border: none;
   height: 30px;
   width: 40px;
-  color: #f4f0ec;
+  color: #a9a9a9;
   transform: scale(1.05);
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.20) 0px 5px 10px;
