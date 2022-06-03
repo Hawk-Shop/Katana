@@ -39,6 +39,10 @@ const FlexFit = styled.div`
   display: flex;
   flex-direction: column;
   width: 25%;
+  @media (max-width: 425px) {
+    width: 100%;
+    margin-top: 5%;
+  }
 `;
 const ProductC = styled.div`
   display: flex;

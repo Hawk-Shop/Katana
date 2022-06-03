@@ -76,7 +76,7 @@ const ThmCtn = styled.span`
   width: 100%;
   flex-wrap: wrap;
   display: flex;
-
+  flex-wrap: nowrap
 `;
 
 const Style = ({ product, styles, currentStyle, setStyle }) => {

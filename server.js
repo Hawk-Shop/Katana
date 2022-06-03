@@ -3,11 +3,13 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express"); // npm installed
 const axios = require("axios");
+var shrinkRay = require('shrink-ray-current'); // module for text compression
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(shrinkRay());
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
