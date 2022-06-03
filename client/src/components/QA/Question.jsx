@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import axios from 'axios';
 import { format, parseISO } from 'date-fns';
@@ -27,10 +27,10 @@ const Questions = styled.div`
 
 const QStyle = styled.div`
   font-size: 1em;
-  display: inline-block;
   cursor: ns-resize;
   margin-left: 10px;
-  margin-right: 20px;
+  display: flex;
+  align-items: center;
 `;
 
 const AnswersBlock = styled.div`
@@ -51,28 +51,29 @@ const ContainText = styled.p`
 
 const Container = styled.div`
   display: flex;
-  align-items: baseline;
-  margin-bottom: 20px;
+  align-items: stretch;
+  margin-bottom: 10px;
 `
 
 const Button = styled.button`
-background: transparent;
-border-radius: 3px;
-border: 2px solid grey;
-margin: 0 0 1em 1em;
-padding: 0.5em 1em;
-display: block;
-&:hover {
-  background: lightgrey;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px;
-  transform: scale(1.05);
-}
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid grey;
+  margin: 0 0 1em 1em;
+  padding: 0.5em 1em;
+  display: block;
+  &:hover {
+    background: lightgrey;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px;
+    transform: scale(1.05);
+  }
 `;
 
 const Helpful = styled.div`
   text-align: center;
   font-size: 14px;
-  margin-right: 15px;
+  margin-right: 5px;
+  margin-top: 5px;
 `
 
 const Yes = styled.button`
@@ -222,6 +223,12 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
     </Button>
   )
 
+  if (show) {
+    document.body.classList.add('active-modal');
+  } else {
+    document.body.classList.remove('active-modal');
+  }
+
   return (
     <Questions >
       <Container onClick={getAnswers}>
@@ -255,6 +262,7 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
           <AddAnswer onClick={() => setShow(true)}>Add Answer</AddAnswer>
         </Helpful>
         <AnswerModal
+          key={question_id.toString()}
           id={id}
           productName={productName}
           question_id={question_id}

@@ -47,7 +47,7 @@ const ActionButton = styled.button`
   padding: 0;
   border-radius: 50%;
   border: none;
-  cursor: pointer;
+  cursor: help;
   height: 25px;
   width: 25px;
 `;
