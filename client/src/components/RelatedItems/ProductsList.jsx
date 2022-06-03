@@ -2,8 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '../util/context.js';
 import styled from 'styled-components';
 import ProductCard from './ProductCard.jsx';
-import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
-
+import { ImArrowLeft, ImArrowRight } from 'react-icons/im';
 
 const Carousel = styled.div`
   overflow: hidden;
@@ -20,9 +19,44 @@ const Scroll = styled.div`
   justify-content: center;
 `;
 
-const ScrollButton = styled.button`
-  margin: 5px;
+const LeftButton = styled.button`
+  margin-top: 0px;
+  margin-right: 25px;
+  margin-bottom: 5px;
+  background-color: transparent;
+  border: none;
+  height: 30px;
+  width: 40px;
+  color: #f4f0ec;
+  transform: scale(1.05);
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 5px 10px;
+    transform: scale(1.05);
+  }
 `;
+
+const RightButton = styled.button`
+  margin-top: 0px;
+  margin-left: 25px;
+  margin-bottom: 5px;
+  background-color: transparent;
+  border: none;
+  height: 30px;
+  width: 40px;
+  color: #f4f0ec;
+  transform: scale(1.05);
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 5px 10px;
+    transform: scale(1.05);
+  }
+`;
+
+const LeftArrow = styled(ImArrowLeft)`
+  background-color: transparent;
+`
+const RightArrow = styled(ImArrowRight)`
+  background-color: transparent;
+`
 
 const ProductsList = ({list, show, setShow, setRef, scrollRef}) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -58,12 +92,12 @@ const ProductsList = ({list, show, setShow, setRef, scrollRef}) => {
       <Scroll>
         {length > 4 ?
           <>
-          <ScrollButton onClick={() => {updateIndex(activeIndex - 1);}}>
-            Prev
-          </ScrollButton>
-          <ScrollButton onClick={() => {updateIndex(activeIndex + 1);}}>
-            Next
-          </ScrollButton>
+          <LeftButton onClick={() => {updateIndex(activeIndex - 1);}}>
+            <LeftArrow size={20}/>
+          </LeftButton>
+          <RightButton onClick={() => {updateIndex(activeIndex + 1);}}>
+            <RightArrow size={20}/>
+          </RightButton>
           </>
         : null}
       </Scroll>
