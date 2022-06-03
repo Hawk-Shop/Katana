@@ -88,6 +88,12 @@ const QuestionsList = ({productName}) => {
       })
   }, [showQModel, qRerender, id])
 
+   if (showQModel) {
+    document.body.classList.add('active-modal');
+  } else {
+    document.body.classList.remove('active-modal');
+  }
+
   const showMoreQuestions = (
     <Button onClick={() => setQuestionCount(questions.length)}>
       More Questions
@@ -100,11 +106,11 @@ const QuestionsList = ({productName}) => {
   //   </Button>
   // )
 
-  const addQuestion = (
-    <Button onClick={() => setShowQModel(true)}>
-      Add a Question <FontAwesomeIcon icon={faPlus}/>
-    </Button>
-  )
+  // const addQuestion = (
+  //   <Button onClick={() => setShowQModel(true)}>
+  //     Add a Question <FontAwesomeIcon icon={faPlus}/>
+  //   </Button>
+  // )
 
   return (
     <>
@@ -127,7 +133,9 @@ const QuestionsList = ({productName}) => {
           <p>Click on a question to view it's respective answers.</p> :
           [
             <p>There are no questions yet for this product. Click "Add a Question" to be the first to add one.</p>,
-            addQuestion
+            <Button onClick={() => setShowQModel(true)}>
+              Add a Question <FontAwesomeIcon icon={faPlus}/>
+            </Button>
           ]
         }
         <Questions>
@@ -139,7 +147,7 @@ const QuestionsList = ({productName}) => {
             }
           }).slice(0, questionCount).map((question) => {
             return  <Question
-                      key={question.questin_id}
+                      key={question.question_id}
                       question={question}
                       id={id}
                       productName={productName}
@@ -148,22 +156,31 @@ const QuestionsList = ({productName}) => {
                     />
           })}
         </Questions>
-        {questionCount < questions.length ? <p>Viewing {questionCount} of {questions.length} questions</p> : <p>Viewing {questions.length} of {questions.length} questions</p>}
+        {searchInput.length < 3 && (
+          questionCount < questions.length ?
+            <p>Viewing {questionCount} of {questions.length} questions</p> : <p>Viewing {questions.length} of {questions.length} questions</p>
+        )}
+        {searchInput.length > 2 && (
+          <br/>
+        )}
         {questionCount < questions.length && [
           showMoreQuestions
         ]}
         {/* {questions.length > 4 && questionCount === questions.length && (
           collapseQuestions
         )} */}
-        {questions.length > 0 && (
-          addQuestion
-        )}
         <QuestionModal
+          key={id.toString()}
           id={id}
           productName={productName}
           onClose={() => setShowQModel(false)}
           showQModel={showQModel}
         />
+        {questions.length > 0 && (
+          <Button onClick={() => setShowQModel(true)}>
+            Add a Question <FontAwesomeIcon icon={faPlus}/>
+          </Button>
+        )}
       </Sort>
     </>
   )

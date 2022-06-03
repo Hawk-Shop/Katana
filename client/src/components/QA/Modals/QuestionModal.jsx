@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from "react";
+import {useState, useEffect} from "react";
 import "./QAModal.css";
 import axios from 'axios';
 
@@ -49,8 +49,9 @@ export default function AnswerModal ({id, productName, showQModel, onClose}) {
 
   const Username = (
     <label>
-      Username:
+      <div className="inputs">Username:</div>
       <input
+        className="user-input"
         type="text"
         name="username"
         maxLength={60}
@@ -66,8 +67,9 @@ export default function AnswerModal ({id, productName, showQModel, onClose}) {
 
   const Email = (
     <label>
-      Email:
+      <div className="inputs">Email:</div>
       <input
+        className="user-input"
         type="email"
         name="email"
         maxLength={60}
@@ -83,12 +85,13 @@ export default function AnswerModal ({id, productName, showQModel, onClose}) {
 
   const Question = (
     <label>
-      Question:
+      <div className="inputs">Question:</div>
       <textarea
+        className="text-area"
         type="text"
         name="body"
         rows="10"
-        cols="70"
+        cols="65"
         maxLength={1000}
         placeholder="Enter your question here..."
         value={body}
