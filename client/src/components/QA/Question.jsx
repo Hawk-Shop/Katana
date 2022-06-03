@@ -223,6 +223,12 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
     </Button>
   )
 
+  if (show) {
+    document.body.classList.add('active-modal');
+  } else {
+    document.body.classList.remove('active-modal');
+  }
+
   return (
     <Questions >
       <Container onClick={getAnswers}>

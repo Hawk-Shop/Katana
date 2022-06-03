@@ -106,6 +106,12 @@ const QuestionsList = ({productName}) => {
     </Button>
   )
 
+  if (showQModel) {
+    document.body.classList.add('active-modal');
+  } else {
+    document.body.classList.remove('active-modal');
+  }
+
   return (
     <>
       <h2>Questions &#38; Answers</h2>
