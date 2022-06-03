@@ -28,25 +28,20 @@ export default function AnswerModal ({id, productName, showQModel, onClose}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username === "" || email === "" || body === "") {
-      alert("In order to add an answer, you must complete all fields.")
-    } else {
-      console.log(id, username, email, body);
-      axios
-        .post(`/qa/questions/`, {
-          body: body,
-          name: username,
-          email: email,
-          product_id: id
-        })
-        .then(response => {
-          console.log('response data for adding a question: ', response);
-          onClose();
-        })
-        .catch(err => {
-          console.error('error adding a question: ', err);
-        })
-    }
+    axios
+      .post(`/qa/questions/`, {
+        body: body,
+        name: username,
+        email: email,
+        product_id: id
+      })
+      .then(response => {
+        console.log('response data for adding a question: ', response);
+        onClose();
+      })
+      .catch(err => {
+        console.error('error adding a question: ', err);
+      })
   }
 
   const Username = (

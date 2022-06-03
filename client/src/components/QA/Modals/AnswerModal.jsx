@@ -38,8 +38,8 @@ export default function AnswerModal ({id, productName, question_id, question_bod
         photos: photos
       })
       .then(response => {
-        console.log('response data for adding a question: ', response);
-        // swal("🎊 Success! 🎊", `Your answer has been added to this question. If there are more than 2 answers, you may need to click on "See More Answers" to view yours. Thanks for your contribution!`, "success");
+        // console.log('response data for adding a question: ', response);
+        swal("🎊 Success! 🎊", `Your answer has been added to this question. If there are more than 2 answers, you may need to click on "See More Answers" to view yours. Thanks for your contribution!`, "success");
         onClose();
       })
       .catch(() => {
