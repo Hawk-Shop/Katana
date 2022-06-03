@@ -262,6 +262,7 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
           <AddAnswer onClick={() => setShow(true)}>Add Answer</AddAnswer>
         </Helpful>
         <AnswerModal
+          key={question_id.toString()}
           id={id}
           productName={productName}
           question_id={question_id}

@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import "./QAModal.css";
 import axios from 'axios';
+import photoUrlsToArray from '/client/src/components/R&R/ConvertPhoto.jsx';
 
 export default function AnswerModal ({id, productName, question_id, question_body, show, onClose}) {
   if (!show) {
@@ -10,7 +11,7 @@ export default function AnswerModal ({id, productName, question_id, question_bod
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [body, setBody] = useState("");
-  let [files, setFiles] = useState(null);
+  let [photos, setPhotos] = useState([]);
 
   const closeOnEscapeKeyDown = (e) => {
     if ((e.charCode || e.keyCode) === 27) {
@@ -32,7 +33,7 @@ export default function AnswerModal ({id, productName, question_id, question_bod
         body: body,
         name: username,
         email: email,
-        photos: []
+        photos: photos
       })
       .then(response => {
         console.log("adding an answer response: ", response);
@@ -97,32 +98,6 @@ export default function AnswerModal ({id, productName, question_id, question_bod
     </label>
   )
 
-  // let fileObj = [];
-  // let fileArray = [];
-
-  // const handleUpload = (e) => {
-  //   e.preventDefault();
-  //   fileArray = [...files, ...e.target.files];
-
-  //   setFiles(fileArray.map(file => {
-  //     return URL.createObjectURL(file);
-  //   }))
-  // }
-
-  // const uploadMultipleFiles = (e) => {
-  //   console.log([...e.target.files].map(file => URL.createObjectURL(file)));
-  //   fileObj.push(e.target.files);
-  //   for (let i = 0; i < fileObj[0].length; i++) {
-  //       fileArray.push(URL.createObjectURL(fileObj[0][i]))
-  //   }
-  //   setFiles([...fileArray])
-  // }
-
-  // const uploadFiles = (e) => {
-  //   e.preventDefault();
-  //   console.log(files);
-  // }
-
   return (
     <div className="modal">
       <div className="modal-content">
@@ -136,17 +111,26 @@ export default function AnswerModal ({id, productName, question_id, question_bod
               {Username}
               {Email}
               {Answer}
-              {/* <input
-                type="file"
-                accept="image/png, image/jpeg, image/heic, video/*"
-                multiple
-                onChange={e => uploadMultipleFiles(e)}
-              /> */}
-              {/* <div className="form-group multi-preview">
-                {(fileArray || []).map(url => (
-                    <img src={url} alt="..." />
-                ))} */}
-              {/* </div> */}
+              {photos.length < 5 &&
+                <div>
+                  <label htmlFor="photos">Upload your photos</label> <br></br>
+                  <input
+                    type="file"
+                    name="files"
+                    accept="image/png, image/jpeg"
+                    multiple
+                    onChange={(e) => {
+                      let files = e.target.files;
+                      photoUrlsToArray(files, setPhotos);
+                    }}
+                  ></input>
+                </div>
+              }
+              {photos.length >= 5 &&
+                <div>
+                  <span>Max 5 photo uploads reached</span>
+                </div>
+              }
               <br/>
               <input className="submit-button" type="submit" value="Submit"/>
             </form>
