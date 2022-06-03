@@ -117,6 +117,7 @@ const OutfitCard = (props) => {
 
   return (
     <CarouselItem style={props.width} onClick={() => {
+      setId(props.card.id);
       props.card.name !== 'ADD TO YOUR OUTFIT' ?
       props.scrollRef.current.scrollIntoView({ behavior: 'smooth' })
       : null;
