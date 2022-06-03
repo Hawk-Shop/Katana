@@ -166,6 +166,7 @@ const CartModal = ({
   }
 
   let cartItems = cart.map((item, i) => {
+    if (item.qty > item.max_qty) item.qty = item.max_qty
     let mapper = [...Array(item.max_qty)].map((_, i) => i + 1);
     return (
       <ItemCtn key={i}>
