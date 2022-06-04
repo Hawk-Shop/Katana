@@ -14,13 +14,13 @@ const Image = styled.img`
   margin-top: 3px;
 `
 
-const Answer = styled.div`
+const AnswerContainer = styled.div`
   text-transform: none;
   background-color: #EFE1CE;
   border: 1px solid;
   border-radius: 5px;
   margin-bottom: 0.5em;
-  margin: 0 auto;
+  margin: 0px auto 5px auto;
   display: flex;
   flex-direction: column;
 `
@@ -93,7 +93,7 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
   }
 
   return (
-    <Answer>
+    <AnswerContainer>
       <AnswerBody>
       <span>{body}</span>
       <User>
@@ -146,7 +146,7 @@ const AnswersList = ({answer, id, productName, handleHelpful, handleReported, qu
         </Helpful>
       </User>
       </AnswerBody>
-    </Answer>
+    </AnswerContainer>
   )
 }
 
