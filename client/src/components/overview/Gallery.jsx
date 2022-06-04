@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import { Context } from "../util/context.js";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -117,9 +116,6 @@ const GallFlex = styled.div`
   }
 `;
 
-// const Thumbgall = styled.div`
-//   width: 10%;
-// `;
 
 const Gallery = (props) => {
   const [currImg, setCurrImg] = useState(0);

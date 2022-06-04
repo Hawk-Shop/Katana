@@ -1,6 +1,4 @@
-import React, { useState } from "react";
 import styled from "styled-components";
-
 
 const Contain = styled.div`
   display: flex;
@@ -34,9 +32,7 @@ const ThumbnailPrime = styled.div`
   width: 10px;
   background-color: gray;
   border-radius: 50%;
-
 `;
-
 
 const IconGall = ({ currImg, setCurrImg, photos }) => {
   const reducedThumbnails = photos.reduce((filtered, currentPhoto, index) => {
@@ -55,8 +51,6 @@ const IconGall = ({ currImg, setCurrImg, photos }) => {
         </ImgContain>
       );
     }
-
-
       filtered.push(mappedElement);
 
     return filtered;
@@ -64,9 +58,7 @@ const IconGall = ({ currImg, setCurrImg, photos }) => {
 
   return (
     <Contain>
-
       {reducedThumbnails}
-
     </Contain>
   );
 };

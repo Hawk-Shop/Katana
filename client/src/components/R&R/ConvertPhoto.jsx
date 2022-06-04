@@ -1,6 +1,5 @@
   import axios from 'axios';
 
-  // helper
   function getBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();

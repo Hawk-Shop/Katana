@@ -55,12 +55,11 @@ const AddCart = ({ skus, size, qty, currentStyle, name }) => {
 
       if (!isInCart) {
 
-        let axiosPromises = [...Array(Number(qty))].map((number, i) => {
+        let axiosPromises = [...Array(Number(qty))].map(() => {
           return axios
             .post("/cart", { sku_id: Number(sku) })
             .catch((err) => console.log(err));
         });
-        console.log(axiosPromises)
 
         context.setCart([
           ...context.cart,
@@ -78,7 +77,6 @@ const AddCart = ({ skus, size, qty, currentStyle, name }) => {
 
         context.setCartQty(context.cartQty + Number(qty));
       }
-
 
     }
   };

@@ -28,10 +28,6 @@ const Cart = (props) => {
   }, [size]);
 
   const handleSize = (event) => {
-    // console.log(event.target.value)
-    // const splitString = event.target.value.split(' ');
-    // console.log('split: ', splitString)
-    // setSku(splitString[0])
     setSize(event.target.value);
   };
 

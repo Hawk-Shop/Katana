@@ -125,7 +125,8 @@ const OutfitCard = (props) => {
       <ImageContainer>
         <CardThumbnail src={thumbPath}></CardThumbnail>
           {props.card.name === 'ADD TO YOUR OUTFIT' ?
-            <AddButton onClick={props.handleAddClick}>
+            <AddButton onClick={(e) => {e.stopPropagation();
+              props.handleAddClick(e)}}>
               <Circle size={50}/>
             </AddButton>:
             <DeleteButton onClick={(e) => {
