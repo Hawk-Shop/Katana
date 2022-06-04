@@ -48,16 +48,6 @@ const Container = styled.div`
 padding: 2em 0;
 `;
 
-// const Triangle = styled.div`
-// width: 15px;
-// height: 15px;
-// background: grey;
-// position:absolute;
-// top: -160%;
-// transform: translateY(50%);
-// -webkit-text-fill-color: transparent;
-// `;
-
 const Triangle = styled.div`
 width: 15px;
 height: 15px;

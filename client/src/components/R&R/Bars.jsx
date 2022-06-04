@@ -43,7 +43,7 @@ const Bars = ({ filters, setFilters, ratings, setPage, setReviews, setDisplayCou
   ];
 
   const renderByStars = (rating) => {
-    let newFilters = {...filters}; // makes a copy of the object
+    let newFilters = {...filters};
     if (newFilters[rating]) {
       delete newFilters[rating];
     } else {
