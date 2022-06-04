@@ -15,7 +15,6 @@ const Questions = styled.div`
   height: auto;
   margin: 5px auto;
   transition: background-color 0.35s ease-out 0s;
-  cursor: ns-resize;
   flex-direction: column;
   align-items: center;
   -webkit-transition: background-color .35s ease-out;
@@ -64,6 +63,7 @@ const Container = styled.div`
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
+  cursor: ns-resize;
 `
 
 const Button = styled.button`
@@ -106,7 +106,7 @@ const Report = styled.button`
   color: inherit;
   border: none;
   font: inherit;
-  cursor: pointer;
+  cursor: context-menu;
   outline: inherit;
   text-decoration: underline;
   &:hover {
@@ -120,7 +120,7 @@ const AddAnswer = styled.button`
   color: inherit;
   border: none;
   font: inherit;
-  cursor: pointer;
+  cursor: copy;
   outline: inherit;
   text-decoration: underline;
   &:hover {
@@ -137,6 +137,7 @@ const NoAnswers = styled.div`
 const AnswerList = styled.div`
   padding: 0 10px 5px 10px;
   display: inline-block;
+  cursor: default;
 `
 
 const Question = ({question, id, productName, qRerender, setQRerender}) => {
@@ -168,7 +169,12 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
   }
 
   const handleShowingAnswers = () => {
-    setQuestionClicked(!questionClicked);
+    if (questionClicked) {
+      setQuestionClicked(!questionClicked);
+    } else {
+      getAnswers();
+      setQuestionClicked(!questionClicked);
+    }
   }
 
   const handleHelpful = (stateVariable, qOrA, id, helpful, setStateVariable, rerender, setRerender) => {
@@ -241,14 +247,15 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
 
   return (
     <Questions >
-      <Container onClick={getAnswers}>
-        <QStyle onClick={handleShowingAnswers}>
+      <Container onClick={handleShowingAnswers}>
+        <QStyle >
           <ContainText><b>Q: {question_body}</b></ContainText>
         </QStyle>
         <Helpful>
           HELPFUL?
           <br/>
-          <Yes onClick={() =>
+          <Yes onClick={(e) => {
+            e.stopPropagation();
             handleHelpful(
               qHelpful,
               'questions',
@@ -257,19 +264,23 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
               setQHelpful,
               qRerender,
               setQRerender
-            )}> Yes <span>&#40;{question_helpfulness}&#41;</span>
+          )}}> Yes <span>&#40;{question_helpfulness}&#41;</span>
           </Yes>
-          <Report onClick={() =>
+          <Report onClick={(e) => {
+            e.stopPropagation();
             handleReported(
               qReported,
               'questions',
               question_id,
               'report',
               setQReported
-            )}> {qReported ? 'Reported' : 'Report'}
+            )}}> {qReported ? 'Reported' : 'Report'}
           </Report>
           <br/>
-          <AddAnswer onClick={() => setShow(true)}>Add Answer</AddAnswer>
+          <AddAnswer onClick={(e) => {
+            e.stopPropagation();
+            setShow(true);
+          }}>Add Answer</AddAnswer>
         </Helpful>
         <AnswerModal
           key={question_id.toString()}
@@ -277,7 +288,8 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
           productName={productName}
           question_id={question_id}
           question_body={question_body}
-          onClose={() => {
+          onClose={(e) => {
+            e.stopPropagation();
             setShow(false);
             getAnswers();
           }}

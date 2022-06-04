@@ -23,6 +23,7 @@ const AnswerContainer = styled.div`
   margin: 0px auto 5px auto;
   display: flex;
   flex-direction: column;
+  cursor: default;
 `
 
 const AnswerBody = styled.div`
