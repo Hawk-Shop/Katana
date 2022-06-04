@@ -13,8 +13,6 @@ const DesCtn = styled.div`
 `
 
 const Description = (props) => {
-  // console.log(props.product);
-
   return(
     <DesCtn>
       <ProdSlogan>{props.product.slogan}</ProdSlogan>

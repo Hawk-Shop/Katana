@@ -1,5 +1,3 @@
-import { useState, useEffect, useContext } from "react";
-import { Context } from "../util/context.js";
 import styled from "styled-components";
 import sortStyles from "../util/sortStyles.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -79,7 +77,7 @@ const ThmCtn = styled.span`
   flex-wrap: nowrap
 `;
 
-const Style = ({ product, styles, currentStyle, setStyle }) => {
+const Style = ({ styles, currentStyle, setStyle }) => {
   let sortedStyles = sortStyles(styles);
   return (
     <Styler>

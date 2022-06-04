@@ -1,5 +1,3 @@
-import { useState, useEffect, useContext } from "react";
-import { Context } from "../util/context.js";
 import styled from "styled-components";
 import Stars from "../R&R/Stars.jsx";
 import avgRating from "../util/getAvgRating.js"

@@ -48,13 +48,6 @@ const HomePage = ({setId, changeView, themeMode, theme, themeToggler}) => {
   const [products, setProducts] = useState(["40344","40355", "40346", "40347", "40348", "40349", "40350", "40351", "40352", "40353", "40355", "40356", "40357", "40358"]);
 
   useEffect(() => {
-    // axios.get('/products/?page=2&count=10')
-    // .then((res) => {
-    //   let productPromises = [];
-    //   res.data.forEach(product => {
-    //     productPromises.push(axios.get(`/products/${product.id}/styles`));
-    //   });
-
       let productPromises = [];
       products.forEach((productId) => {
         productPromises.push(axios.get(`/products/${productId}/styles`))
@@ -82,7 +75,6 @@ const HomePage = ({setId, changeView, themeMode, theme, themeToggler}) => {
     <Container>
       {products.map((product, index) => {
         return <Product key={index}>
-          {/* <div>Id: {product.id}</div> */}
           <Image src={product.photo} onClick={() => {
             setId(product.id);
             changeView("Product")();
