@@ -26,26 +26,31 @@ const Button = styled.button`
 
 const Questions = styled.section`
   overflow: auto;
-  height:100%;
+  height: 100%;
   max-height: 85vh;
   width: auto;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
 `;
 
 const Sort = styled.div`
   padding: 1em;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 `;
 
 const Search = styled.div`
-  display: inline-block;
+  display: flex;
   line-height: 24px;
   margin-right: 10px;
   border: 1px solid black;
   border-radius: 5px;
   vertical-align: middle;
+  width: 60%;
+
+  @media (max-width: 425px) {
+    width: 90%;
+  }
 `
 
 const Input = styled.input`
@@ -54,9 +59,13 @@ const Input = styled.input`
   font-size: 18px;
   text-align: middle;
   border: 0;
+  width: 100%;
   background: none;
   &:focus {
     outline: none;
+  }
+  @media (max-width: 425px) {
+    font-size: 10px
   }
 `
 
@@ -119,7 +128,6 @@ const QuestionsList = ({productName}) => {
           <Input
             type="text"
             placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
-            size={50}
             value={searchInput}
             onChange={(e) => {
               setSearchInput(e.target.value);

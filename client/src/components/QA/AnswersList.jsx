@@ -20,10 +20,9 @@ const Answer = styled.div`
   border: 1px solid;
   border-radius: 5px;
   margin-bottom: 0.5em;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 45vw;
-  max-width: 45vw;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 `
 
 const AnswerBody = styled.div`

@@ -8,12 +8,16 @@ import AnswerModal from './Modals/AnswerModal.jsx';
 import swal from 'sweetalert';
 
 const Questions = styled.div`
+  display: flex;
   text-transform: uppercase;
   border: 1px solid;
   border-radius: 5px;
   height: auto;
-  max-width: 65vw;
   margin: 5px auto;
+  transition: background-color 0.35s ease-out 0s;
+  cursor: ns-resize;
+  flex-direction: column;
+  align-items: center;
   -webkit-transition: background-color .35s ease-out;
   -moz-transition: background-color .35s ease-out;
   -o-transition: background-color .35s ease-out;
@@ -22,6 +26,9 @@ const Questions = styled.div`
   &:hover {
     background-color: rgba(255, 0, 0, .2);
     // transform: scale(1.03);
+  }
+  @media {
+    width: 65vw;
   }
 `;
 
@@ -40,19 +47,23 @@ const AnswersBlock = styled.div`
 const AStyle = styled.div`
   font-size: 1.2em;
   margin-bottom: 0.5em;
-  margin-left: 55px;
+  margin-left: 10px;
   display: inline-block;
   vertical-align: top;
 `;
 
 const ContainText = styled.p`
-  width: 600px;
+  width: 100%;
 `
 
 const Container = styled.div`
   display: flex;
-  align-items: stretch;
+  -webkit-box-align: stretch;
   margin-bottom: 10px;
+  align-items: stretch;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
 `
 
 const Button = styled.button`
@@ -124,7 +135,7 @@ const NoAnswers = styled.div`
 `
 
 const AnswerList = styled.div`
-  margin: 0 0 5px 10px;
+  padding: 0 10px 5px 10px;
   display: inline-block;
 `
 

@@ -13,8 +13,7 @@ const Container = styled.div`
   width: 100%;
   align-items: center;
   @media (max-width: 425px) {
-    width: 425px;
-    align-items: flex-start;
+    width: 405px;
   }
 `;
 
