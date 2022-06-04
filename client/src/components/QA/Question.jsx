@@ -282,20 +282,20 @@ const Question = ({question, id, productName, qRerender, setQRerender}) => {
             setShow(true);
           }}>Add Answer</AddAnswer>
         </Helpful>
-        <AnswerModal
-          key={question_id.toString()}
-          id={id}
-          productName={productName}
-          question_id={question_id}
-          question_body={question_body}
-          onClose={(e) => {
-            e.stopPropagation();
-            setShow(false);
-            getAnswers();
-          }}
-          show={show}
-        />
       </Container>
+      <AnswerModal
+        key={question_id.toString()}
+        id={id}
+        productName={productName}
+        question_id={question_id}
+        question_body={question_body}
+        onClose={(e) => {
+          e.stopPropagation();
+          setShow(false);
+          getAnswers();
+        }}
+        show={show}
+      />
       {questionClicked && answers && !loading &&
         answers.length === 0 && (
           <NoAnswers>

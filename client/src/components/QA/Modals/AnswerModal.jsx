@@ -58,7 +58,10 @@ export default function AnswerModal ({id, productName, question_id, question_bod
         size={36}
         placeholder="Example: jack543!"
         value={username}
-        onChange={e => setUsername(e.target.value)}
+        onChange={e => {
+          e.stopPropagation();
+          setUsername(e.target.value);
+        }}
         required
       />
       <p className="static">For privacy reasons, do not use your full name or email address.</p>
@@ -76,7 +79,10 @@ export default function AnswerModal ({id, productName, question_id, question_bod
         size={41}
         placeholder="Example: jack@email.com"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={e => {
+          e.stopPropagation();
+          setEmail(e.target.value);
+        }}
         required
       />
       <p className="static">For authentication reasons, you will not be emailed.</p>
@@ -95,7 +101,10 @@ export default function AnswerModal ({id, productName, question_id, question_bod
         maxLength={1000}
         placeholder="Enter your answers here..."
         value={body}
-        onChange={e => setBody(e.target.value)}
+        onChange={e => {
+          e.stopPropagation();
+          setBody(e.target.value);
+        }}
         required
       />
     </label>
