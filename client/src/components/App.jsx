@@ -75,7 +75,7 @@ const App = (props) => {
   const [theme, themeToggler] = useDarkMode();
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
-  const [view, setView] = useState({ name: "Home", viewProps: {} });
+  const [view, setView] = useState({ name: "Product", viewProps: {} });
   const [cartQty, setCartQty] = useState(localQty);
   const [cart, setCart] = useState(localCart);
   const [cartModal, setCartModal] = useState(false);
