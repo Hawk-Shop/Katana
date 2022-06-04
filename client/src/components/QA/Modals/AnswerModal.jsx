@@ -10,6 +10,12 @@ export default function AnswerModal ({id, productName, question_id, question_bod
     return null
   }
 
+  if (show) {
+    document.body.classList.add('active-modal');
+  } else {
+    document.body.classList.remove('active-modal');
+  }
+
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [body, setBody] = useState("");
