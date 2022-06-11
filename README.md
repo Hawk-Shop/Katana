@@ -1,7 +1,9 @@
 # FEC-Atelier
 
 ## Overview
-Front-end capstone project that takes information from an API and displays it in an e-commerce format. The application is composed of 4 main components: product detail, related items and comparison, questions and answers, ratings and reviews. 
+Front-end capstone project that takes information from an API and displays it in an e-commerce format. The application is composed of 4 main components: product detail, related items and comparison, questions and answers, ratings and reviews.
+
+<img src="../gifs/overview.gif" alt="Project Overview GIF" width="500" height="600">
 
 ## Table of Contents
 - [Description](#description)
