@@ -3,7 +3,7 @@
 ## Overview
 Web and mobile-friendly front-end capstone project that takes information from an API and displays it in an e-commerce format. The application is composed of 4 main components: product detail, related items and comparison, questions and answers, ratings and reviews.
 
-<img src="./gifs/overview.gif" alt="Project Overview GIF" width="800" height=auto>
+<img src="./gifs/overview.gif" alt="Project Overview GIF" width=80% height=auto>
 
 ## Table of Contents
 - [Description](#description)
@@ -48,9 +48,16 @@ npm run server-dev
 
 ## Components
 ### Product Detail
+<img src="./gifs/product.gif" alt="Project Detail GIF" width=80% height=auto>
+
 ### Related Items and Comparison
+<img src="./gifs/related.gif" alt="Related Items GIF" width=80% height=auto>
+
 ### Questions and Answers
+<img src="./gifs/questions.gif" alt="Questions & Answers GIF" width=80% height=auto>
+
 ### Ratings and Reviews
+<img src="./gifs/reviews.gif" alt="Ratings & Reviews GIF" width=80% height=auto>
 
 ---
 
