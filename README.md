@@ -48,15 +48,19 @@ npm run server-dev
 
 ## Components
 ### Product Detail
+>This component displays the product details to the user through visuals and text. It allows the user to select specific sizes, styles, and quantities, along with the ability to check out a purchase.
 <img src="./gifs/product.gif" alt="Project Detail GIF" width=80% height=auto>
 
 ### Related Items and Comparison
+>This section displays products that are related to the current product, along with a list of products, that can be custom curated by the user to define an "outfit". 
 <img src="./gifs/related.gif" alt="Related Items GIF" width=80% height=auto>
 
 ### Questions and Answers
+>This is where the user is able to view questions and answers about the product and also ask or answer questions themselves. It includes further interaction with the site, such as a searching functionality. 
 <img src="./gifs/questions.gif" alt="Questions & Answers GIF" width=80% height=auto>
 
 ### Ratings and Reviews
+>This section displays a summary of ratings and a list of reviews for the product left by other customers. It includes filtering and sorting functionality, photo thumbnails and popups, interaction with reviews, and the ability to add a new review to the database. 
 <img src="./gifs/reviews.gif" alt="Ratings & Reviews GIF" width=80% height=auto>
 
 ---
