@@ -3,7 +3,6 @@
 ## Overview
 Web and mobile-friendly front-end capstone project that takes information from an API and displays it in an e-commerce format. The application is composed of 4 main components: product detail, related items and comparison, questions and answers, ratings and reviews.
 
-![screen-gif](../gifs/overview.gif)
 
 ## Table of Contents
 - [Description](#description)
