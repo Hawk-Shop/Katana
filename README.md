@@ -1,7 +1,9 @@
 # Katana - Retail Web Portal
 
 ## Overview
-Web and mobile-friendly front-end capstone project that takes information from an API and displays it in an e-commerce format. The application is composed of 4 main components: product detail, related items and comparison, questions and answers, ratings and reviews. 
+Web and mobile-friendly front-end capstone project that takes information from an API and displays it in an e-commerce format. The application is composed of 4 main components: product detail, related items and comparison, questions and answers, ratings and reviews.
+
+<img src="../gifs/overview.gif" alt="Project Overview GIF" width="500" height="600">
 
 ## Table of Contents
 - [Description](#description)
@@ -11,14 +13,14 @@ Web and mobile-friendly front-end capstone project that takes information from a
 - [Team Members](#contributors)
 
 ## Description
-This project was built by a team of 4 developers over a span of 2 weeks. We adhered to a 26 page business requirement document that highlighted client requests. Main technology used includes React (hooks) and styled components on the frontend, Express to gather API data, and AWS for deployment. 
+This project was built by a team of 4 developers over a span of 2 weeks. We adhered to a 26 page business requirement document that highlighted client requests. Main technology used includes React (hooks) and styled components on the frontend, Express to gather API data, and AWS for deployment.
 
 ---
 
 ## Installation and Setup
-1. Fork and clone the repo and navigate to the root directory.  
+1. Fork and clone the repo and navigate to the root directory.
 
-2. To install dependencies: 
+2. To install dependencies:
 ```
 npm install
 ```
