@@ -13,7 +13,7 @@ Web and mobile-friendly front-end project that takes information from an API and
 - [Team Members](#contributors)
 
 ## Description
-This project was built by a team of 4 developers over a span of 2 weeks. We adhered to a 26 page business requirement document that highlighted client requests. Main technology used includes React (hooks) and styled components on the frontend, Express to gather API data, and AWS for deployment.
+This project was built by a team of 4 developers over a span of 2 weeks. We adhered to a 26 page business requirement document that highlighted client requests. Main technology used includes React (hooks) and styled components, Express to gather API data, and AWS ECS for deployment.
 
 ---
 
