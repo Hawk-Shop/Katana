@@ -163,7 +163,7 @@ const App = (props) => {
             style={{ cursor: "pointer" }}
           >
             <FontIcon icon={faHouse} />
-            &nbsp; Hawk Shop{" "}
+            &nbsp; Katana{" "}
           </h1>
           <List>
             <ListItem>
